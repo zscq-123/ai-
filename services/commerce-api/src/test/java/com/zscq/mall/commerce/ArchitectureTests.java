@@ -4,12 +4,14 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
 import org.junit.jupiter.api.Test;
 import org.springframework.modulith.core.ApplicationModules;
 
 class ArchitectureTests {
 
     private final JavaClasses classes = new ClassFileImporter()
+            .withImportOption(new ImportOption.DoNotIncludeTests())
             .importPackages("com.zscq.mall.commerce");
 
     @Test
