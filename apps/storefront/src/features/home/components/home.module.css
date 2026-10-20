@@ -1,0 +1,62 @@
+.header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid rgba(228,231,236,.8); background: rgba(255,255,255,.88); backdrop-filter: blur(18px); }
+.headerInner { max-width: var(--content-max); height: 72px; margin: auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.brand { display: flex; align-items: center; gap: 9px; font-size: 20px; font-weight: 800; letter-spacing: -.4px; }
+.brand small { padding-left: 9px; border-left: 1px solid var(--color-line); color: var(--color-ink-500); font-size: 11px; font-weight: 600; letter-spacing: .08em; }
+.brandMark { width: 34px; height: 34px; display: grid; place-items: center; color: white; border-radius: 10px; background: linear-gradient(145deg,#33a2ff,#0b4de0 70%); box-shadow: 0 8px 22px rgba(20,92,255,.3); }
+.nav { display: flex; align-items: stretch; align-self: stretch; gap: 32px; }
+.nav a { display: flex; align-items: center; position: relative; color: var(--color-ink-500); font-size: 14px; font-weight: 600; }
+.nav .navActive { color: var(--color-brand-600); }
+.navActive::after { content: ""; position: absolute; inset: auto 0 0; height: 2px; background: var(--color-brand-500); border-radius: 2px 2px 0 0; }
+.headerActions { display: flex; align-items: center; gap: 8px; }
+.iconButton,.accountButton { border: 0; cursor: pointer; background: transparent; }
+.iconButton { width: 42px; height: 42px; position: relative; display: grid; place-items: center; border-radius: 12px; }
+.iconButton:hover { background: var(--color-brand-50); }
+.badge { position: absolute; top: 2px; right: 1px; min-width: 17px; height: 17px; display: grid; place-items: center; padding: 0 4px; color: white; background: var(--color-danger); border: 2px solid white; border-radius: 20px; font-size: 9px; font-weight: 800; }
+.accountButton { min-height: 42px; padding: 4px 13px 4px 7px; display: flex; align-items: center; gap: 6px; color: var(--color-ink-700); background: #f2f5f9; border-radius: 12px; font-size: 13px; font-weight: 700; }
+.hero { max-width: var(--content-max); min-height: 620px; margin: 24px auto 0; padding: 82px 64px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; border-radius: 30px; color: white; background: radial-gradient(circle at 82% 34%,rgba(20,92,255,.38),transparent 28%),linear-gradient(135deg,#07101f 0%,#0b1730 52%,#07101f 100%); box-shadow: 0 30px 80px rgba(7,16,31,.18); }
+.hero::before { content: ""; position: absolute; inset: 0; opacity: .11; background-image: linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px); background-size: 40px 40px; mask-image: linear-gradient(90deg,black,transparent 75%); }
+.heroContent,.heroVisual { position: relative; z-index: 1; }
+.eyebrow,.kicker { color: #6fb0ff; font-size: 11px; font-weight: 800; letter-spacing: .16em; }
+.hero h1 { margin: 20px 0 22px; font-size: clamp(48px,5vw,72px); line-height: 1.08; letter-spacing: -.055em; }
+.hero h1 em { color: #75b9ff; font-style: normal; }
+.heroContent > p { max-width: 560px; margin: 0; color: #abb8cb; font-size: 17px; line-height: 1.9; }
+.heroActions { margin-top: 34px; display: flex; align-items: center; gap: 24px; }
+.primaryButton { padding: 14px 24px; color: white; background: var(--color-brand-500); border-radius: 12px; font-size: 14px; font-weight: 750; box-shadow: 0 12px 30px rgba(20,92,255,.32); }
+.textButton { color: var(--color-ink-700); font-size: 14px; font-weight: 700; }
+.hero .textButton { color: white; }
+.textButton span { margin-left: 7px; color: var(--color-brand-500); }
+.metrics { margin-top: 54px; display: flex; gap: 40px; }
+.metrics div { display: flex; flex-direction: column; gap: 5px; }
+.metrics strong { font-size: 22px; letter-spacing: -.03em; }
+.metrics span { color: #7f8da4; font-size: 11px; }
+.heroVisual { min-height: 410px; display: grid; place-items: center; }
+.orbit { width: 350px; height: 350px; position: absolute; border: 1px solid rgba(80,159,255,.26); border-radius: 50%; box-shadow: inset 0 0 80px rgba(20,92,255,.12); }
+.orbit::after { content: ""; position: absolute; inset: 50% auto auto -4px; width: 8px; height: 8px; background: #64b5ff; border-radius: 50%; box-shadow: 0 0 20px #3c8eff; }
+.heroIconMain { width: 276px; height: 276px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.11); border-radius: 42px; background: rgba(7,16,31,.62); box-shadow: 0 35px 75px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.1); transform: rotate(-4deg); }
+.heroIconMain img { transform: rotate(4deg); }
+.floatingIcon { width: 94px; height: 94px; position: absolute; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.12); border-radius: 28px; background: rgba(9,24,52,.82); box-shadow: 0 22px 45px rgba(0,0,0,.3); backdrop-filter: blur(12px); }
+.floatOne { top: 12px; right: 18px; transform: rotate(7deg); }
+.floatTwo { bottom: 16px; left: 18px; transform: rotate(-7deg); }
+.statusPill { position: absolute; right: 34px; bottom: 26px; padding: 8px 12px; color: #a8e9ca; background: rgba(18,183,106,.12); border: 1px solid rgba(18,183,106,.25); border-radius: var(--radius-pill); font-size: 11px; font-weight: 700; }
+.section { max-width: var(--content-max); margin: 0 auto; padding: 92px 24px 0; }
+.section:last-of-type { padding-bottom: 100px; }
+.sectionHeading { margin-bottom: 32px; display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+.sectionHeading h2 { margin: 8px 0 0; color: var(--color-ink-950); font-size: 34px; letter-spacing: -.04em; }
+.sectionHeading > p { max-width: 400px; margin: 0; color: var(--color-ink-500); font-size: 14px; line-height: 1.7; }
+.serviceGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.serviceCard { padding: 22px; display: flex; align-items: center; gap: 13px; background: white; border: 1px solid #eef0f4; border-radius: var(--radius-lg); transition: transform .2s ease,box-shadow .2s ease; }
+.serviceCard:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.serviceIcon { flex: 0 0 74px; height: 74px; display: grid; place-items: center; overflow: hidden; background: #07101f; border-radius: 20px; }
+.serviceCard h3 { margin: 0; font-size: 17px; }
+.serviceCard p { margin: 7px 0; color: var(--color-ink-500); font-size: 12px; line-height: 1.5; }
+.serviceCard span { color: var(--color-brand-600); font-size: 10px; font-weight: 750; }
+.categoryGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+.categoryCard { min-height: 230px; padding: 32px; overflow: hidden; display: flex; align-items: center; justify-content: space-between; border-radius: 26px; }
+.categoryCard > div > span { color: var(--color-ink-500); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.categoryCard h3 { margin: 48px 0 8px; font-size: 25px; letter-spacing: -.04em; }
+.categoryCard p { margin: 0; color: var(--color-ink-500); font-size: 13px; }
+.categoryCard img { filter: drop-shadow(0 16px 20px rgba(20,92,255,.15)); }
+.supportButton { position: fixed; z-index: 30; right: 24px; bottom: 24px; height: 62px; padding: 6px 18px 6px 6px; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,.18); color: white; background: #07101f; border-radius: 20px; box-shadow: var(--shadow-float); cursor: pointer; font-weight: 750; }
+@media (max-width: 960px) { .nav { display: none; } .hero { margin: 16px; padding: 56px 36px; grid-template-columns: 1fr; } .heroVisual { margin-top: 30px; } .serviceGrid { grid-template-columns: repeat(2,1fr); } .categoryGrid { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .headerInner { padding: 0 14px; } .brand small,.accountButton span { display: none; } .accountButton { padding-right: 7px; } .hero { min-height: 0; padding: 48px 24px; border-radius: 24px; } .hero h1 { font-size: 44px; } .heroContent > p { font-size: 15px; } .metrics { gap: 20px; flex-wrap: wrap; } .heroVisual { min-height: 330px; transform: scale(.88); margin: 0 -30px; } .section { padding-top: 70px; } .sectionHeading { align-items: start; flex-direction: column; gap: 14px; } .sectionHeading h2 { font-size: 28px; } .serviceGrid { grid-template-columns: 1fr; } .supportButton span { display: none; } .supportButton { width: 62px; padding: 6px; } }
+@media (prefers-reduced-motion: reduce) { .serviceCard { transition: none; } }

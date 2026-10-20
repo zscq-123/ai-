@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@commerce/design-tokens": "workspace:*",
+    "@commerce/icon-assets": "workspace:*",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"

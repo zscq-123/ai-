@@ -1,0 +1,20 @@
+.shell { min-height: 100vh; }
+.sider { position: sticky !important; top: 0; height: 100vh; overflow: auto; background: #07101f !important; }
+.brand { height: 80px; padding: 0 22px; display: flex; align-items: center; gap: 12px; color: white; }
+.brand > span { flex: 0 0 38px; height: 38px; display: grid; place-items: center; background: linear-gradient(145deg,#3ca4ff,#145cff); border-radius: 12px; font-size: 21px; font-weight: 900; box-shadow: 0 9px 24px rgba(20,92,255,.35); }
+.brand div { display: flex; flex-direction: column; }
+.brand strong { font-size: 18px; letter-spacing: .08em; }
+.brand small { margin-top: 1px; color: #71809a; font-size: 8px; font-weight: 700; letter-spacing: .16em; }
+.menu { padding: 16px 12px; color: #9aa7bb; background: transparent !important; border-inline-end: 0 !important; }
+.menu :global(.ant-menu-item) { margin-block: 7px; padding-inline: 12px !important; }
+.menu :global(.ant-menu-item img) { width: 31px; height: 31px; margin-right: 7px; }
+.menu :global(.ant-menu-item-selected) { color: white !important; background: rgba(20,92,255,.19) !important; box-shadow: inset 3px 0 #3587ff; }
+.collapse { width: calc(100% - 24px); height: 42px; margin: 24px 12px; border: 1px solid rgba(255,255,255,.08); color: #8190a6; background: rgba(255,255,255,.03); border-radius: 12px; cursor: pointer; }
+.header { height: 72px; padding: 0 28px; position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.92); border-bottom: 1px solid #edf0f4; backdrop-filter: blur(16px); }
+.search { width: min(380px,38vw); }
+.headerIcon { width: 40px; height: 40px; padding: 4px; }
+.divider { width: 1px; height: 28px; background: #e4e7ec; }
+.user { display: flex; flex-direction: column; line-height: 1.25; }
+.user :global(.ant-typography) { font-size: 12px; }
+.content { padding: 28px; }
+@media (max-width: 700px) { .content { padding: 16px; } .search,.user,.divider { display: none; } .header { justify-content: flex-end; } }
