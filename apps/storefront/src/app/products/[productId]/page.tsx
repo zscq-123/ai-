@@ -16,7 +16,7 @@ async function ProductContent({ params }: { params: Promise<{ productId: string 
 export default function ProductPage({ params }: { params: Promise<{ productId: string }> }) {
   return (
     <div className={styles.pageShell}>
-      <StorefrontHeader />
+      <StorefrontHeader activePath="" />
       <Suspense fallback={<ProductDetailSkeleton />}>
         <ProductContent params={params} />
       </Suspense>
