@@ -1,5 +1,5 @@
 const base = "/brand/icons/image2.5";
-const iconPath = (name) => `${base}/96/${name}.png`;
+const iconPath = (name) => `${base}/96/${name}-red.png`;
 
 export const commerceIcons = {
   home: iconPath("home"),

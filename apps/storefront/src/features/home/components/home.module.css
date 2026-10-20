@@ -30,14 +30,37 @@
 .primaryNav .navActive { color: white; background: #c91523; }
 
 .marketplace { margin-top: 18px; padding: 14px; display: grid; grid-template-columns: 228px minmax(0,1fr) 260px; gap: 14px; background: white; border-radius: 20px; box-shadow: 0 10px 34px rgba(40,35,35,.07); }
-.categoryPanel { min-width: 0; }
+.categoryPanel { min-width: 0; position: relative; z-index: 8; }
 .panelTitle { height: 48px; padding: 0 12px; display: flex; align-items: center; gap: 10px; color: #171717; font-size: 16px; }
-.categoryList { padding: 4px 0; }
-.categoryRow { min-height: 49px; padding: 0 8px; display: grid; grid-template-columns: 28px 1fr 12px; align-items: center; gap: 8px; color: #333; border-radius: 8px; font-size: 13px; transition: color .15s,background .15s; }
-.categoryRow:hover { color: #e1251b; background: #fff1f0; }
+.categoryList { padding: 4px 0 6px; }
+.categoryItem { position: static; }
+.categoryRow { min-height: 39px; padding: 0 10px 0 13px; display: grid; grid-template-columns: minmax(0,1fr) 12px; align-items: center; gap: 6px; color: #333; border-radius: 2px; font-size: 13px; transition: color .12s,background .12s; }
 .categoryRow > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.categoryRow i { padding: 0 5px; color: #bbb; font-style: normal; }
-.categoryRow b { color: #aaa; font-size: 18px; }
+.categoryRow i { padding: 0 5px; color: #b9b9b9; font-style: normal; }
+.categoryRow b { color: #aaa; font-size: 16px; font-weight: 400; }
+.categoryRow a:hover { color: #e1251b; }
+.categoryItem:hover .categoryRow,.categoryItem:focus-within .categoryRow { color: #e1251b; background: #f3f3f3; }
+.categoryItem:hover .megaMenu,.categoryItem:focus-within .megaMenu { visibility: visible; opacity: 1; transform: translateX(0); pointer-events: auto; }
+.megaMenu { width: min(790px,calc(100vw - 310px)); min-height: 100%; padding: 22px 20px 22px 26px; visibility: hidden; opacity: 0; pointer-events: none; position: absolute; z-index: 20; top: 0; left: calc(100% + 14px); display: grid; grid-template-columns: minmax(0,1fr) 190px; gap: 20px; color: #333; background: white; border: 1px solid #ececec; border-radius: 0 12px 12px 0; box-shadow: 10px 8px 30px rgba(0,0,0,.12); transform: translateX(-6px); transition: opacity .12s ease,transform .12s ease,visibility .12s; }
+.megaContent { min-width: 0; }
+.megaTopLinks { display: flex; flex-wrap: wrap; gap: 8px; }
+.megaTopLinks a { padding: 6px 10px; color: white; background: #333; border-radius: 2px; font-size: 11px; }
+.megaTopLinks a:hover { background: #e1251b; }
+.megaTopLinks b { margin-left: 7px; font-weight: 400; }
+.megaSections { margin-top: 18px; display: flex; flex-direction: column; gap: 15px; }
+.megaSection { display: grid; grid-template-columns: 82px minmax(0,1fr); align-items: start; gap: 12px; font-size: 11px; }
+.megaSectionTitle { display: flex; justify-content: flex-end; gap: 7px; color: #222; font-weight: 750; white-space: nowrap; }
+.megaSectionTitle:hover { color: #e1251b; }
+.megaSectionTitle b { color: #999; font-weight: 400; }
+.megaSection > div { display: flex; flex-wrap: wrap; gap: 7px 0; }
+.megaSection > div a { padding: 0 10px; color: #777; border-left: 1px solid #e5e5e5; line-height: 1; }
+.megaSection > div a:hover { color: #e1251b; }
+.megaPromo { min-height: 240px; padding: 24px 16px; display: flex; flex-direction: column; align-items: center; align-self: stretch; text-align: center; background: linear-gradient(160deg,#fff7f6,#fff); border-radius: 9px; }
+.megaPromo > span { width: 108px; height: 108px; display: grid; place-items: center; overflow: hidden; background: white; border-radius: 28px; box-shadow: 0 10px 28px rgba(150,25,25,.1); }
+.megaPromo small { margin-top: 19px; color: #e1251b; font-size: 8px; font-weight: 850; letter-spacing: .14em; }
+.megaPromo strong { margin-top: 7px; font-size: 15px; }
+.megaPromo p { margin: 8px 0 18px; color: #999; font-size: 10px; line-height: 1.6; }
+.megaPromo > a { padding: 8px 17px; color: white; background: #e1251b; border-radius: 4px; font-size: 11px; font-weight: 750; }
 .heroBanner { min-height: 465px; position: relative; overflow: hidden; border-radius: 14px; background: #ba0d18; }
 .heroImage { object-fit: cover; object-position: center; }
 .heroShade { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(104,0,5,.72) 0%,rgba(118,0,5,.26) 45%,transparent 68%); }

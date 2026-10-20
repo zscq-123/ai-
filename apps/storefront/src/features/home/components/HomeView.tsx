@@ -22,12 +22,41 @@ export function HomeView() {
           <aside className={styles.categoryPanel}>
             <div className={styles.panelTitle}><CommerceIcon name="categories" size={30} priority /><strong>全部商品分类</strong></div>
             <div className={styles.categoryList}>
-              {categoryGroups.map((group) => (
-                <a className={styles.categoryRow} href="#recommend" key={group.items.join("-")}>
-                  <CommerceIcon name={group.icon} size={27} />
-                  <span>{group.items.map((item, index) => <span key={item}>{index > 0 && <i>/</i>}{item}</span>)}</span>
-                  <b>›</b>
-                </a>
+              {categoryGroups.map((group, groupIndex) => (
+                <div className={styles.categoryItem} key={group.items.join("-")}>
+                  <div className={styles.categoryRow}>
+                    <span>
+                      {group.items.map((item, index) => (
+                        <span key={item}>{index > 0 && <i>/</i>}<Link href={`/search?q=${encodeURIComponent(item)}`}>{item}</Link></span>
+                      ))}
+                    </span>
+                    <b>›</b>
+                  </div>
+                  <section className={styles.megaMenu} aria-label={`${group.items.join("、")}二级分类`}>
+                    <div className={styles.megaContent}>
+                      <div className={styles.megaTopLinks}>
+                        <Link href={`/search?q=${encodeURIComponent(group.items[0])}`}>企业精选 <b>›</b></Link>
+                        <Link href={groupIndex % 2 === 0 ? "/enterprise-procurement" : "/brands"}>品牌直供 <b>›</b></Link>
+                        <Link href="/search">全部商品 <b>›</b></Link>
+                      </div>
+                      <div className={styles.megaSections}>
+                        {group.sections.map((section) => (
+                          <div className={styles.megaSection} key={section.title}>
+                            <Link className={styles.megaSectionTitle} href={`/search?q=${encodeURIComponent(section.title)}`}>{section.title}<b>›</b></Link>
+                            <div>{section.items.map((item) => <Link href={`/search?q=${encodeURIComponent(item)}`} key={item}>{item}</Link>)}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <aside className={styles.megaPromo}>
+                      <span><CommerceIcon name={group.icon} size={92} largeSource /></span>
+                      <small>ENTERPRISE PICKS</small>
+                      <strong>{group.items[0]}采购专区</strong>
+                      <p>品牌直供 · 企业专价 · 履约保障</p>
+                      <Link href={`/search?q=${encodeURIComponent(group.items[0])}`}>立即选购</Link>
+                    </aside>
+                  </section>
+                </div>
               ))}
             </div>
           </aside>
