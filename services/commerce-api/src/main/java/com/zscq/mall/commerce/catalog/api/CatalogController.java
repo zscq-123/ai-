@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,15 @@ public class CatalogController {
     @GetMapping("/public/products")
     List<Product> search(@RequestParam(defaultValue = "") String query, @RequestParam(required = false) UUID categoryId) {
         return service.search(query, categoryId);
+    }
+
+    @GetMapping("/public/products/{productId}")
+    Product detail(@PathVariable UUID productId) {
+        try {
+            return service.getActive(productId);
+        } catch (java.util.NoSuchElementException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found", exception);
+        }
     }
 
     @PostMapping("/products")

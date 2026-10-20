@@ -20,4 +20,9 @@ public class CatalogService {
 
     @Transactional(readOnly = true)
     public List<Product> search(String query, UUID categoryId) { return repository.search(query, categoryId); }
+
+    @Transactional(readOnly = true)
+    public Product getActive(UUID productId) {
+        return repository.findActiveById(productId).orElseThrow();
+    }
 }

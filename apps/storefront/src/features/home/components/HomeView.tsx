@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
 import { categoryGroups, channelItems, productItems } from "../model/homeContent";
@@ -67,13 +68,13 @@ export function HomeView() {
           <div className={styles.productGrid}>
             {productItems.map((product) => (
               <article className={styles.productCard} key={product.title}>
-                <a className={styles.productVisual} href="#" style={{ background: product.tone }}>
+                <Link className={styles.productVisual} href={`/products/${product.id}`} style={{ background: product.tone }}>
                   {product.badge && <span className={styles.productBadge}>{product.badge}</span>}
                   <CommerceIcon name={product.icon} size={150} largeSource />
-                </a>
+                </Link>
                 <div className={styles.productInfo}>
                   <span className={styles.productEyebrow}>{product.eyebrow}</span>
-                  <h3>{product.title}</h3>
+                  <h3><Link href={`/products/${product.id}`}>{product.title}</Link></h3>
                   <p>{product.description}</p>
                   <div className={styles.productFooter}><span>¥<strong>{product.price}</strong><small>起</small></span><button type="button" aria-label={`将${product.title}加入采购车`}><CommerceIcon name="cart" size={28} /></button></div>
                 </div>
