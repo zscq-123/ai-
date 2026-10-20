@@ -6,11 +6,12 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from ai_service.application.chat_service import ChatService
+from ai_service.config import settings
 from ai_service.infrastructure.local_knowledge import LocalKnowledgeRetriever
-from ai_service.infrastructure.model_provider import GroundedLocalModel
+from ai_service.infrastructure.model_provider import build_model_provider
 
 router = APIRouter(prefix="/v1/support", tags=["support"])
-service = ChatService(LocalKnowledgeRetriever(), GroundedLocalModel())
+service = ChatService(LocalKnowledgeRetriever(), build_model_provider(settings))
 
 
 class ChatRequest(BaseModel):

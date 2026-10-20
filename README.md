@@ -23,6 +23,12 @@ Java 服务按业务模块拆包，每个模块内部使用 `api / application /
 4. 在 `services/commerce-api` 执行 `./mvnw spring-boot:run`。
 5. 安装 AI 服务依赖后执行 `uvicorn ai_service.main:app --app-dir services/ai-service/src --reload`。
 
+## DeepSeek 客服
+
+AI 客服默认使用 DeepSeek OpenAI 兼容接口。将轮换后的密钥写入本地 `.env` 的
+`DEEPSEEK_API_KEY`，并保持 `AI_PROVIDER=deepseek`；默认模型为 `deepseek-flash`。
+密钥缺失或模型接口暂时不可用时，服务会降级为受知识库约束的本地规则回答，不会把密钥写入日志或前端代码。
+
 ## 质量验证与部署
 
 执行 `make verify` 可一次完成前端 lint、类型检查、生产构建、Storybook、Java 测试与打包、Python 静态检查与测试，以及生产 Compose 配置校验。
