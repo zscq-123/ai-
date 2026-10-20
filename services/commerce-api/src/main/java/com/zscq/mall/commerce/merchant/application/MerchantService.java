@@ -10,7 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MerchantService {
     private final MerchantRepository repository;
-    public MerchantService(MerchantRepository repository) { this.repository = repository; }
+    private final com.zscq.mall.commerce.merchant.domain.MerchantAuditRepository audit;
+    public MerchantService(MerchantRepository repository, com.zscq.mall.commerce.merchant.domain.MerchantAuditRepository audit) { this.repository = repository; this.audit = audit; }
 
     @Transactional
     public Merchant apply(String legalName, String storeName, String contactName, String phone, String licenseNo) {
@@ -21,7 +22,9 @@ public class MerchantService {
     @Transactional
     public Merchant review(UUID id, boolean approved, String reason) {
         Merchant merchant = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Merchant not found"));
-        return repository.save(approved ? merchant.approve() : merchant.reject(reason));
+        Merchant reviewed = repository.save(approved ? merchant.approve() : merchant.reject(reason));
+        audit.record(approved ? "MERCHANT_APPROVED" : "MERCHANT_REJECTED", id, "{\"status\":\"" + reviewed.status() + "\"}");
+        return reviewed;
     }
 
     @Transactional(readOnly = true)
