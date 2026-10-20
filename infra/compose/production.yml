@@ -1,0 +1,76 @@
+services:
+  commerce-api:
+    build:
+      context: .
+      dockerfile: infra/docker/commerce-api.Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: production
+      DATABASE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-commerce}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: ${RABBITMQ_USER:?RABBITMQ_USER is required}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD is required}
+      OIDC_JWK_SET_URI: ${OIDC_JWK_SET_URI:?OIDC_JWK_SET_URI is required}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS is required}
+      PAYMENT_WEBHOOK_SECRET: ${PAYMENT_WEBHOOK_SECRET:?PAYMENT_WEBHOOK_SECRET is required}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  ai-service:
+    build:
+      context: .
+      dockerfile: infra/docker/ai-service.Dockerfile
+    environment:
+      AI_ENVIRONMENT: production
+      AI_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:?POSTGRES_USER is required}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}@postgres:5432/${POSTGRES_DB:-commerce}
+      AI_COMMERCE_API_URL: http://commerce-api:8080
+      AI_PROVIDER: ${AI_PROVIDER:?AI_PROVIDER is required}
+      AI_API_KEY: ${AI_API_KEY:?AI_API_KEY is required}
+      AI_CORS_ORIGINS: ${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS is required}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      commerce-api:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  storefront:
+    build:
+      context: .
+      dockerfile: infra/docker/storefront.Dockerfile
+      args:
+        NEXT_PUBLIC_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
+        NEXT_PUBLIC_AI_SERVICE_URL: ${PUBLIC_AI_SERVICE_URL:?PUBLIC_AI_SERVICE_URL is required}
+    environment:
+      NEXT_PUBLIC_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
+      NEXT_PUBLIC_AI_SERVICE_URL: ${PUBLIC_AI_SERVICE_URL:?PUBLIC_AI_SERVICE_URL is required}
+    depends_on:
+      - commerce-api
+      - ai-service
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: infra/docker/admin.Dockerfile
+      args:
+        VITE_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
+    depends_on:
+      - commerce-api
+    ports:
+      - "4173:80"
+    restart: unless-stopped

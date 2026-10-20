@@ -1,11 +1,15 @@
 import { Avatar, Badge, Button, ConfigProvider, Input, Layout, Menu, Space, Typography } from 'antd'
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { DashboardPage } from '../features/dashboard/DashboardPage'
-import { MerchantReviewPage } from '../features/merchants/MerchantReviewPage'
 import { CommerceIcon } from '../shared/ui/CommerceIcon'
 import styles from './appShell.module.css'
 
 const { Header, Sider, Content } = Layout
+const MerchantReviewPage = lazy(() =>
+  import('../features/merchants/MerchantReviewPage').then((module) => ({
+    default: module.MerchantReviewPage,
+  })),
+)
 
 const menuItems = [
   { key: 'dashboard', icon: <CommerceIcon name="analytics" />, label: '经营概览' },
@@ -38,7 +42,15 @@ export function AppShell() {
               <div className={styles.user}><Typography.Text strong>运营管理员</Typography.Text><Typography.Text type="secondary">总部运营中心</Typography.Text></div>
             </Space>
           </Header>
-          <Content className={styles.content}>{current === 'merchants' ? <MerchantReviewPage /> : <DashboardPage />}</Content>
+          <Content className={styles.content}>
+            {current === 'merchants' ? (
+              <Suspense fallback={<Typography.Text>正在加载商家审核…</Typography.Text>}>
+                <MerchantReviewPage />
+              </Suspense>
+            ) : (
+              <DashboardPage />
+            )}
+          </Content>
         </Layout>
       </Layout>
     </ConfigProvider>

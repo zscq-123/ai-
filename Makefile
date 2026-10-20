@@ -1,4 +1,4 @@
-.PHONY: install dev infra-up storage-up infra-down build test lint
+.PHONY: install dev infra-up storage-up infra-down build test lint verify
 
 install:
 	pnpm install
@@ -29,3 +29,6 @@ lint:
 	pnpm lint
 	python3 -m ruff check services/ai-service
 	python3 -m mypy services/ai-service/src
+
+verify:
+	./scripts/verify.sh

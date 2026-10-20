@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+.next
+.turbo
+.venv
+**/node_modules
+**/dist
+**/storybook-static
+**/target
+*.log

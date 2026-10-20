@@ -23,4 +23,16 @@ Java 服务按业务模块拆包，每个模块内部使用 `api / application /
 4. 在 `services/commerce-api` 执行 `./mvnw spring-boot:run`。
 5. 安装 AI 服务依赖后执行 `uvicorn ai_service.main:app --app-dir services/ai-service/src --reload`。
 
-项目仍处于分阶段建设期。每个阶段必须通过对应构建和测试后才能提交。
+## 质量验证与部署
+
+执行 `make verify` 可一次完成前端 lint、类型检查、生产构建、Storybook、Java 测试与打包、Python 静态检查与测试，以及生产 Compose 配置校验。
+
+部署、备份恢复、安全与发布边界分别见：
+
+- [部署指南](docs/DEPLOYMENT.md)
+- [运行手册](docs/RUNBOOK.md)
+- [备份恢复](docs/BACKUP_RESTORE.md)
+- [安全基线](docs/SECURITY.md)
+- [发布验收清单](docs/RELEASE_CHECKLIST.md)
+
+六个工程阶段已经形成可运行基线；真实支付、真实身份、消息通道、对象存储和生产等价压测仍必须在目标环境完成，不能由本地构建结果替代。

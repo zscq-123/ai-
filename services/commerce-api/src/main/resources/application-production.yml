@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OIDC_JWK_SET_URI}
+
+management:
+  endpoint:
+    health:
+      show-details: never
+
+server:
+  forward-headers-strategy: framework
+
+commerce:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+  payment:
+    webhook-secret: ${PAYMENT_WEBHOOK_SECRET}
