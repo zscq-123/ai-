@@ -14,7 +14,7 @@ const navItems = [
   { label: "商家入驻", href: "/merchant/apply" },
 ];
 
-export function StorefrontHeader({ activePath = "/" }: { activePath?: string }) {
+export function StorefrontHeader({ activePath = "/", searchQuery = "" }: { activePath?: string; searchQuery?: string }) {
   return (
     <header>
       <div className={styles.utilityBar}>
@@ -33,12 +33,12 @@ export function StorefrontHeader({ activePath = "/" }: { activePath?: string }) 
             <span className={styles.brandName}>NOVA<small>企业商城</small></span>
           </Link>
           <div className={styles.searchArea}>
-            <form className={styles.searchBox} action="/" role="search">
+            <form className={styles.searchBox} action="/search" method="get" role="search">
               <CommerceIcon name="search" size={26} priority />
-              <input name="query" defaultValue="商用电脑" aria-label="搜索商品" />
+              <input name="q" defaultValue={searchQuery} placeholder="搜索商品名称、型号或服务" aria-label="搜索商品" />
               <button type="submit">搜索</button>
             </form>
-            <div className={styles.hotWords}>{hotKeywords.map((item) => <a href="#recommend" key={item}>{item}</a>)}</div>
+            <div className={styles.hotWords}>{hotKeywords.map((item) => <Link href={`/search?q=${encodeURIComponent(item)}`} key={item}>{item}</Link>)}</div>
           </div>
           <button className={styles.cartButton} type="button"><CommerceIcon name="cart" size={34} priority /><span>我的采购车</span><b>3</b></button>
         </div>

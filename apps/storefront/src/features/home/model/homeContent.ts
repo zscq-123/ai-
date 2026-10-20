@@ -50,4 +50,4 @@ export const productItems: ProductItem[] = [
   { id: "30000000-0000-0000-0000-000000000006", icon: "aiSupport", eyebrow: "企业服务", title: "AI 智能客服专业版", description: "多渠道接入 · 7×24 小时在线", price: "999", badge: "限时试用", tone: "#edf5ff" },
 ];
 
-export const hotKeywords = ["商用电脑", "办公耗材", "员工福利", "会议设备", "工业工具", "企业服务"];
+export const hotKeywords = ["商用轻薄本", "打印机", "咖啡机", "会议", "工具套装", "智能客服"];
