@@ -2,6 +2,7 @@ import { CommerceIcon } from "@/shared/ui/CommerceIcon";
 import { categoryItems, serviceItems } from "../model/homeContent";
 import { StorefrontHeader } from "./StorefrontHeader";
 import styles from "./home.module.css";
+import { SupportWidget } from "@/features/support/components/SupportWidget";
 
 export function HomeView() {
   return (
@@ -33,7 +34,7 @@ export function HomeView() {
           <div className={styles.categoryGrid}>{categoryItems.map((item, index) => <article className={styles.categoryCard} key={item.label} style={{ background: item.tone }}><div><span>0{index + 1}</span><h3>{item.label}</h3><p>{item.detail}</p></div><CommerceIcon name={item.icon} size={112} largeSource /></article>)}</div>
         </section>
       </main>
-      <button className={styles.supportButton} aria-label="联系 AI 客服"><CommerceIcon name="aiSupport" size={48} largeSource /><span>AI 客服</span></button>
+      <SupportWidget />
     </div>
   );
 }
