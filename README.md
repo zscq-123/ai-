@@ -1,0 +1,26 @@
+# Enterprise Commerce Platform
+
+企业级网络商城，包含消费者商城、运营管理台、Spring Boot 交易后端和 Python AI 客服。
+
+## 工程结构
+
+```text
+apps/storefront            Next.js 消费者商城
+apps/admin                 React + Vite 运营管理台
+services/commerce-api      Spring Boot 交易核心
+services/ai-service        Python + FastAPI AI 客服
+public/brand               品牌和 Image 2.5 概念资产
+docs                       架构与开发文档
+```
+
+Java 服务按业务模块拆包，每个模块内部使用 `api / application / domain / infrastructure` 分层。Python 客服使用相同的依赖方向，具体规则见 [架构说明](docs/ARCHITECTURE.md)。
+
+## 本地启动
+
+1. 复制 `.env.example` 为 `.env`。
+2. 执行 `make infra-up` 启动 PostgreSQL、Redis 和 RabbitMQ；需要本地对象存储时再执行 `make storage-up`。
+3. 执行 `pnpm install && pnpm dev` 启动前端。
+4. 在 `services/commerce-api` 执行 `./mvnw spring-boot:run`。
+5. 安装 AI 服务依赖后执行 `uvicorn ai_service.main:app --app-dir services/ai-service/src --reload`。
+
+项目仍处于分阶段建设期。每个阶段必须通过对应构建和测试后才能提交。
