@@ -10,6 +10,11 @@ const MerchantReviewPage = lazy(() =>
     default: module.MerchantReviewPage,
   })),
 )
+const ProductEditorPage = lazy(() =>
+  import('../features/products/ProductEditorPage').then((module) => ({
+    default: module.ProductEditorPage,
+  })),
+)
 
 const menuItems = [
   { key: 'dashboard', icon: <CommerceIcon name="analytics" />, label: '经营概览' },
@@ -43,7 +48,11 @@ export function AppShell() {
             </Space>
           </Header>
           <Content className={styles.content}>
-            {current === 'merchants' ? (
+            {current === 'products' ? (
+              <Suspense fallback={<Typography.Text>正在加载商品编辑器…</Typography.Text>}>
+                <ProductEditorPage />
+              </Suspense>
+            ) : current === 'merchants' ? (
               <Suspense fallback={<Typography.Text>正在加载商家审核…</Typography.Text>}>
                 <MerchantReviewPage />
               </Suspense>
