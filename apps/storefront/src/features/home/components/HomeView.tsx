@@ -4,6 +4,7 @@ import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
 import { categoryGroups, channelItems, productItems } from "../model/homeContent";
 import { StorefrontHeader } from "./StorefrontHeader";
+import { LoginDialog } from "@/features/auth/components/LoginDialog";
 import styles from "./home.module.css";
 
 const serviceItems = [
@@ -76,7 +77,7 @@ export function HomeView() {
           <aside className={styles.sideRail}>
             <div className={styles.accountCard}>
               <div className={styles.accountLine}><span className={styles.avatar}><CommerceIcon name="account" size={48} priority /></span><div><strong>Hi，欢迎来到 NOVA</strong><p>登录享受企业专属价格</p></div></div>
-              <div className={styles.accountActions}><Link href="/login">立即登录</Link><Link href="/merchant/apply">商家入驻</Link></div>
+              <div className={styles.accountActions}><LoginDialog className={styles.accountLoginButton} triggerLabel="立即登录" /><Link href="/merchant/apply">商家入驻</Link></div>
               <div className={styles.accountStats}><span><b>0</b>待付款</span><span><b>0</b>待收货</span><span><b>12</b>优惠券</span></div>
             </div>
             <div className={styles.channelStack}>
