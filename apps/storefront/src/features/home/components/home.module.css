@@ -79,9 +79,8 @@
 .accountLine strong { display: block; font-size: 13px; }
 .accountLine p { margin: 5px 0 0; color: #888; font-size: 11px; }
 .accountActions { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.accountActions button,.accountActions a { height: 32px; display: grid; place-items: center; border: 1px solid #e1251b; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer; }
-.accountActions button { color: white; background: #e1251b; }
-.accountActions a { color: #e1251b; background: white; }
+.accountActions a { height: 32px; display: grid; place-items: center; color: #e1251b; background: white; border: 1px solid #e1251b; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.accountActions a:first-child { color: white; background: #e1251b; }
 .accountStats { margin-top: 14px; padding-top: 13px; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #e7e7e7; }
 .accountStats span { display: flex; flex-direction: column; align-items: center; gap: 3px; color: #888; font-size: 10px; }
 .accountStats b { color: #272727; font-size: 15px; }

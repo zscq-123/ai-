@@ -1,5 +1,8 @@
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
+import { getCurrentCustomer } from "@/features/auth/api/getCurrentCustomer";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import Link from "next/link";
+import { Suspense } from "react";
 import { hotKeywords } from "../model/homeContent";
 import styles from "./home.module.css";
 
@@ -14,6 +17,13 @@ const navItems = [
   { label: "商家入驻", href: "/merchant/apply" },
 ];
 
+async function HeaderAccount() {
+  const customer = await getCurrentCustomer();
+  return customer
+    ? <><span>您好，{customer.displayName}</span><LogoutButton /></>
+    : <><Link href="/login">您好，请登录</Link><Link className={styles.register} href="/register">免费注册</Link></>;
+}
+
 export function StorefrontHeader({ activePath = "/", searchQuery = "" }: { activePath?: string; searchQuery?: string }) {
   return (
     <header>
@@ -21,7 +31,7 @@ export function StorefrontHeader({ activePath = "/", searchQuery = "" }: { activ
         <div className={styles.utilityInner}>
           <div className={styles.location}><CommerceIcon name="home" size={20} priority />NOVA 首页<span>·</span>中国大陆</div>
           <div className={styles.utilityLinks}>
-            <span>您好，请登录</span><a className={styles.register} href="#">免费注册</a>
+            <Suspense fallback={<><Link href="/login">您好，请登录</Link><Link className={styles.register} href="/register">免费注册</Link></>}><HeaderAccount /></Suspense>
             {utilityLinks.map((item) => <a href="#" key={item}>{item}</a>)}
           </div>
         </div>

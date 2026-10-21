@@ -22,6 +22,11 @@ public class ApiExceptionHandler {
         return error(HttpStatus.CONFLICT, exception.getMessage());
     }
 
+    @ExceptionHandler(SecurityException.class)
+    ResponseEntity<Map<String, Object>> unauthorized(SecurityException exception) {
+        return error(HttpStatus.UNAUTHORIZED, exception.getMessage());
+    }
+
     private ResponseEntity<Map<String, Object>> error(HttpStatus status, String message) {
         return ResponseEntity.status(status).body(Map.of(
                 "timestamp", Instant.now().toString(),

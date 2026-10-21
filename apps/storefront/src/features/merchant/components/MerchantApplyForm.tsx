@@ -16,7 +16,7 @@ export function MerchantApplyForm() {
     const form = new FormData(event.currentTarget);
     const payload = Object.fromEntries(form.entries());
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_COMMERCE_API_URL ?? "http://localhost:8080"}/api/public/merchant-applications`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_COMMERCE_API_URL ?? "http://127.0.0.1:8080"}/api/public/merchant-applications`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (!response.ok) throw new Error("提交失败，请核对资料后重试");
       setState("success"); setMessage("入驻申请已提交，平台将在 1–3 个工作日内完成审核。"); event.currentTarget.reset();
     } catch (error) { setState("error"); setMessage(error instanceof Error ? error.message : "暂时无法提交"); }

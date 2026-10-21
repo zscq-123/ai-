@@ -27,6 +27,8 @@ server:
   forward-headers-strategy: framework
 
 commerce:
+  auth:
+    secure-cookie: true
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS}
   payment:
