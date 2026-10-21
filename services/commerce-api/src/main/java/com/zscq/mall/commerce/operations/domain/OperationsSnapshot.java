@@ -68,4 +68,19 @@ public record OperationsSnapshot(
             Instant lastLoginAt,
             long orderCount,
             BigDecimal totalSpend) {}
+
+    public record MerchantSummary(UUID id, String storeName, String legalName, String status) {}
+
+    public record SupportConversationSummary(
+            UUID id,
+            UUID merchantId,
+            UUID customerId,
+            String status,
+            Instant startedAt,
+            Instant handedOffAt,
+            Instant resolvedAt,
+            BigDecimal satisfactionScore,
+            long messageCount,
+            Instant lastMessageAt,
+            String lastIntent) {}
 }

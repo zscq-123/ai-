@@ -1,6 +1,7 @@
 import asyncio
 import json
 from collections.abc import AsyncIterator
+from uuid import UUID
 
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
@@ -25,16 +26,25 @@ recorder = ConversationRecorder(
 )
 
 
-async def answer_and_record(message: str, *, authenticated: bool) -> SupportReply:
+async def answer_and_record(
+    message: str, *, authenticated: bool, merchant_id: UUID | None
+) -> SupportReply:
     timer = ConversationTimer()
     reply = await service.answer(message, authenticated=authenticated)
-    await asyncio.to_thread(recorder.record, message, reply, timer.elapsed_ms())
+    await asyncio.to_thread(
+        recorder.record,
+        message,
+        reply,
+        timer.elapsed_ms(),
+        merchant_id=merchant_id,
+    )
     return reply
 
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
     authenticated: bool = False
+    merchant_id: UUID | None = None
 
 
 class CitationResponse(BaseModel):
@@ -52,7 +62,11 @@ class ChatResponse(BaseModel):
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest) -> ChatResponse:
-    reply = await answer_and_record(request.message, authenticated=request.authenticated)
+    reply = await answer_and_record(
+        request.message,
+        authenticated=request.authenticated,
+        merchant_id=request.merchant_id,
+    )
     return ChatResponse(
         answer=reply.answer,
         intent=reply.intent.value,
@@ -65,7 +79,11 @@ async def chat(request: ChatRequest) -> ChatResponse:
 @router.post("/stream")
 async def stream(request: ChatRequest) -> StreamingResponse:
     async def events() -> AsyncIterator[str]:
-        reply = await answer_and_record(request.message, authenticated=request.authenticated)
+        reply = await answer_and_record(
+            request.message,
+            authenticated=request.authenticated,
+            merchant_id=request.merchant_id,
+        )
         answer_data = json.dumps({"answer": reply.answer}, ensure_ascii=False)
         done_data = json.dumps(
             {"intent": reply.intent.value, "requires_human": reply.requires_human},

@@ -3,7 +3,7 @@ import logging
 from datetime import UTC, datetime
 from functools import lru_cache
 from time import perf_counter
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from sqlalchemy import Engine, create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
@@ -19,8 +19,15 @@ class ConversationRecorder:
         self._model_name = model_name
         self._engine = _engine(database_url) if enabled else None
 
-    def record(self, question: str, reply: SupportReply, elapsed_ms: int) -> None:
-        if self._engine is None:
+    def record(
+        self,
+        question: str,
+        reply: SupportReply,
+        elapsed_ms: int,
+        *,
+        merchant_id: UUID | None,
+    ) -> None:
+        if self._engine is None or merchant_id is None:
             return
         conversation_id = uuid4()
         status = "HANDED_OFF" if reply.requires_human else "RESOLVED"
@@ -34,12 +41,16 @@ class ConversationRecorder:
                 connection.execute(
                     text(
                         """
-                        insert into ai_conversations(id,status,handed_off_at,resolved_at)
-                        values (:id,:status,:handed_off_at,:resolved_at)
+                        insert into ai_conversations(
+                            id,merchant_id,status,handed_off_at,resolved_at
+                        ) values (
+                            :id,:merchant_id,:status,:handed_off_at,:resolved_at
+                        )
                         """
                     ),
                     {
                         "id": conversation_id,
+                        "merchant_id": merchant_id,
                         "status": status,
                         "handed_off_at": completed_at if reply.requires_human else None,
                         "resolved_at": None if reply.requires_human else completed_at,

@@ -30,7 +30,7 @@ public class SecurityConfig {
                     authorize.requestMatchers("/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll();
                     authorize.requestMatchers("/api/public/**").permitAll();
                     if (localAdminPublic) {
-                        authorize.requestMatchers("/api/admin/**", "/api/merchants/**", "/api/products/**").permitAll();
+                        authorize.requestMatchers("/api/admin/**", "/api/seller/**", "/api/merchants/**", "/api/products/**").permitAll();
                     }
                     authorize.anyRequest().authenticated();
                 })

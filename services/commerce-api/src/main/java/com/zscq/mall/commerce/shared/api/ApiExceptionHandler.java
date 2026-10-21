@@ -2,6 +2,7 @@ package com.zscq.mall.commerce.shared.api;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(SecurityException.class)
     ResponseEntity<Map<String, Object>> unauthorized(SecurityException exception) {
         return error(HttpStatus.UNAUTHORIZED, exception.getMessage());
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    ResponseEntity<Map<String, Object>> notFound(NoSuchElementException exception) {
+        return error(HttpStatus.NOT_FOUND, "Resource not found");
     }
 
     private ResponseEntity<Map<String, Object>> error(HttpStatus status, String message) {

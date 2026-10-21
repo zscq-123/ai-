@@ -137,7 +137,12 @@ export function ProductEditorPage() {
     }
   }
 
-  const cover = images[0] ?? '/brand/icons/image2.5/256/package.png'
+  function cancelChanges() {
+    setDraft(savedDraft)
+    setSaveState('所有更改已保存')
+  }
+
+  const cover = images[0] ?? '/brand/icons/image2.5/256/package-red.png'
 
   if (loading) return <Typography.Text>正在从数据库读取商品…</Typography.Text>
   if (loadError) return <Alert type="error" showIcon message="商品数据加载失败" description={loadError} />
@@ -190,7 +195,7 @@ export function ProductEditorPage() {
             <li><i />添加商品视频 <em>建议</em></li>
           </ul>
           <div className={styles.aiTip}>
-            <img src="/brand/icons/image2.5/96/ai-support.png" alt="" />
+            <img src="/brand/icons/image2.5/96/ai-support-red.png" alt="" />
             <div><b>AI 标题建议</b><span>突出使用场景、核心规格与服务保障。</span></div>
           </div>
         </aside>
@@ -287,7 +292,7 @@ export function ProductEditorPage() {
                 <h3>{draft.name || '请输入商品名称'}</h3>
                 <p>{draft.subtitle || '补充商品卖点，帮助买家快速了解商品。'}</p>
                 <div className={styles.deliveryLine}><span>✓ 企业质保</span><span>次日发货</span><span>开具发票</span></div>
-                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store.png" alt="" /><div><b>{storeName}</b><small>数据库认证商家</small></div><Button size="small">进店</Button></div>
+                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store-red.png" alt="" /><div><b>{storeName}</b><small>数据库认证商家</small></div><Button size="small">进店</Button></div>
               </div>
               <div className={styles.previewActions}><button>客服</button><button>加入采购单</button><button>立即采购</button></div>
             </div>
@@ -299,7 +304,7 @@ export function ProductEditorPage() {
       <footer className={styles.actionBar}>
         <span>商品 ID：{productId}</span>
         <Space>
-          <Button onClick={() => setDraft(savedDraft)}>取消修改</Button>
+          <Button onClick={cancelChanges}>取消修改</Button>
           <Button onClick={() => void save('草稿保存')}>保存草稿</Button>
           <Button type="primary" onClick={() => void save('商品更新')}>更新商品</Button>
         </Space>
