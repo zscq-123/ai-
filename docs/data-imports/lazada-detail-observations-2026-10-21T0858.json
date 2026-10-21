@@ -1,0 +1,352 @@
+{
+  "method": "First two products: Safari visible product-detail pages. Remaining six: user-approved independent in-app browser, read-only visible DOM. No login, challenge solve, session extraction, hidden-state access or Bright Data.",
+  "provider": "BROWSER_VISIBLE_DETAIL",
+  "records": [
+    {
+      "externalId": "SG:284979180",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i284979180-s456105517.html",
+      "capturedAt": "2026-10-21T08:56:23.328Z",
+      "brand": "Nescafé",
+      "highlights": [
+        "三合一咖啡",
+        "独立小袋，外包装为纸箱",
+        "来源描述提及中深烘焙 Robusta 咖啡"
+      ],
+      "attributes": {
+        "Brand": "Nescafé",
+        "SKU": "284979180_SGAMZ-456105517",
+        "BCRS_Applicable": "No",
+        "Primary Packaging Type": "Sachet",
+        "Units(per Bundle)": "30",
+        "Sugar Level": "Medium Sugar",
+        "Net Weight (source specifications)": "50 x 16.5 g",
+        "Title pack size": "30 x 16.5g",
+        "Dietary Needs": "Halal",
+        "Secondary Packaging": "Carton",
+        "model": "NESCAFE Original 3in1"
+      },
+      "options": {},
+      "sellerName": "NESTLE",
+      "sellerUrl": "https://www.lazada.sg/shop/nestle/",
+      "observations": {
+        "displayedPrice": "SGD 137.40",
+        "displayedOriginalPrice": "SGD 169.20",
+        "productRating": "4.9 (209)",
+        "sellerRating": "98%",
+        "fulfillment": "Pre-Order (Ship in 30 days); Delivered by Seller",
+        "returnWarranty": "Return restriction applies; Warranty not available",
+        "dataQuality": "包装数量冲突：标题30 x16.5g、Units=30，净重栏50 x16.5g。未据此建立新SKU或改库存。认证仅记录源页字段，未独立核实证书。",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "d1519654-ce22-3fb7-b3d4-4c95b3286de7",
+      "expectedVersion": 0,
+      "description": "NESCAFÉ Original 三合一即溶咖啡，独立小袋包装，原料描述提及 Robusta 咖啡豆、奶精和糖，中深烘焙风味。来源标题和数量栏为 30 × 16.5g，净重栏却写 50 × 16.5g；整箱实际袋数待核实，未自动换算箱重。\n来源规格（待核验）：\nBrand: Nescafé\nSKU: 284979180_SGAMZ-456105517\nBCRS_Applicable: No\nPrimary Packaging Type: Sachet\nUnits(per Bundle): 30\nSugar Level: Medium Sugar\nNet Weight (source specifications): 50 x 16.5 g\nTitle pack size: 30 x 16.5g\nDietary Needs: Halal\nSecondary Packaging: Carton\nmodel: NESCAFE Original 3in1\n来源卖点：\n三合一咖啡\n独立小袋，外包装为纸箱\n来源描述提及中深烘焙 Robusta 咖啡\n来源店铺：NESTLE (https://www.lazada.sg/shop/nestle/)\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 137.40\ndisplayedOriginalPrice: SGD 169.20\nproductRating: 4.9 (209)\nsellerRating: 98%\nfulfillment: Pre-Order (Ship in 30 days); Delivered by Seller\nreturnWarranty: Return restriction applies; Warranty not available\ndataQuality: 包装数量冲突：标题30 x16.5g、Units=30，净重栏50 x16.5g。未据此建立新SKU或改库存。认证仅记录源页字段，未独立核实证书。\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:284987206",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i284987206-s456117083.html",
+      "capturedAt": "2026-10-21T08:58:15.794Z",
+      "brand": "Nestlé",
+      "highlights": [
+        "白咖啡，小袋分装",
+        "标题规格 14 × 30g",
+        "来源净重字段 420g"
+      ],
+      "attributes": {
+        "Brand": "Nestlé",
+        "SKU": "284987206_SGAMZ-456117083",
+        "Sugar Level": "Medium Sugar",
+        "Unit Metric": "g",
+        "Net Weight": "420 g",
+        "Dietary Needs (source)": "Gluten Free",
+        "Nutri Grade (SG, source)": "Nutri Grade B",
+        "Primary Packaging Type": "Bag",
+        "Units(per Bundle)": "14",
+        "Secondary Packaging": "Carton",
+        "Model": "NESCAFE White Coffee Gao Siew Dai"
+      },
+      "options": {},
+      "sellerName": "NESTLE",
+      "sellerUrl": "https://www.lazada.sg/shop/nestle/",
+      "observations": {
+        "displayedPrice": "SGD 119.00",
+        "displayedOriginalPrice": "SGD 169.00",
+        "productRating": "4.9 (301)",
+        "sellerRating": "98%",
+        "fulfillment": "Pre-Order (Ship in 30 days); Get by 23 Nov",
+        "shipping": "Standard SGD 6.91",
+        "returnWarranty": "Return restriction applies; Warranty not available",
+        "dataQuality": "标题含Carton，但页面没有明确每箱含多少个14袋包装，不能把420g直接解释为整箱总重。营养等级/无麸质仅保留来源字段，未核认证明。",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "01b7e6ff-04ec-3704-9488-99aed3d7243b",
+      "expectedVersion": 1,
+      "description": "NESCAFÉ White Coffee Gao Siew Dai 白咖啡，来源标题为 14 × 30g，净重字段 420g。页面以“gao”浓郁、“siew dai”较少甜感描述口味，未提供糖含量数值；不能据此宣称无糖。\n来源规格（待核验）：\nBrand: Nestlé\nSKU: 284987206_SGAMZ-456117083\nSugar Level: Medium Sugar\nUnit Metric: g\nNet Weight: 420 g\nDietary Needs (source): Gluten Free\nNutri Grade (SG, source): Nutri Grade B\nPrimary Packaging Type: Bag\nUnits(per Bundle): 14\nSecondary Packaging: Carton\nModel: NESCAFE White Coffee Gao Siew Dai\n来源卖点：\n白咖啡，小袋分装\n标题规格 14 × 30g\n来源净重字段 420g\n来源店铺：NESTLE (https://www.lazada.sg/shop/nestle/)\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 119.00\ndisplayedOriginalPrice: SGD 169.00\nproductRating: 4.9 (301)\nsellerRating: 98%\nfulfillment: Pre-Order (Ship in 30 days); Get by 23 Nov\nshipping: Standard SGD 6.91\nreturnWarranty: Return restriction applies; Warranty not available\ndataQuality: 标题含Carton，但页面没有明确每箱含多少个14袋包装，不能把420g直接解释为整箱总重。营养等级/无麸质仅保留来源字段，未核认证明。\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:111650098",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i111650098-s23209659764.html",
+      "capturedAt": "2026-10-21T09:02:56.856Z",
+      "brand": "Milo",
+      "highlights": [
+        "UHT 即饮巧克力麦芽牛奶",
+        "标题规格 4 × 6 × 200ml",
+        "来源描述提及牛奶、麦芽大麦和可可"
+      ],
+      "attributes": {
+        "Brand": "Milo",
+        "SKU": "111650098_SGAMZ-23209659764",
+        "Barcode": "09556001135568",
+        "Unit Metric": "ml",
+        "Sugar Level": "Medium Sugar",
+        "Dietary Needs (source field)": "Nutri Grade B",
+        "Primary Packaging Type": "Carton Box",
+        "Secondary Packaging": "Carton",
+        "Model": "MILO UHT Chocolate Malt Packet Drink",
+        "Title pack size": "4 x 6 x 200ml"
+      },
+      "options": {
+        "Quantity": [
+          "2x Cartons"
+        ]
+      },
+      "sellerName": "NESTLE",
+      "sellerUrl": "https://www.lazada.sg/shop/nestle/",
+      "observations": {
+        "displayedPrice": "SGD 30.90",
+        "displayedOriginalPrice": "SGD 38.00",
+        "productRating": "4.9 (4502)",
+        "sellerRating": "98%",
+        "fulfillment": "Pre-Order (Ship in 30 days); Delivered by Seller",
+        "returnWarranty": "Return restriction applies; Warranty not available",
+        "dataQuality": "标题包装与2x Cartons选项的计价关系未明确；Return Policy=-1不转为有效售后条款。未采入营养健康功效宣传。",
+        "captureMethod": "Independent in-app browser; visible document.body.innerText; no hidden state, session or challenge access",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "1b7abc09-d847-3c1f-b3c7-f5d550a22c98",
+      "expectedVersion": 4,
+      "description": "MILO UHT 巧克力麦芽牛奶即饮饮品。来源描述提及麦芽大麦、牛奶、可可；标题写 4 × 6 × 200ml，但当前数量选项为 2x Cartons，具体计价包装需向来源商家核实，未把标题与选项相乘生成新的规格。\n来源规格（待核验）：\nBrand: Milo\nSKU: 111650098_SGAMZ-23209659764\nBarcode: 09556001135568\nUnit Metric: ml\nSugar Level: Medium Sugar\nDietary Needs (source field): Nutri Grade B\nPrimary Packaging Type: Carton Box\nSecondary Packaging: Carton\nModel: MILO UHT Chocolate Malt Packet Drink\nTitle pack size: 4 x 6 x 200ml\n来源卖点：\nUHT 即饮巧克力麦芽牛奶\n标题规格 4 × 6 × 200ml\n来源描述提及牛奶、麦芽大麦和可可\n来源选项：\nQuantity: 2x Cartons\n来源店铺：NESTLE (https://www.lazada.sg/shop/nestle/)\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 30.90\ndisplayedOriginalPrice: SGD 38.00\nproductRating: 4.9 (4502)\nsellerRating: 98%\nfulfillment: Pre-Order (Ship in 30 days); Delivered by Seller\nreturnWarranty: Return restriction applies; Warranty not available\ndataQuality: 标题包装与2x Cartons选项的计价关系未明确；Return Policy=-1不转为有效售后条款。未采入营养健康功效宣传。\ncaptureMethod: Independent in-app browser; visible document.body.innerText; no hidden state, session or challenge access\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:304330101",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i304330101-s538520778.html",
+      "capturedAt": "2026-10-21T09:04:12.212Z",
+      "brand": "bibigo",
+      "highlights": [
+        "冷冻乌冬面",
+        "5 × 230g",
+        "韩国原产",
+        "来源说明可用于火锅和炒面"
+      ],
+      "attributes": {
+        "Brand": "bibigo",
+        "Pack Size": "5 × 230 g",
+        "Place of Origin": "South Korea",
+        "Product Type": "Frozen",
+        "Storage Guidelines": "Keep Frozen",
+        "Dietary Needs (conflicting source field)": "Gluten Free",
+        "Ingredients (source)": "Wheat flour, Water, Modified Starch (Starch Acetate), Salt, Potato Starch, Seasoning oil (Soybean oil, D-Sorbitol, Sugar, Water, Polyglycerol esters of fatty acids, Lecithin)"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 5.04",
+        "productRatingCount": "2339",
+        "promotion": "Buy 2 Save 20%",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "dataQuality": "严重字段冲突：页面Dietary Needs写Gluten Free，但配料明确有Wheat flour；不认定无麸质，不消除原始冲突。完整配料按源页原值留档，发布前必须商家核实。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "a4a27b29-da1b-3cc8-998a-f2aab936b745",
+      "expectedVersion": 2,
+      "description": "CJ Sanuki 冷冻乌冬面，来源品牌字段为 bibigo，韩国原产，5 × 230g。页面列出的配料含小麦粉，必须与其“Gluten Free”字段冲突一起审核，不能作为无麸质商品发布。需冷冻保存。\n来源规格（待核验）：\nBrand: bibigo\nPack Size: 5 × 230 g\nPlace of Origin: South Korea\nProduct Type: Frozen\nStorage Guidelines: Keep Frozen\nDietary Needs (conflicting source field): Gluten Free\nIngredients (source): Wheat flour, Water, Modified Starch (Starch Acetate), Salt, Potato Starch, Seasoning oil (Soybean oil, D-Sorbitol, Sugar, Water, Polyglycerol esters of fatty acids, Lecithin)\n来源卖点：\n冷冻乌冬面\n5 × 230g\n韩国原产\n来源说明可用于火锅和炒面\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 5.04\nproductRatingCount: 2339\npromotion: Buy 2 Save 20%\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\ndataQuality: 严重字段冲突：页面Dietary Needs写Gluten Free，但配料明确有Wheat flour；不认定无麸质，不消除原始冲突。完整配料按源页原值留档，发布前必须商家核实。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:318542777",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i318542777-s614938884.html",
+      "capturedAt": "2026-10-21T09:05:23.817Z",
+      "brand": "Schweppes",
+      "highlights": [
+        "苏打水整箱装",
+        "24 × 320ml",
+        "马来西亚原产"
+      ],
+      "attributes": {
+        "Brand": "Schweppes",
+        "Pack Size": "24 × 320 ml",
+        "Place of Origin": "Malaysia",
+        "Product type": "Soda Water Mixer"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 22.45",
+        "displayedOriginalPrice": "SGD 23.00",
+        "bcrsDeposit": "SGD 2.40, separately displayed from product price",
+        "productRatingCount": "6505",
+        "promotion": "Spend SGD45 + free gift (source campaign only)",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "dataQuality": "可见详情未列成分表、保质期或批次，保持缺失。促销区其他饮料与赠品不属于本商品规格，未混入。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "207beb17-7b09-31e4-a11a-63257dd8446f",
+      "expectedVersion": 2,
+      "description": "Schweppes Soda Water Mixer 苏打水整箱装，24 × 320ml，马来西亚原产。页面另列 SGD 2.40 BCRS 容器押金，作为来源费用独立记录，不加到本平台商品售价中。\n来源规格（待核验）：\nBrand: Schweppes\nPack Size: 24 × 320 ml\nPlace of Origin: Malaysia\nProduct type: Soda Water Mixer\n来源卖点：\n苏打水整箱装\n24 × 320ml\n马来西亚原产\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 22.45\ndisplayedOriginalPrice: SGD 23.00\nbcrsDeposit: SGD 2.40, separately displayed from product price\nproductRatingCount: 6505\npromotion: Spend SGD45 + free gift (source campaign only)\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\ndataQuality: 可见详情未列成分表、保质期或批次，保持缺失。促销区其他饮料与赠品不属于本商品规格，未混入。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:303240968",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i303240968-s536578646.html",
+      "capturedAt": "2026-10-21T09:06:27.263Z",
+      "brand": "Pursoft",
+      "highlights": [
+        "3 层软包装面巾纸",
+        "4 包，每包数量字段 120",
+        "Chocolate Rain Outdoor 图案系列",
+        "来源描述为 100% 原生纸浆"
+      ],
+      "attributes": {
+        "Brand": "Pursoft",
+        "Pack Size (source)": "4 × 120 Per Pack",
+        "Place of Origin": "Malaysia",
+        "Ply (title/description)": "3-Ply",
+        "Packaging": "Soft Pack",
+        "Material (description)": "100% virgin pulp fibers"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 3.65",
+        "displayedOriginalPrice": "SGD 5.34",
+        "productRatingCount": "9839",
+        "promotion": "Spend SGD38 + free gift (source campaign only)",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "dataQuality": "没有明确单张尺寸；促销区卫生卷纸、香型和赠品不属于本商品，未混入规格。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "d06daf5a-a578-3263-a705-b1d0b9fbe165",
+      "expectedVersion": 2,
+      "description": "Pursoft Chocolate Rain Outdoor 系列三层抽取式面巾纸，4 个软包装，每包装数量字段为 120，马来西亚原产。来源描述标注 100% 原生纸浆纤维；未显示单张尺寸。\n来源规格（待核验）：\nBrand: Pursoft\nPack Size (source): 4 × 120 Per Pack\nPlace of Origin: Malaysia\nPly (title/description): 3-Ply\nPackaging: Soft Pack\nMaterial (description): 100% virgin pulp fibers\n来源卖点：\n3 层软包装面巾纸\n4 包，每包数量字段 120\nChocolate Rain Outdoor 图案系列\n来源描述为 100% 原生纸浆\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 3.65\ndisplayedOriginalPrice: SGD 5.34\nproductRatingCount: 9839\npromotion: Spend SGD38 + free gift (source campaign only)\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\ndataQuality: 没有明确单张尺寸；促销区卫生卷纸、香型和赠品不属于本商品，未混入规格。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:1129940124",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i1129940124-s4384466541.html",
+      "capturedAt": "2026-10-21T09:07:32.776Z",
+      "brand": "Danaeg",
+      "highlights": [
+        "10 枚装，页面重量 530g",
+        "丹麦原产",
+        "来源描述蛋托为再生纸"
+      ],
+      "attributes": {
+        "Brand": "Danaeg",
+        "Title count": "10 eggs",
+        "Pack Size": "530 g",
+        "Place of Origin": "Denmark",
+        "Tray material (description)": "Recycled paper"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 13.97",
+        "displayedOriginalPrice": "SGD 17.70",
+        "productRatingCount": "919",
+        "sourceFreshnessGuarantee": "Source page guarantees 13 days freshness from delivery; refund terms belong to RedMart, not NOVA",
+        "promotion": "Spend SGD15 + free gift (source campaign only)",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "dataQuality": "13 days是来源平台到货新鲜度承诺，不是产品完整保质期或当前批次剩余天数。未采入安全性排名等宣传，未验证有机认证。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "fe96036c-2e7d-3763-b538-970f636a87ec",
+      "expectedVersion": 2,
+      "description": "Danaeg 鸡蛋，标题为 Organic Free Range 10 Eggs，10 枚装，页面包装重量 530g，丹麦原产。来源说明蛋托使用再生纸；有机/散养为来源名称与宣传，未独立取得认证。\n来源规格（待核验）：\nBrand: Danaeg\nTitle count: 10 eggs\nPack Size: 530 g\nPlace of Origin: Denmark\nTray material (description): Recycled paper\n来源卖点：\n10 枚装，页面重量 530g\n丹麦原产\n来源描述蛋托为再生纸\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 13.97\ndisplayedOriginalPrice: SGD 17.70\nproductRatingCount: 919\nsourceFreshnessGuarantee: Source page guarantees 13 days freshness from delivery; refund terms belong to RedMart, not NOVA\npromotion: Spend SGD15 + free gift (source campaign only)\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\ndataQuality: 13 days是来源平台到货新鲜度承诺，不是产品完整保质期或当前批次剩余天数。未采入安全性排名等宣传，未验证有机认证。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:301080990",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i301080990-s527102883.html",
+      "capturedAt": "2026-10-21T09:10:14.019Z",
+      "brand": "RedMart",
+      "highlights": [
+        "220g 装",
+        "马来西亚原产",
+        "新鲜叶菜"
+      ],
+      "attributes": {
+        "Brand": "RedMart",
+        "Pack Size": "220 g",
+        "Place of Origin": "Malaysia",
+        "Product title": "RedMart Round Spinach Malaysia 220G"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 0.90",
+        "displayedOriginalPrice": "SGD 1.10",
+        "productRatingCount": "5826",
+        "sourceFreshnessGuarantee": "Source page guarantees 4 days freshness from delivery; refund terms belong to RedMart, not NOVA",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "dataQuality": "4 days为来源到货新鲜度承诺，不作为完整保质期。页面未给出储存温度与当前批次信息，不补造。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "productId": "6cd0229f-056a-3824-b661-dd8d77f173db",
+      "expectedVersion": 0,
+      "description": "RedMart Round Spinach 叶菜，220g 装，马来西亚原产。来源描述可用于汤和炒菜等；页面未给出具体储存温度。\n来源规格（待核验）：\nBrand: RedMart\nPack Size: 220 g\nPlace of Origin: Malaysia\nProduct title: RedMart Round Spinach Malaysia 220G\n来源卖点：\n220g 装\n马来西亚原产\n新鲜叶菜\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 0.90\ndisplayedOriginalPrice: SGD 1.10\nproductRatingCount: 5826\nsourceFreshnessGuarantee: Source page guarantees 4 days freshness from delivery; refund terms belong to RedMart, not NOVA\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\ndataQuality: 4 days为来源到货新鲜度承诺，不作为完整保质期。页面未给出储存温度与当前批次信息，不补造。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 履约、价格、来源认证及售后仅为来源页展示，并非 NOVA 承诺；需商家核验后才能发布。"
+    }
+  ],
+  "limitations": [
+    "Source packaging conflicts are retained for merchant review; SKU quantities and stock are not inferred.",
+    "No reviewer identities or review text imported.",
+    "No new gallery URLs available from the visible interface; existing imagery retained.",
+    "Safari navigated to another window during a focus switch; that affected tab was restored with browser Back, and Safari interaction paused pending a dedicated-browser choice.",
+    "User approved switching to independent in-app browser after Safari focus conflict. Automatic full snapshots timed out; direct read-only visible DOM succeeded without reloading the first page.",
+    "Malaysia MamyPoko L44 page encountered visible reCAPTCHA; no details imported and no same-market retry.",
+    "Product ingredient/allergen and packaging inconsistencies are retained with explicit review notes. Source freshness guarantees, deposits, promotions and fulfillment are not NOVA promises."
+  ],
+  "verification": {
+    "state": "LIVE_API_AND_DATABASE_READBACK_PASSED",
+    "newDetailsSaved": 8,
+    "totalImportedProducts": 57,
+    "totalProductsWithDetails": 14,
+    "remainingWithoutDetails": 43,
+    "allProductsRemainDrafts": true,
+    "enabledImportedSkus": 0,
+    "commercialFieldsUnchanged": true,
+    "existingImagesTitlesAndSourceUrlsUnchanged": true,
+    "adminApiReadHttpStatus": 200,
+    "allEightAdminBrandAndDescriptionsMatch": true,
+    "allEightPublicDraftReadHttpStatus": 404,
+    "versionsAfterSave": {
+      "SG:284979180": 1,
+      "SG:284987206": 2,
+      "SG:111650098": 5,
+      "SG:304330101": 3,
+      "SG:318542777": 3,
+      "SG:303240968": 3,
+      "SG:1129940124": 3,
+      "SG:301080990": 1
+    },
+    "independentAudit": "PASSED: compared complete 57-product/57-SKU snapshots captured before and after this batch. Exactly the eight targeted records changed only brand, description, source_detail_payload, version and updated_at. All product titles/subtitles, full SKU objects, prices, stock, enabled state, merchant/category/status/currency, images and complete homepage payloads were unchanged. The six pre-existing detailed products and challenged MY:217775384 were unchanged. All eight evidence records matched every persisted detail field; all 57 Lazada admin API records matched the database. No products added or removed.",
+    "unitTestNote": "Data-only batch; no application code changes. Performed live API and database checks; did not rerun prior unit suite."
+  },
+  "browserFailures": [
+    {
+      "externalId": "MY:217775384",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i217775384-s275839817.html",
+      "state": "RECAPTCHA_VISIBLE",
+      "wroteDetails": false,
+      "action": "Stopped; no solve or retry; same-market next candidate not attempted"
+    }
+  ]
+}
