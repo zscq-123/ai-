@@ -19,7 +19,7 @@ import {
 } from 'antd'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
-import { commerceApi, type ProductSummary } from '../../shared/api/commerceApi'
+import { commerceApi, productMediaUrl, productMoney, type ProductSummary } from '../../shared/api/commerceApi'
 import styles from './productEditor.module.css'
 
 type ProductDraft = {
@@ -67,6 +67,8 @@ export function ProductEditorPage() {
   const [products, setProducts] = useState<ProductSummary[]>([])
   const [productId, setProductId] = useState('')
   const [productVersion, setProductVersion] = useState(0)
+  const [currency, setCurrency] = useState('CNY')
+  const [productStatus, setProductStatus] = useState('DRAFT')
   const [categoryId, setCategoryId] = useState('')
   const [skuTitle, setSkuTitle] = useState('')
   const [storeName, setStoreName] = useState('')
@@ -93,6 +95,9 @@ export function ProductEditorPage() {
     }
     setProductId(product.id)
     setProductVersion(product.version)
+    setCurrency(product.currency ?? 'CNY')
+    setProductStatus(product.status)
+    setImages(product.coverImageUrl ? [productMediaUrl(product.coverImageUrl)] : [])
     setCategoryId(product.categoryId ?? '')
     setSkuTitle(product.skuTitle)
     setStoreName(product.merchantName)
@@ -158,7 +163,7 @@ export function ProductEditorPage() {
           <Typography.Text type="secondary">商品中心 / 商品列表 / 编辑商品</Typography.Text>
           <div className={styles.titleLine}>
             <Typography.Title level={2}>编辑商品</Typography.Title>
-            <Tag color="blue">在售</Tag>
+            <Tag color={productStatus === 'ACTIVE' ? 'success' : 'default'}>{({ ACTIVE: '在售', DRAFT: '草稿', PENDING_REVIEW: '待审核', ARCHIVED: '已归档' } as Record<string, string>)[productStatus] ?? productStatus}</Tag>
           </div>
         </div>
         <div className={styles.headerMeta}>
@@ -253,7 +258,7 @@ export function ProductEditorPage() {
               columns={[
                 { title: '规格', dataIndex: 'specification' },
                 { title: '商家 SKU', render: () => <Input value={draft.sellerSku} onChange={(event) => update('sellerSku', event.target.value)} /> },
-                { title: '售价', render: () => <InputNumber min={0} prefix="¥" value={draft.price} onChange={(value) => update('price', value ?? 0)} /> },
+                { title: `售价（${currency}）`, render: () => <InputNumber min={0} value={draft.price} onChange={(value) => update('price', value ?? 0)} /> },
                 { title: '库存', render: () => <InputNumber min={0} value={draft.stock} onChange={(value) => update('stock', value ?? 0)} /> },
               ]}
             />
@@ -291,11 +296,11 @@ export function ProductEditorPage() {
               <div className={styles.phoneBar}><span>‹</span><b>商品详情</b><span>•••</span></div>
               <div className={styles.cover}><img src={cover} alt="商品封面预览" /><span>1/{Math.max(images.length, 1)}</span></div>
               <div className={styles.previewBody}>
-                <div className={styles.previewPrice}><b>¥{draft.price.toLocaleString()}</b><del>¥{draft.marketPrice.toLocaleString()}</del></div>
+                <div className={styles.previewPrice}><b>{productMoney(draft.price, currency)}</b>{draft.marketPrice > draft.price && <del>{productMoney(draft.marketPrice, currency)}</del>}</div>
                 <h3>{draft.name || '请输入商品名称'}</h3>
                 <p>{draft.subtitle || '补充商品卖点，帮助买家快速了解商品。'}</p>
-                <div className={styles.deliveryLine}><span>✓ 企业质保</span><span>次日发货</span><span>开具发票</span></div>
-                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store-red.png" alt="" /><div><b>{storeName}</b><small>数据库认证商家</small></div><Button size="small">进店</Button></div>
+                <div className={styles.deliveryLine}><span>履约与售后信息需商家确认</span></div>
+                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store-red.png" alt="" /><div><b>{storeName}</b><small>商品归属记录</small></div></div>
               </div>
               <div className={styles.previewActions}><button>客服</button><button>加入采购单</button><button>立即采购</button></div>
             </div>

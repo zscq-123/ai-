@@ -1,7 +1,9 @@
-import { Alert, Button, Card, Empty, Progress, Space, Statistic, Table, Tag, Typography } from 'antd'
+import { Alert, Button, Card, Empty, Image, Progress, Space, Statistic, Table, Tag, Typography } from 'antd'
 import { useCallback, useEffect, useState } from 'react'
 import {
   commerceApi,
+  productMediaUrl,
+  productMoney,
   type CustomerSummary,
   type OrderSummary,
   type ProductSummary,
@@ -46,15 +48,21 @@ export function OrdersPage() {
   ]} /></Card></div>
 }
 
+function ProductThumbnail({ src, name }: { src: string; name: string }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) return <span role="status" aria-label={`${name}：源图片暂不可用`} style={{ display: 'grid', placeContent: 'center', width: 64, height: 64, flexShrink: 0, background: '#f5f5f7', color: '#666', fontSize: 12, textAlign: 'center', borderRadius: 6 }}>图片<br />暂不可用</span>
+  return <Image width={64} height={64} style={{ objectFit: 'contain' }} src={src} alt={name} onError={() => setFailed(true)} />
+}
+
 export function ProductsPage({ onEdit }: { onEdit: () => void }) {
   const state = useRemote(commerceApi.products)
-  return <div><PageHeader title="商品中心" description="商品、价格和库存来自商城商品库，不再使用页面内演示数据。" /><ErrorBanner error={state.error} reload={() => void state.load()} /><Card extra={<Button type="primary" onClick={onEdit} disabled={!state.data?.length}>编辑首个商品</Button>}><Table<ProductSummary> rowKey="id" loading={state.loading} dataSource={state.data ?? []} locale={{ emptyText: <Empty description="数据库中暂无商品" /> }} columns={[
-    { title: '商品', render: (_, row) => <div><b>{row.name}</b><br/><Typography.Text type="secondary">{row.skuCode} · {row.skuTitle}</Typography.Text></div> },
-    { title: '店铺', dataIndex: 'merchantName' },
+  return <div><PageHeader title="商品中心" description="商品、图片和原币种价格来自数据库。采集商品先保存为草稿，不代表已入驻、已授权或已上架。" /><ErrorBanner error={state.error} reload={() => void state.load()} /><Card extra={<Space><Button onClick={() => void state.load()} loading={state.loading}>刷新商品</Button><Button type="primary" onClick={onEdit} disabled={!state.data?.length}>编辑首个商品</Button></Space>}><Table<ProductSummary> rowKey="id" loading={state.loading} dataSource={state.data ?? []} scroll={{ x: 1100 }} pagination={{ defaultPageSize: 10, showTotal: (total) => `共 ${total} 件商品` }} locale={{ emptyText: <Empty description="数据库中暂无商品" /> }} columns={[
+    { title: '商品', width: 360, render: (_, row) => <Space align="start">{row.coverImageUrl && <ProductThumbnail key={row.coverImageUrl} src={productMediaUrl(row.coverImageUrl)} name={row.name} />}<div style={{ overflowWrap: 'anywhere' }}><b>{row.name}</b><br/><Typography.Text type="secondary">{row.skuCode}</Typography.Text></div></Space> },
+    { title: '店铺', dataIndex: 'merchantName', filters: [...new Set((state.data ?? []).map((item) => item.merchantName))].map((name) => ({ text: name, value: name })), onFilter: (value, row) => row.merchantName === value },
     { title: '类目', dataIndex: 'categoryName', render: (value: string | null) => value ?? '未分类' },
-    { title: '售价', dataIndex: 'salePrice', render: money },
+    { title: '售价', dataIndex: 'salePrice', render: (value: number, row) => <span style={{ whiteSpace: 'nowrap' }}>{productMoney(value, row.currency)}</span> },
     { title: '库存', dataIndex: 'availableStock' },
-    { title: '状态', dataIndex: 'status', render: (value: string) => <Tag color={value === 'ACTIVE' ? 'success' : 'default'}>{statusLabel(value)}</Tag> },
+    { title: '状态', dataIndex: 'status', filters: [{ text: '草稿', value: 'DRAFT' }, { text: '在售', value: 'ACTIVE' }, { text: '待审核', value: 'PENDING_REVIEW' }], onFilter: (value, row) => row.status === value, render: (value: string) => <Tag color={value === 'ACTIVE' ? 'success' : 'default'}>{statusLabel(value)}</Tag> },
     { title: '更新时间', dataIndex: 'updatedAt', render: dateTime },
   ]} /></Card></div>
 }

@@ -22,6 +22,10 @@ final class LazadaPageParser {
     private static final Pattern JSON_LD = Pattern.compile(
             "<script[^>]*type=[\"']application/ld\\+json[\"'][^>]*>(.*?)</script>",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+    private static final Pattern DOT_GROUPED_PRICE = Pattern.compile(
+            "(?:[0-9]+|[1-9][0-9]{0,2}(?:\\.[0-9]{3})+)(?:,[0-9]{1,2})?");
+    private static final Pattern COMMA_GROUPED_PRICE = Pattern.compile(
+            "(?:[0-9]+|[1-9][0-9]{0,2}(?:,[0-9]{3})+)(?:\\.[0-9]{1,2})?");
 
     private LazadaPageParser() {}
 
@@ -59,10 +63,13 @@ final class LazadaPageParser {
             try { productUrl = LazadaUrl.validate(page.resolve(rawUrl).toString()); }
             catch (IllegalArgumentException ignored) { return; }
             if ("/".equals(productUrl.getPath()) || !LazadaUrl.market(page).equals(LazadaUrl.market(productUrl))) return;
-            BigDecimal price = decimal(node, "itemDiscountPrice");
-            if (price == null) price = decimal(node, "itemPrice");
+            String market = LazadaUrl.market(productUrl);
+            JsonNode discount = node.get("itemDiscountPrice");
+            // An explicitly malformed sale price must not silently become the original price.
+            String saleField = discount == null || discount.isNull() ? "itemPrice" : "itemDiscountPrice";
+            BigDecimal price = homepagePrice(node, saleField, market);
             if (price == null || price.signum() < 0) return;
-            BigDecimal originalPrice = decimal(node, "itemPrice");
+            BigDecimal originalPrice = homepagePrice(node, "itemPrice", market);
             if (originalPrice != null && originalPrice.compareTo(price) < 0) originalPrice = null;
             String currency = LazadaUrl.currency(productUrl);
             String declaredCurrency = text(node, "currency");
@@ -152,6 +159,19 @@ final class LazadaPageParser {
         String value = text(node, field);
         try { return value == null ? null : new BigDecimal(value); }
         catch (NumberFormatException ignored) { return null; }
+    }
+    private static BigDecimal homepagePrice(JsonNode node, String field, String market) {
+        JsonNode value = node == null ? null : node.get(field);
+        if (value == null || value.isNull()) return null;
+        // JSON numbers are machine values even when their printed form contains a decimal point.
+        if (value.isNumber()) return value.decimalValue();
+        if (!value.isTextual()) return null;
+        String display = value.asText().trim();
+        boolean dotGrouping = "ID".equals(market) || "VN".equals(market);
+        Pattern format = dotGrouping ? DOT_GROUPED_PRICE : COMMA_GROUPED_PRICE;
+        if (!format.matcher(display).matches()) return null;
+        String normalized = dotGrouping ? display.replace(".", "").replace(',', '.') : display.replace(",", "");
+        return new BigDecimal(normalized);
     }
     private static int nonNegativeInt(JsonNode node, String field) {
         BigDecimal value = decimal(node, field);

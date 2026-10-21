@@ -1,0 +1,223 @@
+{
+  "date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "provider": "LAZADA_DIRECT",
+  "method": "Public homepage HTML embedded window.__FIRST_SCREEN_DATA; no Bright Data, private API, login or CAPTCHA bypass",
+  "destination": "Local NOVA PostgreSQL commerce database",
+  "before": 3,
+  "createdThisRun": 52,
+  "after": 55,
+  "automaticPublication": false,
+  "markets": [
+    {
+      "market": "SG",
+      "currency": "SGD",
+      "source": "https://www.lazada.sg/",
+      "total": 14
+    },
+    {
+      "market": "MY",
+      "currency": "MYR",
+      "source": "https://www.lazada.com.my/",
+      "total": 7
+    },
+    {
+      "market": "TH",
+      "currency": "THB",
+      "source": "https://www.lazada.co.th/",
+      "total": 7
+    },
+    {
+      "market": "VN",
+      "currency": "VND",
+      "source": "https://www.lazada.vn/",
+      "total": 9
+    },
+    {
+      "market": "PH",
+      "currency": "PHP",
+      "source": "https://www.lazada.com.ph/",
+      "total": 9
+    },
+    {
+      "market": "ID",
+      "currency": "IDR",
+      "source": "https://www.lazada.co.id/",
+      "total": 9
+    }
+  ],
+  "rounds": [
+    {
+      "phase": "Initial bounded collection",
+      "startedAt": "2026-10-21T05:16:35.113892Z",
+      "completedAt": "2026-10-21T05:17:05.916179Z",
+      "created": 38,
+      "updated": 2
+    },
+    {
+      "phase": "Rerun after locale price parser correction",
+      "limitPerHomepage": 20,
+      "results": [
+        {
+          "market": "SG",
+          "httpStatus": 200,
+          "received": 11,
+          "created": 2,
+          "updated": 9,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:15.873204Z"
+        },
+        {
+          "market": "MY",
+          "httpStatus": 200,
+          "received": 7,
+          "created": 1,
+          "updated": 6,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:18.203848Z"
+        },
+        {
+          "market": "TH",
+          "httpStatus": 200,
+          "received": 7,
+          "created": 4,
+          "updated": 3,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:19.531523Z"
+        },
+        {
+          "market": "VN",
+          "httpStatus": 200,
+          "received": 7,
+          "created": 2,
+          "updated": 5,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:21.581042Z"
+        },
+        {
+          "market": "PH",
+          "httpStatus": 200,
+          "received": 7,
+          "created": 3,
+          "updated": 4,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:22.990455Z"
+        },
+        {
+          "market": "ID",
+          "httpStatus": 200,
+          "received": 7,
+          "created": 2,
+          "updated": 5,
+          "skipped": 0,
+          "completedAt": "2026-10-21T05:22:24.606606Z"
+        }
+      ]
+    }
+  ],
+  "priceCorrection": {
+    "cause": "ID/VN dot grouping was treated as decimal; comma-grouped prices in other markets were omitted",
+    "storedDraftRowsCorrectedBeforeRerun": 16,
+    "salePriceCorrections": 14,
+    "marketPriceOnlyCorrections": 2,
+    "scope": "Unmodified DRAFT rows from the initial collection; source payload preserved",
+    "parserRules": "ID/VN textual prices use dot grouping; SG/MY/TH/PH textual prices use comma grouping; JSON numeric values and JSON-LD retain numeric semantics"
+  },
+  "verification": {
+    "drafts": 55,
+    "enabledImportedSkus": 0,
+    "withSourceImageUrls": 55,
+    "withSourceUrlsAndRawRecords": 55,
+    "unclassified": 55,
+    "pendingMerchantProducts": 55,
+    "duplicateExternalKeys": 0,
+    "storedPriceMismatchesAgainstRawSource": 0,
+    "publicCatalogCount": 6,
+    "importedDraftPublicDetailHttpStatus": 404,
+    "backendHealth": "UP",
+    "backendTargetedTests": 62,
+    "backendTestFailures": 0,
+    "adminTypecheck": "passed",
+    "adminLint": "passed",
+    "adminBuild": "passed",
+    "browser": "Product center displays imported products, original currency prices and DRAFT labels",
+    "browserFirstPageImages": {
+      "inspected": 10,
+      "loaded": 9,
+      "notLoaded": [
+        "ID:702166030"
+      ],
+      "note": "Source image HEAD returned 200; browser image decoding/loading failed on this observation. Not replaced with an invented image."
+    }
+  },
+  "limitations": [
+    "Homepage feed is a bounded sample, not the complete Lazada catalog.",
+    "Images remain original source URLs, not copied to local media storage.",
+    "External merchant placeholders are not verified or authorized merchants.",
+    "Categories, full descriptions, shipping/tax, inventory freshness and permission to publish still require review.",
+    "Source prices are captured campaign values in original currency, not CNY or a guaranteed checkout price."
+  ],
+  "databaseSnapshot": {
+    "total": 55,
+    "drafts": 55,
+    "sourceKeys": [
+      "ID:160023066",
+      "ID:160042394",
+      "ID:363222118",
+      "ID:380747939",
+      "ID:519740590",
+      "ID:519740620",
+      "ID:519754134",
+      "ID:672412023",
+      "ID:702166030",
+      "MY:217744271",
+      "MY:217775384",
+      "MY:339139970",
+      "MY:385723405",
+      "MY:440695503",
+      "MY:467052361",
+      "MY:493946824",
+      "PH:110170463",
+      "PH:226229744",
+      "PH:265593315",
+      "PH:265605296",
+      "PH:275716602",
+      "PH:314626415",
+      "PH:372630942",
+      "PH:374942449",
+      "PH:383624861",
+      "SG:111650098",
+      "SG:1129940124",
+      "SG:128150790",
+      "SG:128486329",
+      "SG:142276423",
+      "SG:143770428",
+      "SG:158603405",
+      "SG:284979180",
+      "SG:284987206",
+      "SG:301078910",
+      "SG:301080990",
+      "SG:303240968",
+      "SG:304330101",
+      "SG:318542777",
+      "TH:219265362",
+      "TH:231914330",
+      "TH:328650630",
+      "TH:329010093",
+      "TH:358044241",
+      "TH:372374419",
+      "TH:424186929",
+      "VN:100325375",
+      "VN:1216340",
+      "VN:167899170",
+      "VN:167905952",
+      "VN:205300436",
+      "VN:206184112",
+      "VN:247496204",
+      "VN:2736345",
+      "VN:2756708"
+    ],
+    "latestSourceFetch": "2026-10-21T05:22:24.583565Z",
+    "earliestSourceFetch": "2026-10-21T05:16:35.038300Z"
+  }
+}

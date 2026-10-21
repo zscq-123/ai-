@@ -9,7 +9,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export type Merchant = { id: string; legalName: string; storeName: string; contactName: string; contactPhone: string; businessLicenseNo: string; status: 'PENDING_REVIEW' | 'ACTIVE' | 'REJECTED' | 'SUSPENDED'; createdAt: string }
 export type OrderSummary = { id: string; orderNo: string; customerId: string; customerName: string; customerEmail: string | null; totalAmount: number; status: string; createdAt: string }
-export type ProductSummary = { id: string; version: number; name: string; subtitle: string | null; brand: string | null; description: string | null; weightKg: number | null; status: string; merchantName: string; categoryName: string | null; categoryId: string | null; skuCode: string; skuTitle: string; salePrice: number; marketPrice: number | null; availableStock: number; updatedAt: string }
+export type ProductSummary = { id: string; version: number; name: string; subtitle: string | null; brand: string | null; description: string | null; weightKg: number | null; status: string; merchantName: string; categoryName: string | null; categoryId: string | null; skuCode: string; skuTitle: string; salePrice: number; marketPrice: number | null; availableStock: number; updatedAt: string; currency: string; coverImageUrl: string | null }
+
+export const productMoney = (value: number, currency = 'CNY') => new Intl.NumberFormat('zh-CN', { style: 'currency', currency, currencyDisplay: 'code' }).format(value)
+export const productMediaUrl = (value: string) => value.startsWith('/api/public/') ? `${baseUrl}${value}` : value
 export type UpdatedProduct = { id: string; version: number }
 export type CustomerSummary = { id: string; displayName: string; email: string; status: string; createdAt: string; lastLoginAt: string | null; orderCount: number; totalSpend: number }
 export type RevenuePoint = { bucket: string; amount: number }
