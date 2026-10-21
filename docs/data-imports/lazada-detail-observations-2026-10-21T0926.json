@@ -1,0 +1,629 @@
+{
+  "method": "User-approved independent in-app browser; read-only visible DOM from ten product detail pages. Human completed Vietnam challenge; agent did not solve or bypass it.",
+  "provider": "BROWSER_VISIBLE_DETAIL",
+  "records": [
+    {
+      "externalId": "SG:128150790",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i128150790-s633018247.html",
+      "capturedAt": "2026-10-21T09:14:54.842Z",
+      "brand": "M·A·C",
+      "highlights": [
+        "棒状哑光唇膏",
+        "全尺寸",
+        "来源规格为加拿大制造、非防水"
+      ],
+      "attributes": {
+        "Brand": "M·A·C",
+        "SKU": "128150790_SGAMZ-633018247",
+        "Waterproof": "Non-Waterproof",
+        "Lips Makeup Benefits": "Long-Wear",
+        "Makeup Benefits": "High Pigmentation,Long-Wear",
+        "Ingredient Preference (conflicting source)": "Fragrance-free",
+        "Finish": "Matte",
+        "Model": "MATTE",
+        "Country of Manufacture": "Canada",
+        "Volume (ml, source field)": "3",
+        "Product Form": "Stick"
+      },
+      "options": {
+        "Color": [
+          "CHILLI",
+          "DIVA",
+          "WARM TEDDY",
+          "MARRAKESH",
+          "RUSSIAN RED",
+          "TAUPE",
+          "NO CORAL-ATION",
+          "OVERSTATEMENT",
+          "LADY DANGER",
+          "MULL IT TO THE MAX",
+          "LIPSTICK SNOB",
+          "GO RETRO",
+          "CAPTIVE AUDIENCE",
+          "TWIG TWIST",
+          "RED ROCK",
+          "SUGAR DADA",
+          "CAFÉ MOCHA",
+          "HONEY LOVE",
+          "KINDA SEXY",
+          "VELVET TEDDY",
+          "RUBY WOO",
+          "AVANT GARNET",
+          "ANTIQUE VELVET",
+          "D FOR DANGER",
+          "WHIRL",
+          "MEHR",
+          "CANDY YUM YUM",
+          "SIN",
+          "YOU WOULDNT GET IT",
+          "SOAR",
+          "GET THE HINT?",
+          "RING THE ALARM",
+          "SWEET DEAL",
+          "FOREVER CURIOUS",
+          "BARE M·A·CXIMAL",
+          "FOLIO",
+          "Cool Teddy",
+          "Acting Natural",
+          "Iconic Photo",
+          "YASH",
+          "BAREFOOT",
+          "JUICED RASPBERRY",
+          "WHIRL LIMITED ED"
+        ]
+      },
+      "sellerName": "MAC",
+      "observations": {
+        "displayedPrice": "SGD 41.00",
+        "displayedOriginalPrice": "SGD 42.00",
+        "selectedColor": "RED ROCK",
+        "productRating": "4.9 (1365)",
+        "sellerRating": "97%",
+        "promotion": "Buy 2 get25% off; Buy3 get30% off (source campaign)",
+        "shipping": "Source displayed free standard delivery; spend SGD40 on MAC threshold; guaranteed by24 Oct",
+        "returnWarranty": "30 Days Free Return; Warranty not available",
+        "dataQuality": "Fragrance-free与正文vanilla scent冲突；Volume字段原值3ml，不擅自改成3g。Qualification仅显示SG_HSA且无License Code，不能视为已核验资质。颜色只记录可见选项，未点击逐款核价或建SKU。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "4c9af190-abda-34e6-9e90-2a97b54cf7d6",
+      "expectedVersion": 3,
+      "description": "MAC Macximal Silky Matte 棒状哑光唇膏，页面当前选中色号 RED ROCK。来源规格显示加拿大制造、非防水；卖点描述为全尺寸和高显色。规格栏“Fragrance-free”与正文的香草香味说明冲突，保留待核实，未认定无香。\n来源规格（原值，待核验）：\nBrand: M·A·C\nSKU: 128150790_SGAMZ-633018247\nWaterproof: Non-Waterproof\nLips Makeup Benefits: Long-Wear\nMakeup Benefits: High Pigmentation,Long-Wear\nIngredient Preference (conflicting source): Fragrance-free\nFinish: Matte\nModel: MATTE\nCountry of Manufacture: Canada\nVolume (ml, source field): 3\nProduct Form: Stick\n来源卖点：\n棒状哑光唇膏\n全尺寸\n来源规格为加拿大制造、非防水\n来源选项（不代表库存或逐款价格）：\nColor: CHILLI / DIVA / WARM TEDDY / MARRAKESH / RUSSIAN RED / TAUPE / NO CORAL-ATION / OVERSTATEMENT / LADY DANGER / MULL IT TO THE MAX / LIPSTICK SNOB / GO RETRO / CAPTIVE AUDIENCE / TWIG TWIST / RED ROCK / SUGAR DADA / CAFÉ MOCHA / HONEY LOVE / KINDA SEXY / VELVET TEDDY / RUBY WOO / AVANT GARNET / ANTIQUE VELVET / D FOR DANGER / WHIRL / MEHR / CANDY YUM YUM / SIN / YOU WOULDNT GET IT / SOAR / GET THE HINT? / RING THE ALARM / SWEET DEAL / FOREVER CURIOUS / BARE M·A·CXIMAL / FOLIO / Cool Teddy / Acting Natural / Iconic Photo / YASH / BAREFOOT / JUICED RASPBERRY / WHIRL LIMITED ED\n来源店铺：MAC\n来源观察记录（非本平台承诺）：\ndisplayedPrice: SGD 41.00\ndisplayedOriginalPrice: SGD 42.00\nselectedColor: RED ROCK\nproductRating: 4.9 (1365)\nsellerRating: 97%\npromotion: Buy 2 get25% off; Buy3 get30% off (source campaign)\nshipping: Source displayed free standard delivery; spend SGD40 on MAC threshold; guaranteed by24 Oct\nreturnWarranty: 30 Days Free Return; Warranty not available\ndataQuality: Fragrance-free与正文vanilla scent冲突；Volume字段原值3ml，不擅自改成3g。Qualification仅显示SG_HSA且无License Code，不能视为已核验资质。颜色只记录可见选项，未点击逐款核价或建SKU。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "SG:128486329",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i128486329-s22757422803.html",
+      "capturedAt": "2026-10-21T09:16:19.252Z",
+      "brand": "M·A·C",
+      "highlights": [
+        "粉底与定妆二合一",
+        "压制粉饼、哑光妆效",
+        "中至全遮盖",
+        "来源描述为可替换芯包装"
+      ],
+      "attributes": {
+        "Brand": "M·A·C",
+        "SKU": "128486329_SGAMZ-22757422803",
+        "Waterproof": "Non-Waterproof",
+        "Makeup Benefits": "Long-Wear,Oil Control",
+        "Ingredient Preference": "Mineral,Paraben-Free",
+        "Skin Type (source field)": "Normal,Dry,Oily,Combination,Sensitive,All Types",
+        "Finish": "Matte",
+        "SPF (source field)": "0-10 SPF",
+        "Model": "STUDIO FIX POWDER PLUS FOUNDATION",
+        "Country of Manufacture": "Canada",
+        "Face Makeup Coverage": "Medium,Full",
+        "Product Form": "Pressed Powder"
+      },
+      "options": {
+        "Color": [
+          "N5",
+          "N4.5",
+          "C5.5",
+          "C5",
+          "N4",
+          "C40",
+          "NC13",
+          "NC12",
+          "NC16",
+          "NC15",
+          "NC10",
+          "NC40",
+          "NC35",
+          "NC44",
+          "NC42",
+          "NC25",
+          "NC20",
+          "NC30",
+          "NC27",
+          "NW13",
+          "NW10",
+          "NW20",
+          "NW15",
+          "NC45",
+          "NC44.5",
+          "NC55",
+          "NC50",
+          "C3.5",
+          "NW45",
+          "C4.5",
+          "C4",
+          "NW30",
+          "NW25",
+          "NW43",
+          "NW40",
+          "C3",
+          "C6",
+          "C30"
+        ]
+      },
+      "sellerName": "MAC",
+      "observations": {
+        "displayedPrice": "SGD 63.90",
+        "displayedOriginalPrice": "SGD 72.00",
+        "selectedColor": "NW15",
+        "productRating": "4.9 (1727)",
+        "sellerRating": "97%",
+        "shipping": "Source displayed free standard delivery; spend SGD40 on MAC threshold; guaranteed by24 Oct",
+        "returnWarranty": "30 Days Free Return; Warranty not available",
+        "dataQuality": "标题35 Shades、正文78 shades、当前可见38个去重选项，分别保留，不宣称均有库存。SPF为宽泛源字段，不据此作防晒承诺。SG_HSA未给License Code，资质未核实。未显示净含量，不补造。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "a0573863-d0c3-3023-b83b-57ac7fde94da",
+      "expectedVersion": 4,
+      "description": "MAC Studio Fix Powder Plus Foundation 压制粉饼，粉底与定妆二合一，哑光妆效，中至全遮盖。来源规格为加拿大制造、非防水，当前选中色号 NW15。正文称包装可替换芯，但不代表本链接额外附赠替换芯。\n来源规格（原值，待核验）：\nBrand: M·A·C\nSKU: 128486329_SGAMZ-22757422803\nWaterproof: Non-Waterproof\nMakeup Benefits: Long-Wear,Oil Control\nIngredient Preference: Mineral,Paraben-Free\nSkin Type (source field): Normal,Dry,Oily,Combination,Sensitive,All Types\nFinish: Matte\nSPF (source field): 0-10 SPF\nModel: STUDIO FIX POWDER PLUS FOUNDATION\nCountry of Manufacture: Canada\nFace Makeup Coverage: Medium,Full\nProduct Form: Pressed Powder\n来源卖点：\n粉底与定妆二合一\n压制粉饼、哑光妆效\n中至全遮盖\n来源描述为可替换芯包装\n来源选项（不代表库存或逐款价格）：\nColor: N5 / N4.5 / C5.5 / C5 / N4 / C40 / NC13 / NC12 / NC16 / NC15 / NC10 / NC40 / NC35 / NC44 / NC42 / NC25 / NC20 / NC30 / NC27 / NW13 / NW10 / NW20 / NW15 / NC45 / NC44.5 / NC55 / NC50 / C3.5 / NW45 / C4.5 / C4 / NW30 / NW25 / NW43 / NW40 / C3 / C6 / C30\n来源店铺：MAC\n来源观察记录（非本平台承诺）：\ndisplayedPrice: SGD 63.90\ndisplayedOriginalPrice: SGD 72.00\nselectedColor: NW15\nproductRating: 4.9 (1727)\nsellerRating: 97%\nshipping: Source displayed free standard delivery; spend SGD40 on MAC threshold; guaranteed by24 Oct\nreturnWarranty: 30 Days Free Return; Warranty not available\ndataQuality: 标题35 Shades、正文78 shades、当前可见38个去重选项，分别保留，不宣称均有库存。SPF为宽泛源字段，不据此作防晒承诺。SG_HSA未给License Code，资质未核实。未显示净含量，不补造。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "SG:142276423",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i142276423-s13112096860.html",
+      "capturedAt": "2026-10-21T09:17:35.580Z",
+      "brand": "Optimum Nutrition",
+      "highlights": [
+        "乳清蛋白粉",
+        "单件包装",
+        "来源包装内容为 1 件"
+      ],
+      "attributes": {
+        "Brand": "Optimum Nutrition",
+        "SKU": "142276423_SGAMZ-13112096860",
+        "Unit Metric": "Per Pack",
+        "Pack Type": "Single Item",
+        "Net Content": "5 lbs",
+        "Primary Packaging Type (source)": "Metal Bottles",
+        "Ingredients (source abbreviated field)": "Whey Protein,Protein",
+        "Recommended User (source)": "Adults",
+        "Product Form": "Powders",
+        "Model": "1031668",
+        "Box contents (source)": "1 x Optimum Nutrition 100% Whey Gold Standard 2.2kg"
+      },
+      "options": {
+        "Flavor Nutrition": [
+          "Salted Caramel",
+          "DoubleRich Chocolate",
+          "Banana Cream",
+          "Vanilla Ice Cream",
+          "Extreme Milk Choco",
+          "French Vanilla Creme",
+          "Mocha Cappucino",
+          "Cookies & Cream",
+          "Choco Peanut Butter"
+        ]
+      },
+      "sellerName": "Optimum Nutrition",
+      "observations": {
+        "displayedPrice": "SGD 184.86",
+        "displayedOriginalPrice": "SGD 205.40",
+        "selectedFlavor": "Extreme Milk Choco",
+        "productRating": "4.9 (4611)",
+        "sellerRating": "97%",
+        "shipping": "Source displayed free standard delivery; spendSGD65 on Optimum Nutrition threshold; guaranteed by24 Oct",
+        "returnWarranty": "30 Days Free Return; Warranty not available",
+        "dataQuality": "5lbs与2.2kg分别为源页字段；标题口味和当前选中口味不同，不擅自合并。配料字段明显简略，不能作为完整成分表。License Type=SG_HSA但License Code空白，不认定资质已核验。未采入营销中的用量及功效承诺。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "cd505ce9-99b0-3cfa-9ca1-43d8116a0ae7",
+      "expectedVersion": 1,
+      "description": "Optimum Nutrition Gold Standard 100% Whey 乳清蛋白粉。来源净含量写 5 lbs，包装内容另写 2.2kg；标题为 Double Rich Chocolate，但当前选项是 Extreme Milk Choco，因此口味及计价单位需核实。仅采集商品标签信息，不提供使用或营养功效建议。\n来源规格（原值，待核验）：\nBrand: Optimum Nutrition\nSKU: 142276423_SGAMZ-13112096860\nUnit Metric: Per Pack\nPack Type: Single Item\nNet Content: 5 lbs\nPrimary Packaging Type (source): Metal Bottles\nIngredients (source abbreviated field): Whey Protein,Protein\nRecommended User (source): Adults\nProduct Form: Powders\nModel: 1031668\nBox contents (source): 1 x Optimum Nutrition 100% Whey Gold Standard 2.2kg\n来源卖点：\n乳清蛋白粉\n单件包装\n来源包装内容为 1 件\n来源选项（不代表库存或逐款价格）：\nFlavor Nutrition: Salted Caramel / DoubleRich Chocolate / Banana Cream / Vanilla Ice Cream / Extreme Milk Choco / French Vanilla Creme / Mocha Cappucino / Cookies & Cream / Choco Peanut Butter\n来源店铺：Optimum Nutrition\n来源观察记录（非本平台承诺）：\ndisplayedPrice: SGD 184.86\ndisplayedOriginalPrice: SGD 205.40\nselectedFlavor: Extreme Milk Choco\nproductRating: 4.9 (4611)\nsellerRating: 97%\nshipping: Source displayed free standard delivery; spendSGD65 on Optimum Nutrition threshold; guaranteed by24 Oct\nreturnWarranty: 30 Days Free Return; Warranty not available\ndataQuality: 5lbs与2.2kg分别为源页字段；标题口味和当前选中口味不同，不擅自合并。配料字段明显简略，不能作为完整成分表。License Type=SG_HSA但License Code空白，不认定资质已核验。未采入营销中的用量及功效承诺。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "SG:158603405",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i158603405-s13112223383.html",
+      "capturedAt": "2026-10-21T09:18:17.014Z",
+      "brand": "Optimum Nutrition",
+      "highlights": [
+        "乳清蛋白粉",
+        "来源净含量 10 lbs",
+        "单件包装"
+      ],
+      "attributes": {
+        "Brand": "Optimum Nutrition",
+        "SKU": "158603405_SGAMZ-13112223383",
+        "Unit Metric": "Pcs",
+        "Pack Type": "Single Item",
+        "Net Content": "10 lbs",
+        "Primary Packaging Type (source)": "Plastic Bottles",
+        "Ingredients (source abbreviated field)": "Whey Protein",
+        "Recommended User (source)": "Adults",
+        "Product Form": "Powders",
+        "Model": "1068902",
+        "Box contents (source)": "1 x ON 100% WHEY GOLD GF 10LB"
+      },
+      "options": {
+        "Flavor Nutrition": [
+          "Rich Chocolate",
+          "Extreme Milk Choco",
+          "Vanilla Ice Cream"
+        ],
+        "GWP": [
+          "no"
+        ]
+      },
+      "sellerName": "Optimum Nutrition",
+      "observations": {
+        "displayedPrice": "SGD 351.18",
+        "displayedOriginalPrice": "SGD 390.20",
+        "selectedFlavor": "Extreme Milk Choco",
+        "productRating": "4.9 (1450)",
+        "sellerRating": "97%",
+        "shipping": "Source displayed free standard delivery; spendSGD65 on Optimum Nutrition threshold; guaranteed by24 Oct",
+        "returnWarranty": "30 Days Free Return; Warranty not available",
+        "dataQuality": "正文提4种口味但界面仅3种可见选项，不据宣传新增草莓SKU。标题与当前选中口味不同。SG_HSA许可证代码空白；完整成分/营养表未显示，不补造。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "f9fc0b8f-c192-3264-869a-4260d520b486",
+      "expectedVersion": 0,
+      "description": "Optimum Nutrition Gold Standard 100% Whey 乳清蛋白粉，来源净含量 10 lbs、单件包装。标题为 Double Rich Chocolate，当前选中为 Extreme Milk Choco，口味和计价关系待商家核实。只采商品标签，不提供使用或营养功效建议。\n来源规格（原值，待核验）：\nBrand: Optimum Nutrition\nSKU: 158603405_SGAMZ-13112223383\nUnit Metric: Pcs\nPack Type: Single Item\nNet Content: 10 lbs\nPrimary Packaging Type (source): Plastic Bottles\nIngredients (source abbreviated field): Whey Protein\nRecommended User (source): Adults\nProduct Form: Powders\nModel: 1068902\nBox contents (source): 1 x ON 100% WHEY GOLD GF 10LB\n来源卖点：\n乳清蛋白粉\n来源净含量 10 lbs\n单件包装\n来源选项（不代表库存或逐款价格）：\nFlavor Nutrition: Rich Chocolate / Extreme Milk Choco / Vanilla Ice Cream\nGWP: no\n来源店铺：Optimum Nutrition\n来源观察记录（非本平台承诺）：\ndisplayedPrice: SGD 351.18\ndisplayedOriginalPrice: SGD 390.20\nselectedFlavor: Extreme Milk Choco\nproductRating: 4.9 (1450)\nsellerRating: 97%\nshipping: Source displayed free standard delivery; spendSGD65 on Optimum Nutrition threshold; guaranteed by24 Oct\nreturnWarranty: 30 Days Free Return; Warranty not available\ndataQuality: 正文提4种口味但界面仅3种可见选项，不据宣传新增草莓SKU。标题与当前选中口味不同。SG_HSA许可证代码空白；完整成分/营养表未显示，不补造。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:206184112",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i206184112-s256573648.html",
+      "capturedAt": "2026-10-21T09:19:53.259Z",
+      "brand": "Vinamilk",
+      "highlights": [
+        "1L × 12 盒/箱",
+        "低糖款，UHT 杀菌",
+        "越南原产"
+      ],
+      "attributes": {
+        "Brand": "Vinamilk",
+        "SKU": "206184112_VNAMZ-256573648",
+        "Loại sữa": "Giảm béo",
+        "Loại bao bì (source)": "Carton,Túi",
+        "Nhu cầu dinh dưỡng": "Đường thấp",
+        "Loại bảo hành": "Không bảo hành",
+        "Xuất xứ": "Việt Nam",
+        "Hữu cơ": "KHÔNG",
+        "Pack size (description)": "12 hộp/thùng; 1L per carton",
+        "Source age restriction": "Không dành cho trẻ dưới 1 tuổi"
+      },
+      "options": {
+        "Loại": [
+          "1L Ít đường"
+        ]
+      },
+      "sellerName": "Vinamilk - Shop & More",
+      "observations": {
+        "displayedPrice": "VND 477576",
+        "displayedOriginalPrice": "VND 573091",
+        "productRating": "5 (16205)",
+        "sellerRating": "99%",
+        "fulfillment": "Vận chuyển bởi người bán",
+        "returnWarranty": "Return terms apply; no warranty",
+        "dataQuality": "保留原文Giảm béo与Carton,Túi字段，不将其推断为确定脂肪含量或额外袋装商品。未采入免疫等健康功效宣传；保质期与储存条件缺失。",
+        "captureMethod": "Independent in-app browser visible DOM after user manually completed the site verification",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "803b6dbb-dde9-318c-9384-0e5f27fad7aa",
+      "expectedVersion": 1,
+      "description": "Vinamilk 低糖 UHT 牛奶，1L 纸盒装，12 盒/箱，越南原产。来源描述标注不适用于 1 岁以下儿童；配料、营养成分和生产批次未完整展示，不据宣传推断。\n来源规格（原值，待核验）：\nBrand: Vinamilk\nSKU: 206184112_VNAMZ-256573648\nLoại sữa: Giảm béo\nLoại bao bì (source): Carton,Túi\nNhu cầu dinh dưỡng: Đường thấp\nLoại bảo hành: Không bảo hành\nXuất xứ: Việt Nam\nHữu cơ: KHÔNG\nPack size (description): 12 hộp/thùng; 1L per carton\nSource age restriction: Không dành cho trẻ dưới 1 tuổi\n来源卖点：\n1L × 12 盒/箱\n低糖款，UHT 杀菌\n越南原产\n来源选项（不代表库存或逐款价格）：\nLoại: 1L Ít đường\n来源店铺：Vinamilk - Shop & More\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 477576\ndisplayedOriginalPrice: VND 573091\nproductRating: 5 (16205)\nsellerRating: 99%\nfulfillment: Vận chuyển bởi người bán\nreturnWarranty: Return terms apply; no warranty\ndataQuality: 保留原文Giảm béo与Carton,Túi字段，不将其推断为确定脂肪含量或额外袋装商品。未采入免疫等健康功效宣传；保质期与储存条件缺失。\ncaptureMethod: Independent in-app browser visible DOM after user manually completed the site verification\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:205300436",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i205300436-s255637927.html",
+      "capturedAt": "2026-10-21T09:20:30.493Z",
+      "brand": "Whiskas",
+      "highlights": [
+        "海鱼口味成猫干粮",
+        "1 袋 3kg",
+        "来源标示适用所有猫种"
+      ],
+      "attributes": {
+        "Brand": "Whiskas",
+        "SKU": "205300436_VNAMZ-255637927",
+        "Dòng sản phẩm": "vị cá biển 3kg",
+        "Giống Mèo": "Tất cả các giống",
+        "Giai Đoạn Đời Của Mèo": "Trường thành (1 tuổi - 7 tuổi)",
+        "Hạn sử dụng (unverified source)": "Trên 36 tháng",
+        "Loại bảo hành": "Không bảo hành",
+        "Ingredients (source)": "Ngũ cốc (ngô, gạo, lúa mì); gia cầm và phụ phẩm gia cầm; bột lông vũ thủy phân; cám gạo khử chất béo; dầu cọ; bột đậu nành; cá thủy phân; bột mì; khoáng chất; gluten ngô; muối iốt; vitamin; taurine; chất tạo màu; chất bảo quản; methionin; hương liệu.",
+        "Crude protein (min, source)": "30%",
+        "Crude fat (min, source)": "9%",
+        "Crude fiber (max, source)": "5%",
+        "Moisture (max, source)": "12%",
+        "Calcium (max, source)": "1.4%",
+        "Total phosphorus (max, source)": "1.3%",
+        "Package contents": "1 bag, 3kg"
+      },
+      "options": {
+        "Flavor": [
+          "Saba nướng",
+          "Cá thu",
+          "Cá ngừ",
+          "Cá biển",
+          "Cá / Hải sản"
+        ]
+      },
+      "sellerName": "Mars Petcare",
+      "observations": {
+        "displayedPrice": "VND 275900",
+        "displayedOriginalPrice": "VND 310000",
+        "selectedFlavor": "Cá biển",
+        "productRating": "5 (6537)",
+        "sellerRating": "99%",
+        "shipping": "Standard VND54300; source estimate23–28 Oct",
+        "returnWarranty": "30 days free return; no warranty",
+        "dataQuality": "原表出现不相关的宠物床尺寸字段，未当作食品规格。保质期原值>36个月缺少批次/包装证明，标记待核实。保证成分的min/max按源文保留；未采入喂食用量及疗效宣传。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "163225c5-9df0-3f7a-9b1d-1d533050ea69",
+      "expectedVersion": 3,
+      "description": "Whiskas 海鱼口味成猫干粮，3kg/袋。来源页面标为成猫（1–7 岁）使用，并提供配料与保证成分表；这些是来源标签记录，不代替宠物个体营养建议。\n来源规格（原值，待核验）：\nBrand: Whiskas\nSKU: 205300436_VNAMZ-255637927\nDòng sản phẩm: vị cá biển 3kg\nGiống Mèo: Tất cả các giống\nGiai Đoạn Đời Của Mèo: Trường thành (1 tuổi - 7 tuổi)\nHạn sử dụng (unverified source): Trên 36 tháng\nLoại bảo hành: Không bảo hành\nIngredients (source): Ngũ cốc (ngô, gạo, lúa mì); gia cầm và phụ phẩm gia cầm; bột lông vũ thủy phân; cám gạo khử chất béo; dầu cọ; bột đậu nành; cá thủy phân; bột mì; khoáng chất; gluten ngô; muối iốt; vitamin; taurine; chất tạo màu; chất bảo quản; methionin; hương liệu.\nCrude protein (min, source): 30%\nCrude fat (min, source): 9%\nCrude fiber (max, source): 5%\nMoisture (max, source): 12%\nCalcium (max, source): 1.4%\nTotal phosphorus (max, source): 1.3%\nPackage contents: 1 bag, 3kg\n来源卖点：\n海鱼口味成猫干粮\n1 袋 3kg\n来源标示适用所有猫种\n来源选项（不代表库存或逐款价格）：\nFlavor: Saba nướng / Cá thu / Cá ngừ / Cá biển / Cá / Hải sản\n来源店铺：Mars Petcare\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 275900\ndisplayedOriginalPrice: VND 310000\nselectedFlavor: Cá biển\nproductRating: 5 (6537)\nsellerRating: 99%\nshipping: Standard VND54300; source estimate23–28 Oct\nreturnWarranty: 30 days free return; no warranty\ndataQuality: 原表出现不相关的宠物床尺寸字段，未当作食品规格。保质期原值>36个月缺少批次/包装证明，标记待核实。保证成分的min/max按源文保留；未采入喂食用量及疗效宣传。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:167905952",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i167905952-s11372035763.html",
+      "capturedAt": "2026-10-21T09:21:00.309Z",
+      "brand": "VIFON",
+      "highlights": [
+        "65g/袋即食米粉",
+        "5 袋装或30 袋整箱",
+        "越南生产",
+        "阴凉干燥处保存、避免直射光"
+      ],
+      "attributes": {
+        "Brand": "VIFON",
+        "SKU": "167905952_VNAMZ-11372035763",
+        "Nội dung tịnh": "65g",
+        "Loại Mì & Bánh Gạo": "Mì gạo",
+        "Xuất xứ": "Việt Nam",
+        "Hữu cơ": "KHÔNG",
+        "Hạn sử dụng (specification)": "12 tháng",
+        "Shelf life (description)": "9 tháng kể từ ngày sản xuất",
+        "Warranty Type": "Không bảo hành",
+        "Storage (description)": "Bảo quản nơi khô mát, tránh ánh sáng trực tiếp"
+      },
+      "options": {
+        "Loại": [
+          "Hủ Tiếu Nam Vang",
+          "Hủ Tiếu Bò Kho",
+          "Hủ Tiếu Sườn Heo",
+          "Hủ Tiếu Tôm Mực",
+          "Vị Chay"
+        ],
+        "SL": [
+          "Thùng 30 gói",
+          "5 gói"
+        ]
+      },
+      "sellerName": "VIFON OfficialStore",
+      "observations": {
+        "displayedPrice": "VND 47520",
+        "displayedOriginalPrice": "VND 63360",
+        "selectedFlavor": "Hủ Tiếu Nam Vang",
+        "selectedPack": "5 gói",
+        "productRating": "5 (1654)",
+        "sellerRating": "98%",
+        "shipping": "Standard VND19600; source estimate23–28 Oct",
+        "returnWarranty": "30 days free return; no warranty",
+        "dataQuality": "保质期12个月/9个月存在冲突。当前价格对应5袋选项，不套用整箱30袋。VN_ProcessedFood许可代码为空，不作为认证证明。包装可能按生产批次变化，未提供完整配料表。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "dfb1c836-b00d-3583-864c-c088480e64fe",
+      "expectedVersion": 1,
+      "description": "VIFON 65g 即食米粉，有 5 袋装与 30 袋整箱选项；当前选中为 Hủ Tiếu Nam Vang、5 gói。来源建议置于阴凉干燥处并避光。规格表写保质期 12 个月，正文写生产后 9 个月，需商家核实后才能使用。\n来源规格（原值，待核验）：\nBrand: VIFON\nSKU: 167905952_VNAMZ-11372035763\nNội dung tịnh: 65g\nLoại Mì & Bánh Gạo: Mì gạo\nXuất xứ: Việt Nam\nHữu cơ: KHÔNG\nHạn sử dụng (specification): 12 tháng\nShelf life (description): 9 tháng kể từ ngày sản xuất\nWarranty Type: Không bảo hành\nStorage (description): Bảo quản nơi khô mát, tránh ánh sáng trực tiếp\n来源卖点：\n65g/袋即食米粉\n5 袋装或30 袋整箱\n越南生产\n阴凉干燥处保存、避免直射光\n来源选项（不代表库存或逐款价格）：\nLoại: Hủ Tiếu Nam Vang / Hủ Tiếu Bò Kho / Hủ Tiếu Sườn Heo / Hủ Tiếu Tôm Mực / Vị Chay\nSL: Thùng 30 gói / 5 gói\n来源店铺：VIFON OfficialStore\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 47520\ndisplayedOriginalPrice: VND 63360\nselectedFlavor: Hủ Tiếu Nam Vang\nselectedPack: 5 gói\nproductRating: 5 (1654)\nsellerRating: 98%\nshipping: Standard VND19600; source estimate23–28 Oct\nreturnWarranty: 30 days free return; no warranty\ndataQuality: 保质期12个月/9个月存在冲突。当前价格对应5袋选项，不套用整箱30袋。VN_ProcessedFood许可代码为空，不作为认证证明。包装可能按生产批次变化，未提供完整配料表。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:167899170",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i167899170-s12064755366.html",
+      "capturedAt": "2026-10-21T09:21:29.718Z",
+      "brand": "VIFON",
+      "highlights": [
+        "15g/袋",
+        "可见选项50袋组合或200袋整箱",
+        "阴凉干燥处保存、避免直射光"
+      ],
+      "attributes": {
+        "Brand": "VIFON",
+        "SKU": "167899170_VNAMZ-12064755366",
+        "Loại bao bì": "Nhiều gói",
+        "Nội dung tịnh": "15g",
+        "Loại Mì & Bánh Gạo": "Instant Noodles",
+        "Xuất xứ (specification)": "Khác",
+        "Manufactured in (description)": "Việt Nam",
+        "Hạn sử dụng (specification)": "12 tháng",
+        "Shelf life (description)": "6 tháng kể từ ngày sản xuất",
+        "Hữu cơ": "KHÔNG",
+        "Warranty Type": "Không bảo hành",
+        "Storage (description)": "Bảo quản nơi khô mát, tránh ánh sáng trực tiếp"
+      },
+      "options": {
+        "Pack": [
+          "Thùng 200 gói",
+          "Set 50 gói"
+        ]
+      },
+      "sellerName": "VIFON OfficialStore",
+      "observations": {
+        "displayedPrice": "VND 50123",
+        "displayedOriginalPrice": "VND 77112",
+        "selectedPack": "Set 50 gói",
+        "productRating": "4.9 (912)",
+        "sellerRating": "98%",
+        "shipping": "Standard VND19600; source estimate23–28 Oct",
+        "returnWarranty": "30 days free return; no warranty",
+        "dataQuality": "标题Set5与界面Set50冲突；保质期表12个月、正文6个月；产地表Khác（其他）、正文越南。全部留档待核验，不据标题创建5袋SKU。VN_ProcessedFood无许可证代码，完整配料和年龄适用范围未显示。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "816a1c2a-d636-3989-ae2a-357cee94c168",
+      "expectedVersion": 3,
+      "description": "VIFON Mì Trẻ Em 即食干脆面，15g/袋。当前可见包装选项为 50 袋组合或 200 袋整箱，选中为 Set 50 gói；标题写 Set 5 Gói，与界面选项不一致。储存建议为阴凉干燥、避光；保质期字段亦有冲突，需审核。\n来源规格（原值，待核验）：\nBrand: VIFON\nSKU: 167899170_VNAMZ-12064755366\nLoại bao bì: Nhiều gói\nNội dung tịnh: 15g\nLoại Mì & Bánh Gạo: Instant Noodles\nXuất xứ (specification): Khác\nManufactured in (description): Việt Nam\nHạn sử dụng (specification): 12 tháng\nShelf life (description): 6 tháng kể từ ngày sản xuất\nHữu cơ: KHÔNG\nWarranty Type: Không bảo hành\nStorage (description): Bảo quản nơi khô mát, tránh ánh sáng trực tiếp\n来源卖点：\n15g/袋\n可见选项50袋组合或200袋整箱\n阴凉干燥处保存、避免直射光\n来源选项（不代表库存或逐款价格）：\nPack: Thùng 200 gói / Set 50 gói\n来源店铺：VIFON OfficialStore\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 50123\ndisplayedOriginalPrice: VND 77112\nselectedPack: Set 50 gói\nproductRating: 4.9 (912)\nsellerRating: 98%\nshipping: Standard VND19600; source estimate23–28 Oct\nreturnWarranty: 30 days free return; no warranty\ndataQuality: 标题Set5与界面Set50冲突；保质期表12个月、正文6个月；产地表Khác（其他）、正文越南。全部留档待核验，不据标题创建5袋SKU。VN_ProcessedFood无许可证代码，完整配料和年龄适用范围未显示。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:2736345",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i2736345-s3324189.html",
+      "capturedAt": "2026-10-21T09:21:59.763Z",
+      "brand": "Vinamilk",
+      "highlights": [
+        "含糖全脂奶粉",
+        "2罐 × 900g，合计1800g",
+        "铁罐包装、越南产"
+      ],
+      "attributes": {
+        "Brand": "Vinamilk",
+        "SKU": "VI235WNAA1VSVXVNAMZ-3187616",
+        "Trọng lượng tịnh": "1800 g",
+        "Xuất xứ": "Việt Nam",
+        "Hữu cơ": "KHÔNG",
+        "Loại sữa": "Nguyên kem",
+        "Loại bao bì": "Hộp đựng",
+        "Nhu cầu dinh dưỡng (unverified source)": "Không chứa Gluten",
+        "Loại bảo hành": "Không bảo hành",
+        "Title pack": "2 x 900g tins",
+        "Carton size (description, not sales unit)": "12 hộp/thùng"
+      },
+      "options": {},
+      "sellerName": "Vinamilk - Shop & More",
+      "observations": {
+        "displayedPrice": "VND 446904",
+        "displayedOriginalPrice": "VND 536285",
+        "productRating": "4.9 (2045)",
+        "sellerRating": "99%",
+        "fulfillment": "Vận chuyển bởi người bán",
+        "returnWarranty": "Return terms apply; no warranty",
+        "dataQuality": "Gluten-free仅为来源字段，无完整配料或证明，不作为核验结论。正文12罐/箱不覆盖双罐销售标题；保质期、生产批次、储存条件未显示。未采入疾病/发育等功效宣传。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "1c576183-b02b-327c-aa48-9a116e515143",
+      "expectedVersion": 3,
+      "description": "Vinamilk 含糖全脂奶粉，2 罐 × 900g，净重合计 1800g，越南产。正文还提到12罐/箱的运输包装，但当前商品标题为双罐组合，不混作整箱销售单位。未采入适用所有年龄或疾病恢复等宣传。\n来源规格（原值，待核验）：\nBrand: Vinamilk\nSKU: VI235WNAA1VSVXVNAMZ-3187616\nTrọng lượng tịnh: 1800 g\nXuất xứ: Việt Nam\nHữu cơ: KHÔNG\nLoại sữa: Nguyên kem\nLoại bao bì: Hộp đựng\nNhu cầu dinh dưỡng (unverified source): Không chứa Gluten\nLoại bảo hành: Không bảo hành\nTitle pack: 2 x 900g tins\nCarton size (description, not sales unit): 12 hộp/thùng\n来源卖点：\n含糖全脂奶粉\n2罐 × 900g，合计1800g\n铁罐包装、越南产\n来源店铺：Vinamilk - Shop & More\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 446904\ndisplayedOriginalPrice: VND 536285\nproductRating: 4.9 (2045)\nsellerRating: 99%\nfulfillment: Vận chuyển bởi người bán\nreturnWarranty: Return terms apply; no warranty\ndataQuality: Gluten-free仅为来源字段，无完整配料或证明，不作为核验结论。正文12罐/箱不覆盖双罐销售标题；保质期、生产批次、储存条件未显示。未采入疾病/发育等功效宣传。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    },
+    {
+      "externalId": "VN:2756708",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i2756708-s3347924.html",
+      "capturedAt": "2026-10-21T09:22:26.889Z",
+      "brand": "Probi",
+      "highlights": [
+        "低糖饮用酸奶",
+        "130ml ×24瓶/箱",
+        "越南产",
+        "来源标注6–8°C冷藏、保质期50天"
+      ],
+      "attributes": {
+        "Brand": "Probi",
+        "SKU": "VI235WNAA1WK6PVNAMZ-3228231",
+        "Loại sữa chua": "Drinking Yoghurt",
+        "Loại sữa": "Đã tách kem",
+        "Xuất xứ": "Việt Nam",
+        "Hữu cơ": "KHÔNG",
+        "Hàm lượng chất béo": "Full Fat",
+        "Mức độ đường": "Ít đường",
+        "Loại bao bì": "Thùng carton,Chai nhựa",
+        "Nhu cầu dinh dưỡng (unverified)": "Không chứa Gluten",
+        "Loại hình lưu trữ": "Ướp lạnh",
+        "Warranty Type": "Không bảo hành",
+        "Package contents": "130ml ×24 bottles",
+        "Inner packs (description)": "6 lốc/thùng",
+        "Storage (description)": "6–8°C",
+        "Shelf life (description)": "50 days"
+      },
+      "options": {},
+      "sellerName": "Vinamilk - Shop & More",
+      "observations": {
+        "displayedPrice": "VND 217728",
+        "displayedOriginalPrice": "VND 261274",
+        "productRating": "5 (11763)",
+        "sellerRating": "99%",
+        "fulfillment": "Seller delivered; title limits15km; description says Hanoi/HCMC only",
+        "returnWarranty": "Return terms apply; no warranty",
+        "dataQuality": "脱脂Đã tách kem与全脂Full Fat冲突；Gluten-free未有完整配料/证书。50天非当前批次剩余保质期。原描述有功效宣传，未采入。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+      },
+      "imageUrls": [],
+      "productId": "72b641d8-d614-3fe8-b399-99e35b48e2b5",
+      "expectedVersion": 1,
+      "description": "Probi 低糖饮用酸奶，130ml × 24 瓶/箱，越南产。来源正文标注冷藏 6–8°C、保质期50天，并限制配送区域；这些不是本平台履约承诺。规格表同时写脱脂与全脂，需核实。\n来源规格（原值，待核验）：\nBrand: Probi\nSKU: VI235WNAA1WK6PVNAMZ-3228231\nLoại sữa chua: Drinking Yoghurt\nLoại sữa: Đã tách kem\nXuất xứ: Việt Nam\nHữu cơ: KHÔNG\nHàm lượng chất béo: Full Fat\nMức độ đường: Ít đường\nLoại bao bì: Thùng carton,Chai nhựa\nNhu cầu dinh dưỡng (unverified): Không chứa Gluten\nLoại hình lưu trữ: Ướp lạnh\nWarranty Type: Không bảo hành\nPackage contents: 130ml ×24 bottles\nInner packs (description): 6 lốc/thùng\nStorage (description): 6–8°C\nShelf life (description): 50 days\n来源卖点：\n低糖饮用酸奶\n130ml ×24瓶/箱\n越南产\n来源标注6–8°C冷藏、保质期50天\n来源店铺：Vinamilk - Shop & More\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 217728\ndisplayedOriginalPrice: VND 261274\nproductRating: 5 (11763)\nsellerRating: 99%\nfulfillment: Seller delivered; title limits15km; description says Hanoi/HCMC only\nreturnWarranty: Return terms apply; no warranty\ndataQuality: 脱脂Đã tách kem与全脂Full Fat冲突；Gluten-free未有完整配料/证书。50天非当前批次剩余保质期。原描述有功效宣传，未采入。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅为来源页面当时展示的商品信息，价格、配送、认证、功效、售后均不是 NOVA 承诺；需商家核验后发布。"
+    }
+  ],
+  "browserEvents": [
+    {
+      "externalId": "VN:206184112",
+      "state": "RECAPTCHA_RESOLVED_BY_USER",
+      "action": "Stopped at challenge; user explicitly reported manual completion; then read visible details normally",
+      "wroteDetails": true
+    },
+    {
+      "externalId": "VN:1216340",
+      "state": "BROWSER_TOOL_TIMEOUT",
+      "wroteDetails": false,
+      "action": "Navigation/read timed out; recovered browser binding and attempted one read without reloading, also timed out. No product details inferred."
+    }
+  ],
+  "notAttemptedThisBatch": [
+    "VN:247496204"
+  ],
+  "limitations": [
+    "No reviewer identities or review text imported.",
+    "Only visible options captured; not all options selected or individually priced; no extra SKU creation.",
+    "No gallery image URLs extracted; all existing images preserved.",
+    "Incomplete credentials/certification fields and marketing health claims do not establish approved qualifications or medical benefits.",
+    "Conflicting weight, fragrance, pack count, origin and shelf-life values retained with review notes; source promotions and fulfillment not translated into NOVA promises."
+  ],
+  "verification": {
+    "state": "PASSED",
+    "importMethod": "Version-checked administrator detail-enrichment API; all ten requests succeeded",
+    "batchProductCount": 10,
+    "importedProductCount": 57,
+    "detailCountBefore": 14,
+    "detailCountAfter": 24,
+    "remainingWithoutDetails": 33,
+    "draftCount": 57,
+    "enabledSkuCount": 0,
+    "mainAudit": {
+      "state": "PASSED",
+      "allowedChangedFields": ["brand", "description", "source_detail_payload", "version", "updated_at"],
+      "changedProductCount": 10,
+      "unexpectedChanges": [],
+      "adminReadback": "HTTP 200; all ten brands, descriptions and expected resulting versions matched the database",
+      "publicDraftAccess": "All ten public product detail requests returned HTTP 404"
+    },
+    "independentAudit": {
+      "state": "PASSED",
+      "agent": "/root/lazada_direct",
+      "baselineCapturedAt": "2026-10-21T09:13:42.865133Z",
+      "afterSnapshotAt": "2026-10-21T09:25:30Z",
+      "scope": "Read-only comparison of all product fields, complete source payloads and all SKU fields for all 57 imported products",
+      "result": "Only the ten expected detail enrichments changed. All prices, stock, enabled flags, merchants, categories, statuses, currencies, titles, images and complete homepage payloads were unchanged. Original 14 detail records and the other 33 products were unchanged; no additions or deletions.",
+      "evidenceReadback": "All ten full detail-evidence payloads matched the saved records and database",
+      "adminReadback": "HTTP 200 with 63 total products; all 57 Lazada products matched database administrator fields including SKU, business fields, versions and timestamps",
+      "unreadProductsUnchanged": ["VN:1216340", "VN:247496204"]
+    },
+    "validationScope": "Data-only import and live database/API checks; no application code changes or new unit-test run in this batch"
+  }
+}
