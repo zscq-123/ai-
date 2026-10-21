@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
+import { OpenSupportButton } from "@/features/support/components/OpenSupportButton";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
-import { categoryGroups, channelItems, productItems } from "../model/homeContent";
+import { categoryGroups, productItems } from "../model/homeContent";
 import { StorefrontHeader } from "./StorefrontHeader";
 import { LoginDialog } from "@/features/auth/components/LoginDialog";
 import styles from "./home.module.css";
@@ -76,12 +77,29 @@ export function HomeView() {
 
           <aside className={styles.sideRail}>
             <div className={styles.accountCard}>
-              <div className={styles.accountLine}><span className={styles.avatar}><CommerceIcon name="account" size={48} priority /></span><div><strong>Hi，欢迎来到 NOVA</strong><p>登录享受企业专属价格</p></div></div>
-              <div className={styles.accountActions}><LoginDialog className={styles.accountLoginButton} triggerLabel="立即登录" /><Link href="/merchant/apply">商家入驻</Link></div>
-              <div className={styles.accountStats}><span><b>0</b>待付款</span><span><b>0</b>待收货</span><span><b>12</b>优惠券</span></div>
-            </div>
-            <div className={styles.channelStack}>
-              {channelItems.slice(0, 3).map((item) => <a className={`${styles.channelCard} ${styles[item.tone]}`} href="#recommend" key={item.title}><div><strong>{item.title}</strong><span>{item.description}</span></div><CommerceIcon name={item.icon} size={62} largeSource /></a>)}
+              <div className={styles.accountLine}>
+                <span className={styles.avatar}><CommerceIcon name="account" size={58} priority /></span>
+                <div><strong>Hi，欢迎来到 NOVA</strong><p><LoginDialog className={styles.inlineLogin} triggerLabel="登录" /><i /> <Link href="/register">注册</Link></p></div>
+              </div>
+              <div className={styles.memberBenefits}>
+                <Link href="/register">企业新人礼</Link>
+                <Link href="/enterprise-procurement">会员中心</Link>
+              </div>
+              <section className={styles.procurementNews} aria-label="采购快讯">
+                <div><strong>采购快讯</strong><Link href="/search">更多 <b>›</b></Link></div>
+                <Link href="/enterprise-procurement">企业集采支持统一询价与结算</Link>
+                <Link href="/office">办公设备批量采购专场上线</Link>
+                <Link href="/merchant/apply">第三方商家入驻通道已开放</Link>
+              </section>
+              <nav className={styles.serviceLinks} aria-label="会员服务">
+                <Link href="/search"><CommerceIcon name="delivery" size={44} largeSource /><span>物流服务</span></Link>
+                <OpenSupportButton />
+                <Link href="/search?q=%E5%94%AE%E5%90%8E"><CommerceIcon name="package" size={44} largeSource /><span>售后政策</span></Link>
+              </nav>
+              <section className={styles.paymentOptions} aria-label="企业支付方式">
+                <strong>企业支付</strong>
+                <div><span>对公转账</span><span>企业月结</span><span>数字人民币</span></div>
+              </section>
             </div>
           </aside>
         </section>

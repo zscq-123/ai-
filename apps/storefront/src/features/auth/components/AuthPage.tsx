@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
@@ -52,7 +53,7 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/" aria-label="返回 NOVA 企业商城首页">
-          <span>N</span><strong>NOVA<small>企业商城</small></strong>
+          <Image className={styles.brandMark} src="/brand/logo/nova-mark-image2.5-v1.png" alt="" width={50} height={50} priority /><strong>NOVA<small>企业商城</small></strong>
         </Link>
         {isRegister && <span className={styles.welcomeRegister}>欢迎注册</span>}
         <p>{isRegister ? "已有账号？" : "还没有账号？"}<Link href={isRegister ? "/login" : "/register"}>{isRegister ? "立即登录" : "免费注册"}</Link></p>

@@ -2,6 +2,7 @@ import { CommerceIcon } from "@/shared/ui/CommerceIcon";
 import { getCurrentCustomer } from "@/features/auth/api/getCurrentCustomer";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import { LoginDialog } from "@/features/auth/components/LoginDialog";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { hotKeywords } from "../model/homeContent";
@@ -40,7 +41,7 @@ export function StorefrontHeader({ activePath = "/", searchQuery = "" }: { activ
       <div className={styles.masthead}>
         <div className={styles.mastheadInner}>
           <Link className={styles.brand} href="/" aria-label="NOVA 企业商城首页">
-            <span className={styles.brandMark}>N</span>
+            <Image className={styles.brandMark} src="/brand/logo/nova-mark-image2.5-v1.png" alt="" width={62} height={62} priority />
             <span className={styles.brandName}>NOVA<small>企业商城</small></span>
           </Link>
           <div className={styles.searchArea}>
@@ -51,7 +52,6 @@ export function StorefrontHeader({ activePath = "/", searchQuery = "" }: { activ
             </form>
             <div className={styles.hotWords}>{hotKeywords.map((item) => <Link href={`/search?q=${encodeURIComponent(item)}`} key={item}>{item}</Link>)}</div>
           </div>
-          <button className={styles.cartButton} type="button"><CommerceIcon name="cart" size={34} priority /><span>我的采购车</span><b>3</b></button>
         </div>
       </div>
       <nav className={styles.primaryNav} aria-label="商城导航">
