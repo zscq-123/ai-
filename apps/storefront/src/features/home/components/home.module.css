@@ -27,7 +27,7 @@
 .primaryNav a:hover { color: #e1251b; }
 .primaryNav .navActive { color: white; background: #c91523; }
 
-.marketplace { margin-top: 18px; padding: 14px; display: grid; grid-template-columns: 228px minmax(0,1fr) 332px; gap: 14px; background: white; border-radius: 20px; box-shadow: 0 10px 34px rgba(40,35,35,.07); }
+.marketplace { margin-top: 18px; padding: 14px; display: grid; grid-template-columns: 228px minmax(0,1fr) 260px; gap: 14px; background: white; border-radius: 20px; box-shadow: 0 10px 34px rgba(40,35,35,.07); }
 .categoryPanel { min-width: 0; position: relative; z-index: 8; }
 .panelTitle { height: 48px; padding: 0 12px; display: flex; align-items: center; gap: 10px; color: #171717; font-size: 16px; }
 .categoryList { padding: 4px 0 6px; }
@@ -59,7 +59,7 @@
 .megaPromo strong { margin-top: 7px; font-size: 15px; }
 .megaPromo p { margin: 8px 0 18px; color: #999; font-size: 10px; line-height: 1.6; }
 .megaPromo > a { padding: 8px 17px; color: white; background: #e1251b; border-radius: 4px; font-size: 11px; font-weight: 750; }
-.heroBanner { min-height: 465px; position: relative; overflow: hidden; border-radius: 14px; background: #ba0d18; }
+.heroBanner { min-width:0; min-height: 465px; position: relative; z-index:1; overflow: hidden; border-radius: 14px; background: #ba0d18; }
 .heroImage { object-fit: cover; object-position: center; }
 .heroShade { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(104,0,5,.72) 0%,rgba(118,0,5,.26) 45%,transparent 68%); }
 .heroCopy { position: absolute; z-index: 2; top: 50%; left: clamp(28px,5vw,76px); transform: translateY(-51%); color: white; text-shadow: 0 2px 18px rgba(70,0,0,.2); }
@@ -70,7 +70,7 @@
 .sliderDots { position: absolute; z-index: 3; left: 28px; bottom: 20px; display: flex; align-items: center; gap: 8px; }
 .sliderDots span,.sliderDots b { width: 8px; height: 8px; background: rgba(255,255,255,.55); border-radius: 20px; }
 .sliderDots b { width: 26px; background: white; }
-.sideRail { min-width: 0; margin-right:72px; }
+.sideRail { min-width:0; position:relative; z-index:2; }
 .accountCard { height:100%; padding:16px; overflow:hidden; background:linear-gradient(160deg,#fff,#fbfbfc); border:1px solid #eee; border-radius:13px; }
 .accountLine { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 58px; height: 58px; overflow: hidden; flex:0 0 auto; background: #fff; border-radius: 50%; box-shadow: 0 4px 16px rgba(0,0,0,.09); }
