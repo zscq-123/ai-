@@ -1,0 +1,207 @@
+{
+  "method": "Safari visible product-detail pages; no login, verification solving, signature spoofing, or Bright Data",
+  "provider": "BROWSER_VISIBLE_DETAIL",
+  "records": [
+    {
+      "externalId": "VN:100325375",
+      "productId": "1ac1c24d-eaeb-3112-9f58-2d9ae89c4b0d",
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i100325375-s100391066.html",
+      "capturedAt": "2026-10-21T06:19:58.000Z",
+      "brand": "Probi",
+      "highlights": [
+        "130ml × 24 瓶/箱",
+        "越南产",
+        "冷藏保存，来源描述为 6–8°C",
+        "来源标称保质期 50 天，非当前批次剩余保质期"
+      ],
+      "attributes": {
+        "Brand": "Probi",
+        "SKU": "VI235WNAA254UQVNAMZ-3659562",
+        "Loại sữa chua": "Drinking Yoghurt",
+        "Xuất xứ": "Việt Nam",
+        "Hữu cơ": "KHÔNG",
+        "Loại sữa": "Đã tách kem",
+        "Hàm lượng chất béo": "Full Fat",
+        "Mức độ đường": "Lượng đường trung bình",
+        "Loại bao bì": "Thùng carton,Chai nhựa",
+        "Loại hình lưu trữ": "Ướp lạnh",
+        "Warranty Type": "Không bảo hành",
+        "Package contents": "130ml × 24 bottles",
+        "Storage (description)": "6–8°C",
+        "Shelf life (description)": "50 days",
+        "Age restriction (source description)": "Không dùng cho trẻ em dưới 1 tuổi."
+      },
+      "options": {},
+      "sellerName": "Vinamilk - Shop & More",
+      "sellerUrl": "https://www.lazada.vn/shop/vinamilk-shop-more/",
+      "observations": {
+        "displayedPrice": "VND 217728",
+        "displayedOriginalPrice": "VND 261274",
+        "productRating": "5 (10170)",
+        "sellerRating": "99%",
+        "fulfillment": "Vận chuyển bởi người bán; title limits delivery radius to 15km; description says Hanoi/HCMC only",
+        "returnWarranty": "Source says no warranty; return terms apply",
+        "dataQuality": "来源表同时写Đã tách kem（脱脂）与Full Fat（全脂），保留原值待核验。Return Policy为-1，不解释为有效售后条款。未采集功效宣传及用户评论个人信息。",
+        "scope": "以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "expectedVersion": 3,
+      "description": "Probi 含糖饮用酸奶，130ml × 24 瓶/箱，越南产。来源详情标注冷藏 6–8°C、保质期 50 天；具体批次生产日期及到货剩余保质期未提供。标题限制配送半径 15km，描述另限河内/胡志明市，实际范围需向来源商家核实。来源页中的健康功效宣传未采入。\n来源规格（待商家核验）：\nBrand: Probi\nSKU: VI235WNAA254UQVNAMZ-3659562\nLoại sữa chua: Drinking Yoghurt\nXuất xứ: Việt Nam\nHữu cơ: KHÔNG\nLoại sữa: Đã tách kem\nHàm lượng chất béo: Full Fat\nMức độ đường: Lượng đường trung bình\nLoại bao bì: Thùng carton,Chai nhựa\nLoại hình lưu trữ: Ướp lạnh\nWarranty Type: Không bảo hành\nPackage contents: 130ml × 24 bottles\nStorage (description): 6–8°C\nShelf life (description): 50 days\nAge restriction (source description): Không dùng cho trẻ em dưới 1 tuổi.\n来源卖点：\n130ml × 24 瓶/箱\n越南产\n冷藏保存，来源描述为 6–8°C\n来源标称保质期 50 天，非当前批次剩余保质期\n来源店铺：Vinamilk - Shop & More (https://www.lazada.vn/shop/vinamilk-shop-more/)\n来源页面记录（非本平台承诺）：\ndisplayedPrice: VND 217728\ndisplayedOriginalPrice: VND 261274\nproductRating: 5 (10170)\nsellerRating: 99%\nfulfillment: Vận chuyển bởi người bán; title limits delivery radius to 15km; description says Hanoi/HCMC only\nreturnWarranty: Source says no warranty; return terms apply\ndataQuality: 来源表同时写Đã tách kem（脱脂）与Full Fat（全脂），保留原值待核验。Return Policy为-1，不解释为有效售后条款。未采集功效宣传及用户评论个人信息。\nscope: 以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "MY:440695503",
+      "productId": "7b92edfc-f25b-3215-907d-ef10cbd40896",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i440695503-s649931951.html",
+      "capturedAt": "2026-10-21T06:21:46.550Z",
+      "brand": "Victorinox",
+      "highlights": [
+        "双功能手动磨刀器",
+        "磨石预磨、陶瓷部件精磨",
+        "来源标称长 230mm、高 18mm、重 40g",
+        "黑色，包装含 1 件"
+      ],
+      "attributes": {
+        "Brand": "Victorinox",
+        "SKU": "440695503_MY-649931951",
+        "Material (specifications)": "Ceramic",
+        "Material (highlights)": "Diamond encrusted Rod",
+        "Knife Sharpener Type": "Manual",
+        "Knife Accessory Type": "Knife Sharpener",
+        "Model": "7611160705129",
+        "Product reference": "4.3323",
+        "Dimensions (source)": "Length 230mm, Height 18mm",
+        "Weight": "40g",
+        "Warranty Type": "No Warranty",
+        "Package contents": "1 x Victorinox Dual-Knife Sharpener 4.3323"
+      },
+      "options": {
+        "Color": [
+          "Black"
+        ]
+      },
+      "sellerName": "gadgetworld2u",
+      "sellerUrl": "https://www.lazada.com.my/shop/gadgetworld2u/",
+      "observations": {
+        "displayedPrice": "MYR 86.40",
+        "productRating": "5 (48)",
+        "sellerRating": "98%",
+        "shipping": "Standard RM4.90, excludes SST; source estimate 22–23 Oct",
+        "returnWarranty": "Change of Mind; 15 Days Free Return; Warranty not available",
+        "dataQuality": "材质表为Ceramic，卖点另写Diamond encrusted Rod；按不同部件/原文保留，不推断材质。页面仅提示Almost sold out，没有库存数量。",
+        "scope": "以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "expectedVersion": 2,
+      "description": "Victorinox 4.3323 双功能手动磨刀器。来源描述为便携笔形设计，包含预磨用磨石及精磨用陶瓷部件，适用于直刃。包装含 1 件。\n来源规格（待商家核验）：\nBrand: Victorinox\nSKU: 440695503_MY-649931951\nMaterial (specifications): Ceramic\nMaterial (highlights): Diamond encrusted Rod\nKnife Sharpener Type: Manual\nKnife Accessory Type: Knife Sharpener\nModel: 7611160705129\nProduct reference: 4.3323\nDimensions (source): Length 230mm, Height 18mm\nWeight: 40g\nWarranty Type: No Warranty\nPackage contents: 1 x Victorinox Dual-Knife Sharpener 4.3323\n来源卖点：\n双功能手动磨刀器\n磨石预磨、陶瓷部件精磨\n来源标称长 230mm、高 18mm、重 40g\n黑色，包装含 1 件\n来源选项：\nColor: Black\n来源店铺：gadgetworld2u (https://www.lazada.com.my/shop/gadgetworld2u/)\n来源页面记录（非本平台承诺）：\ndisplayedPrice: MYR 86.40\nproductRating: 5 (48)\nsellerRating: 98%\nshipping: Standard RM4.90, excludes SST; source estimate 22–23 Oct\nreturnWarranty: Change of Mind; 15 Days Free Return; Warranty not available\ndataQuality: 材质表为Ceramic，卖点另写Diamond encrusted Rod；按不同部件/原文保留，不推断材质。页面仅提示Almost sold out，没有库存数量。\nscope: 以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "MY:217744271",
+      "productId": "b2f54129-d61b-3365-80b0-ebd23e77955a",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i217744271-s275790706.html",
+      "capturedAt": "2026-10-21T06:24:30.234Z",
+      "brand": "MamyPoko",
+      "highlights": [
+        "NB90，1 包 90 片",
+        "粘贴式纸尿裤",
+        "外层无纺布",
+        "详情图标注日本制造",
+        "3D-Fit 吸收垫与透气表层"
+      ],
+      "attributes": {
+        "Brand": "MamyPoko",
+        "SKU": "MA284TBBA3NDANMY-1269061",
+        "Outer Material": "Non-woven fabrics",
+        "Baby Skin Type (source)": "Sensitive Skin,Newborn",
+        "Diaper Type": "Taped",
+        "Model": "Airfit",
+        "Warranty Type": "No Warranty",
+        "Package quantity (title/image)": "90 pieces / 1 pack",
+        "Weight label (pack image)": "NB - 5kg",
+        "Country of manufacture (description image)": "Japan"
+      },
+      "options": {
+        "Diaper Size": [
+          "Newborn"
+        ]
+      },
+      "sellerName": "MamyPoko & Moony/ Sofy & Silcot/ Certainty/ Lifree",
+      "observations": {
+        "displayedPrice": "MYR 57.90",
+        "displayedOriginalPrice": "MYR 67.00",
+        "productRating": "4.9 (1649)",
+        "sellerRating": "96%",
+        "shipping": "Standard RM6.30, excludes SST; source estimate 23–27 Oct",
+        "returnWarranty": "30 Days Free Return; Warranty not available",
+        "dataQuality": "Description正文为图片，已人工阅读可见文字；未提取详情图URL。页面未显示可核实库存数量。",
+        "scope": "以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "expectedVersion": 2,
+      "description": "MamyPoko Air Fit Marshmallow 新生儿粘贴式纸尿裤，NB90，1 包 90 片，页面尺寸选项为 Newborn。详情图标注日本制造，采用 3D-Fit 吸收垫和透气表层。尺寸适配需以包装为准；未把营销中的防皮疹表述采为医学功效。\n来源规格（待商家核验）：\nBrand: MamyPoko\nSKU: MA284TBBA3NDANMY-1269061\nOuter Material: Non-woven fabrics\nBaby Skin Type (source): Sensitive Skin,Newborn\nDiaper Type: Taped\nModel: Airfit\nWarranty Type: No Warranty\nPackage quantity (title/image): 90 pieces / 1 pack\nWeight label (pack image): NB - 5kg\nCountry of manufacture (description image): Japan\n来源卖点：\nNB90，1 包 90 片\n粘贴式纸尿裤\n外层无纺布\n详情图标注日本制造\n3D-Fit 吸收垫与透气表层\n来源选项：\nDiaper Size: Newborn\n来源店铺：MamyPoko & Moony/ Sofy & Silcot/ Certainty/ Lifree\n来源页面记录（非本平台承诺）：\ndisplayedPrice: MYR 57.90\ndisplayedOriginalPrice: MYR 67.00\nproductRating: 4.9 (1649)\nsellerRating: 96%\nshipping: Standard RM6.30, excludes SST; source estimate 23–27 Oct\nreturnWarranty: 30 Days Free Return; Warranty not available\ndataQuality: Description正文为图片，已人工阅读可见文字；未提取详情图URL。页面未显示可核实库存数量。\nscope: 以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+    },
+    {
+      "externalId": "SG:301078910",
+      "productId": "ed97acf2-4682-343e-82e5-393123f2b766",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i301078910-s527100805.html",
+      "capturedAt": "2026-10-21T06:26:55.394Z",
+      "brand": "Dove",
+      "highlights": [
+        "1L 装",
+        "中国制造",
+        "来源描述提及 Nutrim Moisture 配方"
+      ],
+      "attributes": {
+        "Brand": "Dove",
+        "Pack Size": "1 L",
+        "Country of Manufacture": "China",
+        "Product type": "Body Wash"
+      },
+      "options": {},
+      "sellerName": "RedMart",
+      "observations": {
+        "displayedPrice": "SGD 5.20",
+        "displayedOriginalPrice": "SGD 9.89",
+        "productRating": "4.9/5 (7790 ratings)",
+        "shipping": "Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99",
+        "promotion": "Source description limits promotion to max 2 per customer",
+        "dataQuality": "完整成分、保质期、库存数及生产批次未显示，保持缺失。详情正文只采可见信息，不使用买家评论补足产品参数。",
+        "scope": "以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+      },
+      "imageUrls": [],
+      "expectedVersion": 2,
+      "description": "Dove Beauty Nourishing Moisture 沐浴露，1L 装，中国制造。来源页为 RedMart 商品页面，描述提及 Nutrim Moisture 保湿配方；页面未展示完整成分表，未据此补造成分或功效证明。\n来源规格（待商家核验）：\nBrand: Dove\nPack Size: 1 L\nCountry of Manufacture: China\nProduct type: Body Wash\n来源卖点：\n1L 装\n中国制造\n来源描述提及 Nutrim Moisture 配方\n来源店铺：RedMart\n来源页面记录（非本平台承诺）：\ndisplayedPrice: SGD 5.20\ndisplayedOriginalPrice: SGD 9.89\nproductRating: 4.9/5 (7790 ratings)\nshipping: Source page: free delivery with minimum SGD60 spend; scheduled slots SGD5.99\npromotion: Source description limits promotion to max 2 per customer\ndataQuality: 完整成分、保质期、库存数及生产批次未显示，保持缺失。详情正文只采可见信息，不使用买家评论补足产品参数。\nscope: 以下价格、履约和售后仅为来源页当时展示，并非 NOVA 履约承诺；需商家核验后才能发布。"
+    }
+  ],
+  "limitations": [
+    "Only visible product information is recorded; reviewer identities and review contents are not imported.",
+    "Gallery URLs not exposed by the visible UI remain absent; existing images are preserved.",
+    "Source stock counts are not inferred from quantity controls or low-stock promotion text.",
+    "Newborn diaper description partly read from rendered image text.",
+    "Coffee navigation was interrupted by a user window switch; no coffee details were imported.",
+    "Previously challenged PH/ID/TH pages were not retried."
+  ],
+  "verification": {
+    "state": "API_WRITE_AND_READBACK_PASSED",
+    "newDetailsSaved": 4,
+    "totalImportedProducts": 57,
+    "totalProductsWithDetails": 6,
+    "remainingWithoutDetailRecords": 51,
+    "allImportedProductsRemainDrafts": true,
+    "enabledImportedSkus": 0,
+    "commercialFieldsSkuIdentityPricesStockAndEnabledStateUnchanged": true,
+    "allExistingImageUrlsUnchanged": true,
+    "adminApiReadHttpStatus": 200,
+    "adminApiBrandAndDescriptionMatch": true,
+    "allFourPublicDraftReadsHttpStatus": 404,
+    "backendHealth": "UP",
+    "versionsAfterSave": {
+      "VN:100325375": 4,
+      "MY:440695503": 3,
+      "MY:217744271": 3,
+      "SG:301078910": 3
+    },
+    "independentAudit": "PASSED: a separate agent compared a fixed 57-product/57-SKU baseline. Only the four targeted records changed brand, description, detail payload and version. Commercial fields, full SKU objects, merchant ownership, status, currency, source URLs, homepage payloads, covers and galleries were unchanged; the two existing detail records were unchanged. All four evidence records matched every persisted detail field. Admin API data matched the database. Titles were not in the initial baseline; current titles matched original homepage itemTitle values truncated to 180 characters.",
+    "unitTestNote": "No application code changed in this batch; live API and database validation performed. Previous 74-test result belongs to commit 139ae81, not rerun for this data-only batch.",
+    "browserAfterSave": "Not performed; paused browser actions after Safari switched to an unrelated user window."
+  }
+}
