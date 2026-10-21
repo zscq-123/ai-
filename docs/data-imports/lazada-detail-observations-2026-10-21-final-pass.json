@@ -1,0 +1,366 @@
+{
+  "batchCreatedAt": "2026-10-21T09:52:58.959Z",
+  "provider": "BROWSER_VISIBLE_DETAIL",
+  "method": "Read-only visible DOM from user-approved independent in-app browser. Extended timeout allowed two Vietnamese pages to be read; no challenge was solved or bypassed.",
+  "records": [
+    {
+      "externalId": "VN:247496204",
+      "capturedAt": "2026-10-21T09:39:21.809Z",
+      "brand": "Bioré",
+      "summary": "Bioré UV Pinkish Filter 润色防晒乳，30ml，来源标题标注 SPF50+ PA++++；型号 BUM-BR-50-30，越南产。来源正文同时介绍乳液和乳霜系列，不能把乳霜 SPF50/PA+++ 混为此款规格。",
+      "highlights": [
+        "30ml 单件装",
+        "Pinkish Filter 粉红润色款",
+        "乳液质地，使用前摇匀（来源说明）"
+      ],
+      "attributes": {
+        "Brand": "Bioré",
+        "SKU": "247496204_VNAMZ-321630732",
+        "Chỉ số chống nắng": "51 trở lên",
+        "PA": "PA++++",
+        "Ưu Tiên Thành Phần": "không chứa dầu",
+        "Dạng Sản Phẩm": "Chất lỏng,Lotion",
+        "Xuất xứ": "Việt Nam",
+        "Loại da": "Tất cả các loại da",
+        "Loại kem chống nắng": "Hóa chất",
+        "Mẫu mã": "BUM-BR-50-30",
+        "Loại bảo hành": "Không bảo hành",
+        "Tính năng chống nước": "Chống thấm nước",
+        "Loại đóng gói": "Mặt hàng đơn lẻ",
+        "Title SPF": "SPF50+",
+        "Volume": "30ml"
+      },
+      "options": {
+        "Thể tích": [
+          "30"
+        ]
+      },
+      "sellerName": "KAO Group",
+      "observations": {
+        "displayedPrice": "VND 105000",
+        "displayedOriginalPrice": "VND 122000",
+        "rating": "4.9 (1193)",
+        "sellerRating": "99%",
+        "returnWarranty": "Source states 30-day free returns, no warranty",
+        "dataQuality": "CPP和其他证书栏无编号，不视为认证。油控、皮肤测试、防水等为来源声称，未独立核验；正文乳霜/其他滤色系列并非当前所选款。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅记录采集时来源页面信息；来源价格、配送、功效、资格及退换货条款不是 NOVA 承诺，需商家审核后发布。"
+      },
+      "imageUrls": [],
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i247496204-s321630732.html",
+      "productId": "1fb99e6a-001b-3229-90af-249e37121638",
+      "expectedVersion": 3,
+      "description": "Bioré UV Pinkish Filter 润色防晒乳，30ml，来源标题标注 SPF50+ PA++++；型号 BUM-BR-50-30，越南产。来源正文同时介绍乳液和乳霜系列，不能把乳霜 SPF50/PA+++ 混为此款规格。\n来源规格（原值，待审核）：\nBrand: Bioré\nSKU: 247496204_VNAMZ-321630732\nChỉ số chống nắng: 51 trở lên\nPA: PA++++\nƯu Tiên Thành Phần: không chứa dầu\nDạng Sản Phẩm: Chất lỏng,Lotion\nXuất xứ: Việt Nam\nLoại da: Tất cả các loại da\nLoại kem chống nắng: Hóa chất\nMẫu mã: BUM-BR-50-30\nLoại bảo hành: Không bảo hành\nTính năng chống nước: Chống thấm nước\nLoại đóng gói: Mặt hàng đơn lẻ\nTitle SPF: SPF50+\nVolume: 30ml\n来源卖点：\n30ml 单件装\nPinkish Filter 粉红润色款\n乳液质地，使用前摇匀（来源说明）\n来源店铺：KAO Group\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 105000\ndisplayedOriginalPrice: VND 122000\nrating: 4.9 (1193)\nsellerRating: 99%\nreturnWarranty: Source states 30-day free returns, no warranty\ndataQuality: CPP和其他证书栏无编号，不视为认证。油控、皮肤测试、防水等为来源声称，未独立核验；正文乳霜/其他滤色系列并非当前所选款。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅记录采集时来源页面信息；来源价格、配送、功效、资格及退换货条款不是 NOVA 承诺，需商家审核后发布。"
+    },
+    {
+      "externalId": "VN:1216340",
+      "capturedAt": "2026-10-21T09:42:17.376Z",
+      "brand": "Rohto",
+      "summary": "Acnes Oil Control Cleanser 洁面凝胶，100g，型号 RMV-A-OC100，Acnes 为 Rohto-Mentholatum 旗下系列。规格表写日本来源，正文区分品牌来源日本、生产地越南；保质期3年，批次及到期日以包装为准。",
+      "highlights": [
+        "100g 凝胶洁面",
+        "来源列出细微磨砂颗粒",
+        "干燥阴凉处保存、避直射日光、用后盖紧（来源说明）"
+      ],
+      "attributes": {
+        "Brand": "Rohto",
+        "SKU": "AC062HBAA16YG0VNAMZ-1766618",
+        "Lợi ích cho da (source claim)": "Kiểm soát dầu,Chăm sóc mụn trứng cá",
+        "Ưu Tiên Thành Phần": "Glycerin,Không dầu",
+        "Xuất xứ (spec)": "Nhật Bản",
+        "Loại da (source)": "Dầu,Da mụn",
+        "Dạng Sản Phẩm": "Gel",
+        "Mẫu mã": "RMV-A-OC100",
+        "Loại bảo hành": "Không bảo hành",
+        "Main ingredients mentioned (not complete INCI)": "AHA; Micro-exfoliating scrubs; Zinc PCA; Niacinamide",
+        "Brand origin (description)": "Nhật Bản",
+        "Production (description)": "Việt Nam",
+        "Shelf life (description)": "3 years",
+        "Weight": "100g"
+      },
+      "options": {
+        "Thể tích": [
+          "100 g"
+        ]
+      },
+      "sellerName": "Rohto Mentholatum",
+      "observations": {
+        "displayedPrice": "VND 64000",
+        "displayedOriginalPrice": "VND 77000",
+        "rating": "4.9 (2240)",
+        "sellerRating": "98%",
+        "returnWarranty": "Source states 30-day free returns, no warranty",
+        "dataQuality": "CPP等证书名称有显示但编号为空，未验证资质。原文有抗痘/消炎/修护等功效宣传，不作为医疗或效果承诺；主要成分段不是完整INCI，3年非当前批次剩余保质期。",
+        "captureMethod": "Independent in-app browser visible DOM",
+        "scope": "仅记录采集时来源页面信息；来源价格、配送、功效、资格及退换货条款不是 NOVA 承诺，需商家审核后发布。"
+      },
+      "imageUrls": [],
+      "sourceUrl": "https://www.lazada.vn/products/pdp-i1216340-s1509483.html",
+      "productId": "ff1f7c65-0cf7-3af3-8916-c53fac5c9f18",
+      "expectedVersion": 1,
+      "description": "Acnes Oil Control Cleanser 洁面凝胶，100g，型号 RMV-A-OC100，Acnes 为 Rohto-Mentholatum 旗下系列。规格表写日本来源，正文区分品牌来源日本、生产地越南；保质期3年，批次及到期日以包装为准。\n来源规格（原值，待审核）：\nBrand: Rohto\nSKU: AC062HBAA16YG0VNAMZ-1766618\nLợi ích cho da (source claim): Kiểm soát dầu,Chăm sóc mụn trứng cá\nƯu Tiên Thành Phần: Glycerin,Không dầu\nXuất xứ (spec): Nhật Bản\nLoại da (source): Dầu,Da mụn\nDạng Sản Phẩm: Gel\nMẫu mã: RMV-A-OC100\nLoại bảo hành: Không bảo hành\nMain ingredients mentioned (not complete INCI): AHA; Micro-exfoliating scrubs; Zinc PCA; Niacinamide\nBrand origin (description): Nhật Bản\nProduction (description): Việt Nam\nShelf life (description): 3 years\nWeight: 100g\n来源卖点：\n100g 凝胶洁面\n来源列出细微磨砂颗粒\n干燥阴凉处保存、避直射日光、用后盖紧（来源说明）\n来源店铺：Rohto Mentholatum\n来源观察记录（非本平台承诺）：\ndisplayedPrice: VND 64000\ndisplayedOriginalPrice: VND 77000\nrating: 4.9 (2240)\nsellerRating: 98%\nreturnWarranty: Source states 30-day free returns, no warranty\ndataQuality: CPP等证书名称有显示但编号为空，未验证资质。原文有抗痘/消炎/修护等功效宣传，不作为医疗或效果承诺；主要成分段不是完整INCI，3年非当前批次剩余保质期。\ncaptureMethod: Independent in-app browser visible DOM\nscope: 仅记录采集时来源页面信息；来源价格、配送、功效、资格及退换货条款不是 NOVA 承诺，需商家审核后发布。"
+    }
+  ],
+  "browserEvents": [
+    {
+      "externalId": "VN:1216340",
+      "state": "BROWSER_TOOL_TIMEOUT_INITIAL",
+      "wroteDetails": false,
+      "resolution": "A later visible DOM read with sufficient timeout succeeded. The verified record was then imported through the version-checked API."
+    },
+    {
+      "externalId": "VN:247496204",
+      "state": "DIRECT_HTTP_CAPTCHA",
+      "action": "Anonymous HTTP response contained verification redirect; did not follow. Independent existing browser session showed the normal product and was read after a longer wait.",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "MY:339139970",
+      "tabId": "26",
+      "state": "RECAPTCHA_AWAITING_USER",
+      "action": "Stopped collection at visible verification modal; preserved independent browser tab and requested manual completion.",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "ID:160023066",
+      "tabId": "27",
+      "state": "RECAPTCHA_AWAITING_USER",
+      "action": "Stopped collection at visible verification modal; preserved independent browser tab and requested manual completion.",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "PH:110170463",
+      "tabId": "28",
+      "state": "RECAPTCHA_AWAITING_USER",
+      "action": "Stopped collection at visible verification modal; preserved independent browser tab and requested manual completion.",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "TH:219265362",
+      "tabId": "29",
+      "state": "RECAPTCHA_AWAITING_USER",
+      "action": "Stopped collection at visible verification modal; preserved independent browser tab and requested manual completion.",
+      "wroteDetails": false
+    }
+  ],
+  "remainingWithoutDetails": [
+    {
+      "externalId": "ID:160023066",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i160023066-s181866719.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:160042394",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i160042394-s181914952.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:363222118",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i363222118-s382427309.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:380747939",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i380747939-s412313186.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:519740590",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i519740590-s716326134.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:519740620",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i519740620-s716326220.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:519754134",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i519754134-s716290916.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:672412023",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i672412023-s13105410433.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "ID:702166030",
+      "sourceUrl": "https://www.lazada.co.id/products/pdp-i702166030-s16155704934.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "MY:217775384",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i217775384-s275839817.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "MY:339139970",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i339139970-s472969707.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "MY:385723405",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i385723405-s554547531.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "MY:467052361",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i467052361-s754822979.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:110170463",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i110170463-s111961015.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:226229744",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i226229744-s25484551800.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:265593315",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i265593315-s373684366.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:265605296",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i265605296-s373686829.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:275716602",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i275716602-s408805639.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:314626415",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i314626415-s639850954.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:372630942",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i372630942-s132565174720.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:374942449",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i374942449-s850400511.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "PH:383624861",
+      "sourceUrl": "https://www.lazada.com.ph/products/pdp-i383624861-s875680108.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:219265362",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i219265362-s333342077.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:221801729",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i221801729-s24583802173.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:231914330",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i231914330-s355126136.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:328650630",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i328650630-s14486066003.html",
+      "expectedVersion": 3,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:329010093",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i329010093-s127319791830.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:358044241",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i358044241-s702222656.html",
+      "expectedVersion": 1,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:372374419",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i372374419-s726184760.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:379840923",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i379840923-s739162193.html",
+      "expectedVersion": 0,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    },
+    {
+      "externalId": "TH:424186929",
+      "sourceUrl": "https://www.lazada.co.th/products/pdp-i424186929-s808128385.html",
+      "expectedVersion": 2,
+      "state": "AWAITING_REGIONAL_HUMAN_VERIFICATION"
+    }
+  ],
+  "limitations": [
+    "Selected visible source specifications only; complete formulation and certification evidence were not available.",
+    "No gallery changes or SKU expansion; no reviewer identities or review text imported.",
+    "Source price, availability, shipping and promotional claims are observations, not NOVA promises.",
+    "The two Vietnamese pages were read in the normal existing browser session; a separate anonymous HTTP check returned a verification redirect and was not followed."
+  ],
+  "verification": {
+    "state": "PASSED",
+    "scope": "The two captured Vietnamese records only; the overall collection is not complete",
+    "importMethod": "Version-checked detail-enrichment API, HTTP 200 for both records",
+    "batchProductCount": 2,
+    "detailCountBefore": 24,
+    "detailCountAfter": 26,
+    "totalImportedProducts": 57,
+    "draftCount": 57,
+    "enabledSkuCount": 0,
+    "remainingWithoutDetails": 31,
+    "overallCollectionState": "AWAITING_MANUAL_REGIONAL_VERIFICATION",
+    "mainAudit": "PASSED: all 57 immutable product-field hashes and complete SKU hashes unchanged; only the two intended brands/descriptions/detail payloads/versions/timestamps changed",
+    "adminReadback": "HTTP 200, 63 total products; both new descriptions and brands matched exactly, resulting versions 2 and 4",
+    "publicDraftAccess": "Both public product detail requests returned HTTP 404",
+    "independentAudit": {
+      "state": "PASSED",
+      "agent": "/root/lazada_direct",
+      "baselineCapturedAt": "2026-10-21T09:29:24.980487Z",
+      "afterSnapshotAt": "2026-10-21T09:57:05Z",
+      "scope": "All 57 products, complete homepage/detail payloads and every SKU field",
+      "result": "Only VN:1216340 (1 to 2) and VN:247496204 (3 to 4) changed in the five allowed detail-enrichment fields. Original 24 detail records and all other 31 products remained identical. No additions or deletions. Both evidence payloads matched the database in full.",
+      "adminReadback": "HTTP 200 with 63 products; all 57 Lazada administrator records matched the database including descriptions, prices, stock, SKUs, images, versions and timestamps"
+    },
+    "validationScope": "Data-only import and live database/API verification; no application code changes or new unit-test run"
+  }
+}
