@@ -9,4 +9,6 @@ public interface CatalogRepository {
     List<Product> search(String query, UUID categoryId);
     Optional<Product> findActiveById(UUID productId);
     Optional<Product> findById(UUID productId);
+    Optional<Product> findByIdForUpdate(UUID productId);
+    List<Category> categories();
 }

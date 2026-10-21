@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import type { StorePageData } from "../model/storeDesign";
 import styles from "./publishedStore.module.css";
+import { ProductImage } from "@/features/product/components/ProductImage";
+import { currencyLabel } from "@/features/product/model/product";
 
 export function PublishedStorePage({ store }: { store: StorePageData }) {
   const variables = {
@@ -18,7 +20,7 @@ export function PublishedStorePage({ store }: { store: StorePageData }) {
       if (module.type === "ANNOUNCEMENT") return <section className={styles.notice} key={module.id}><b>店铺公告</b><p>{module.data.text}</p></section>;
       if (module.type === "COUPON") return <section className={styles.coupon} key={module.id}><div><small>店铺优惠</small><h2>{module.data.title}</h2><p>{module.data.description}</p></div><button type="button">立即领取</button></section>;
       const products = store.products.slice(0, module.data.limit ?? 6);
-      return <section className={styles.products} key={module.id}><div className={styles.sectionTitle}><h2>{module.data.title ?? "店铺精选"}</h2><span>{products.length} 件商品</span></div><div className={styles.productGrid}>{products.map((product) => <Link href={`/products/${product.id}`} key={product.id}><div className={styles.productVisual}><span>NOVA</span></div><h3>{product.name}</h3><p>{product.subtitle}</p><strong>¥{product.salePrice.toFixed(2)}</strong></Link>)}</div>{products.length === 0 && <p className={styles.empty}>店铺暂无在售商品</p>}</section>;
+      return <section className={styles.products} key={module.id}><div className={styles.sectionTitle}><h2>{module.data.title ?? "店铺精选"}</h2><span>{products.length} 件商品</span></div><div className={styles.productGrid}>{products.map((product) => <Link href={`/products/${product.id}`} key={product.id}><div className={styles.productVisual}><ProductImage src={product.imageUrls?.[0] ?? product.coverImageUrl} name={product.name} /></div><h3>{product.name}</h3><p>{product.subtitle}</p><strong>{currencyLabel(product.currency)}{product.salePrice.toFixed(2)}</strong></Link>)}</div>{products.length === 0 && <p className={styles.empty}>店铺暂无在售商品</p>}</section>;
     })}
     <footer className={styles.footer}><b>{store.storeName}</b><span>店铺页版本 {store.version}</span></footer>
   </main>;

@@ -58,7 +58,9 @@ public record OperationsSnapshot(
             BigDecimal marketPrice,
             int availableStock,
             long version,
-            Instant updatedAt) {}
+            Instant updatedAt,
+            String coverImageUrl,
+            String currency) {}
 
     public record CustomerSummary(
             UUID id,

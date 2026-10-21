@@ -17,5 +17,5 @@ class ProductSkuEntity {
     int availableStock;
     boolean enabled = true;
     protected ProductSkuEntity() {}
-    ProductSkuEntity(Product p, ProductEntity product) { id=p.skuId(); this.product=product; skuCode=p.skuCode(); title=p.skuTitle(); salePrice=p.salePrice(); marketPrice=p.marketPrice(); availableStock=p.availableStock(); }
+    ProductSkuEntity(Product p, ProductEntity product) { id=p.skuId(); this.product=product; skuCode=p.skuCode(); title=p.skuTitle(); salePrice=p.salePrice(); marketPrice=p.marketPrice(); availableStock=p.availableStock(); enabled=p.status() == com.zscq.mall.commerce.catalog.domain.ProductStatus.ACTIVE; }
 }

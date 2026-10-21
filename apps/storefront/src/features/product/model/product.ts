@@ -13,7 +13,14 @@ export type Product = {
   salePrice: number;
   marketPrice: number | null;
   availableStock: number;
+  imageUrls?: string[];
+  coverImageUrl?: string | null;
+  currency?: string;
 };
+
+export function currencyLabel(currency = "CNY"): string {
+  return ({ CNY: "¥", SGD: "S$", MYR: "RM", USD: "US$", THB: "฿", IDR: "Rp", PHP: "₱", VND: "₫" } as Record<string, string>)[currency] ?? `${currency} `;
+}
 
 export type ProductPresentation = {
   icon: CommerceIconName;

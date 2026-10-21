@@ -6,6 +6,11 @@
 .productCard { padding: 28px; display: grid; grid-template-columns: minmax(420px,590px) minmax(0,1fr); gap: 46px; background: white; border-radius: 16px; box-shadow: 0 8px 30px rgba(36,20,20,.055); }
 
 .gallery { min-width: 0; }
+.photoVisual::after { display: none; }
+.photoThumbnails { display: flex; gap: 10px; overflow-x: auto; padding: 12px 2px 4px; }
+.photoThumbnails button { flex: 0 0 72px; width: 72px; height: 72px; padding: 4px; border: 1px solid #ddd; border-radius: 8px; background: #fff; cursor: pointer; }
+.photoThumbnails button.activeThumb { border: 2px solid #e1251b; }
+.photoThumbnails button:focus-visible { outline: 2px solid #0066cc; outline-offset: 2px; }
 .mainVisual { aspect-ratio: 1/1; position: relative; display: grid; place-items: center; overflow: hidden; border-radius: 14px; }
 .mainVisual::after { content: ""; width: 72%; height: 16%; position: absolute; left: 14%; bottom: 8%; background: radial-gradient(ellipse,rgba(42,46,73,.17),transparent 70%); filter: blur(8px); }
 .mainVisual > img { z-index: 1; width: 56%; height: auto; filter: drop-shadow(0 28px 28px rgba(30,35,70,.22)); }

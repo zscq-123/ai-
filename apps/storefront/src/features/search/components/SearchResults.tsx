@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { StorefrontHeader } from "@/features/home/components/StorefrontHeader";
 import { getProducts } from "@/features/product/api/getProduct";
-import { getProductPresentation, type Product } from "@/features/product/model/product";
+import { currencyLabel, getProductPresentation, type Product } from "@/features/product/model/product";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
+import { ProductImage } from "@/features/product/components/ProductImage";
 import styles from "./search.module.css";
 
 type SearchResultsProps = {
@@ -53,7 +54,7 @@ export async function SearchResults({ searchParams }: SearchResultsProps) {
                   <article className={styles.productCard} key={product.id}>
                     <Link className={styles.productVisual} href={`/products/${product.id}`} style={{ background: presentation.tone }}>
                       <span>企业专享</span>
-                      <CommerceIcon name={presentation.icon} size={176} largeSource priority={index === 0} />
+                      <ProductImage src={product.imageUrls?.[0] ?? product.coverImageUrl} name={product.name} fallback={presentation.icon} size={176} priority={index === 0} />
                     </Link>
                     <div className={styles.productInfo}>
                       <small>{presentation.category}</small>
@@ -61,7 +62,7 @@ export async function SearchResults({ searchParams }: SearchResultsProps) {
                       <p>{product.subtitle || product.skuTitle}</p>
                       <div className={styles.stockLine}><span>现货</span><em>库存 {product.availableStock}</em></div>
                       <div className={styles.priceLine}>
-                        <span>¥<strong>{product.salePrice.toLocaleString("zh-CN")}</strong><i>起</i></span>
+                        <span>{currencyLabel(product.currency)}<strong>{product.salePrice.toLocaleString("zh-CN")}</strong><i>起</i></span>
                         <Link href={`/products/${product.id}`} aria-label={`查看${product.name}详情`}><CommerceIcon name="cart" size={27} /></Link>
                       </div>
                     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
   sellerApi,
+  mediaUrl,
   type SellerProduct,
   type StoreChannel,
   type StoreConfig,
@@ -28,13 +29,15 @@ const createModule = (type: StoreModuleType): StoreModule => ({
           : { title: '店铺主标题', subtitle: '填写一句简短的介绍', imageUrl: '' },
 })
 
-export function StoreDesigner({ merchantId, products }: { merchantId: string; products: SellerProduct[] }) {
+export function StoreDesigner({ merchantId, products, onDirtyChange }: { merchantId: string; products: SellerProduct[]; onDirtyChange: (dirty: boolean) => void }) {
   const [channel, setChannel] = useState<StoreChannel>('WEB')
   const [design, setDesign] = useState<StoreDesign | null>(null)
   const [selectedId, setSelectedId] = useState('')
   const [status, setStatus] = useState('正在读取草稿…')
   const [saving, setSaving] = useState(false)
   const [dirty, setDirty] = useState(false)
+
+  useEffect(() => { onDirtyChange(dirty || saving) }, [dirty, saving, onDirtyChange])
 
   useEffect(() => {
     let active = true
@@ -58,7 +61,7 @@ export function StoreDesigner({ merchantId, products }: { merchantId: string; pr
   const updateConfig = (next: StoreConfig) => setDesign((current) => current ? { ...current, draft: next } : current)
   const markDirty = () => { setDirty(true); setStatus('有未保存更改') }
   const switchChannel = (next: StoreChannel) => {
-    if (next === channel) return
+    if (next === channel || saving) return
     if (dirty && !window.confirm('切换终端将放弃当前未保存的更改。')) return
     setChannel(next)
   }
@@ -97,23 +100,24 @@ export function StoreDesigner({ merchantId, products }: { merchantId: string; pr
     setSaving(true); setStatus('正在发布…')
     try {
       const saved = await sellerApi.saveStoreDesign(merchantId, channel, design?.draftVersion ?? 0, config)
+      setDesign(saved); setDirty(false)
       const result = await sellerApi.publishStoreDesign(merchantId, channel)
       setDesign(result); setDirty(false); setStatus(`已发布 v${result.publishedVersion ?? saved.draftVersion}`)
-    } catch (reason) { setStatus(reason instanceof Error ? reason.message : '发布失败') }
+    } catch (reason) { setStatus(reason instanceof Error ? reason.message : '发布失败，请稍后重试。') }
     finally { setSaving(false) }
   }
 
   return <section className="designer-page">
     <div className="designer-heading"><div><h1>店铺装修</h1><p>编辑草稿不会影响线上店铺，发布后才会更新。</p></div><span>{status}</span></div>
     <div className="designer-toolbar" aria-label="店铺装修工具栏">
-      <div className="device-switch" role="group" aria-label="预览终端"><button className={channel === 'WEB' ? 'active' : ''} onClick={() => switchChannel('WEB')}>网页端</button><button className={channel === 'MOBILE' ? 'active' : ''} onClick={() => switchChannel('MOBILE')}>移动端</button></div>
+      <div className="device-switch" role="group" aria-label="预览终端"><button disabled={saving} className={channel === 'WEB' ? 'active' : ''} onClick={() => switchChannel('WEB')}>网页端</button><button disabled={saving} className={channel === 'MOBILE' ? 'active' : ''} onClick={() => switchChannel('MOBILE')}>移动端</button></div>
       <div className="designer-actions"><a href={`http://127.0.0.1:3001/store/${merchantId}?channel=${channel.toLowerCase()}`} target="_blank" rel="noreferrer">查看已发布页面</a><button disabled={saving || !config} onClick={() => void save()}>保存草稿</button><button className="primary" disabled={saving || !config} onClick={() => void publish()}>发布</button></div>
     </div>
-    {!config ? <div className="designer-loading">{status}</div> : <div className="designer-grid">
+    {!config ? <div className="designer-loading">{status}</div> : <fieldset className="designer-grid" disabled={saving}>
       <aside className="module-library"><h2>页面模块</h2><p>选择模块进行编辑和排序。</p><ol>{config.modules.map((module, index) => <li key={module.id} className={module.id === selectedId ? 'selected' : ''}><button className="module-select" onClick={() => setSelectedId(module.id)}><span>{labels[module.type]}</span><small>{module.visible ? '已显示' : '已隐藏'}</small></button><div className="module-order"><button disabled={index === 0} aria-label="上移" onClick={() => move(index, -1)}>↑</button><button disabled={index === config.modules.length - 1} aria-label="下移" onClick={() => move(index, 1)}>↓</button></div></li>)}</ol><div className="module-add"><span>添加模块</span>{(Object.keys(labels) as StoreModuleType[]).map((type) => <button key={type} onClick={() => add(type)}>+ {labels[type]}</button>)}</div></aside>
       <div className={`store-canvas ${channel.toLowerCase()}`}><div className="canvas-label">{channel === 'WEB' ? 'Web 预览' : '移动端预览'}</div><StorePreview config={config} products={products} /></div>
       <aside className="inspector"><h2>设置</h2><div className="theme-fields"><label>主色<input type="color" value={config.theme.primaryColor} onChange={(event) => { updateConfig({ ...config, theme: { ...config.theme, primaryColor: event.target.value } }); markDirty() }} /></label><label>背景<input type="color" value={config.theme.backgroundColor} onChange={(event) => { updateConfig({ ...config, theme: { ...config.theme, backgroundColor: event.target.value } }); markDirty() }} /></label><label>文字<input type="color" value={config.theme.textColor} onChange={(event) => { updateConfig({ ...config, theme: { ...config.theme, textColor: event.target.value } }); markDirty() }} /></label></div>{selected ? <ModuleInspector module={selected} onChange={(next) => updateModule(selected.id, () => next)} onRemove={() => remove(selected.id)} canRemove={config.modules.length > 1} /> : <p className="inspector-empty">选择一个模块后进行编辑。</p>}</aside>
-    </div>}
+    </fieldset>}
   </section>
 }
 
@@ -128,8 +132,8 @@ export function StorePreview({ config, products }: { config: StoreConfig; produc
     if (module.type === 'BANNER') return <section className="preview-banner" key={module.id} style={module.data.imageUrl ? { backgroundImage: `linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.08)), url(${module.data.imageUrl})` } : undefined}><h2>{module.data.title}</h2><p>{module.data.subtitle}</p></section>
     if (module.type === 'STORE_INFO') return <section className="preview-store-info" key={module.id}><span>{(module.data.title ?? '店').slice(0, 1)}</span><div><h2>{module.data.title}</h2><p>{module.data.description}</p></div></section>
     if (module.type === 'ANNOUNCEMENT') return <div className="preview-notice" key={module.id}><b>公告</b><span>{module.data.text}</span></div>
-    if (module.type === 'COUPON') return <section className="preview-coupon" key={module.id}><div><small>店铺优惠</small><h2>{module.data.title}</h2><p>{module.data.description}</p></div><button>立即领取</button></section>
+    if (module.type === 'COUPON') return <section className="preview-coupon" key={module.id}><div><small>店铺优惠</small><h2>{module.data.title}</h2><p>{module.data.description}</p></div><span className="coupon-preview-label">优惠展示</span></section>
     const items = products.slice(0, module.data.limit ?? 6)
-    return <section className="preview-products" key={module.id}><h2>{module.data.title}</h2><div>{items.map((product) => <article key={product.id}><div className="product-placeholder">NOVA</div><h3>{product.name}</h3><b>¥{product.salePrice.toFixed(2)}</b></article>)}</div>{items.length === 0 && <p>暂无在售商品</p>}</section>
+    return <section className="preview-products" key={module.id}><h2>{module.data.title}</h2><div>{items.map((product) => <article key={product.id}>{product.coverImageUrl ? <img className="designer-product-image" src={mediaUrl(product.coverImageUrl)} alt={product.name} /> : <div className="product-placeholder">暂无图片</div>}<h3>{product.name}</h3><b>{new Intl.NumberFormat('zh-CN', { style: 'currency', currency: product.currency ?? 'CNY' }).format(product.salePrice)}</b></article>)}</div>{items.length === 0 && <p>暂无在售商品</p>}</section>
   })}</div>
 }

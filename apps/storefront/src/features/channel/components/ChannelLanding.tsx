@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { StorefrontHeader } from "@/features/home/components/StorefrontHeader";
 import { getProducts } from "@/features/product/api/getProduct";
-import { getProductPresentation } from "@/features/product/model/product";
+import { currencyLabel, getProductPresentation } from "@/features/product/model/product";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
+import { ProductImage } from "@/features/product/components/ProductImage";
 import type { ChannelConfig } from "../model/channelContent";
 import styles from "./channelLanding.module.css";
 
@@ -63,13 +64,13 @@ export async function ChannelLanding({ config }: { config: ChannelConfig }) {
                   return (
                     <article className={styles.productCard} key={product.id}>
                       <Link className={styles.productVisual} href={`/products/${product.id}`} style={{ background: presentation.tone }}>
-                        <span>企业专享</span><CommerceIcon name={presentation.icon} size={150} largeSource />
+                        <span>企业专享</span><ProductImage src={product.imageUrls?.[0] ?? product.coverImageUrl} name={product.name} fallback={presentation.icon} size={150} />
                       </Link>
                       <div className={styles.productInfo}>
                         <small>{presentation.category}</small>
                         <h3><Link href={`/products/${product.id}`}>{product.name}</Link></h3>
                         <p>{product.subtitle}</p>
-                        <div><span>¥<strong>{product.salePrice.toLocaleString("zh-CN")}</strong><i>起</i></span><button type="button" aria-label={`将${product.name}加入采购车`}><CommerceIcon name="cart" size={27} /></button></div>
+                        <div><span>{currencyLabel(product.currency)}<strong>{product.salePrice.toLocaleString("zh-CN")}</strong><i>起</i></span><Link href={`/products/${product.id}`} aria-label={`选购${product.name}`}><CommerceIcon name="cart" size={27} /></Link></div>
                       </div>
                     </article>
                   );

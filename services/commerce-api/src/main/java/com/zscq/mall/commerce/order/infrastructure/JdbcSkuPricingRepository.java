@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 class JdbcSkuPricingRepository implements SkuPricingRepository {
@@ -14,9 +15,15 @@ class JdbcSkuPricingRepository implements SkuPricingRepository {
                 .param("id",skuId).query((rs,row)->new SkuSnapshot(rs.getObject(1,UUID.class),rs.getObject(2,UUID.class),rs.getString(3),rs.getString(4),rs.getBigDecimal(5),rs.getInt(6))).optional();
     }
 
+    @Transactional
     public Optional<SkuSnapshot> reserve(UUID skuId, int quantity) {
         if (quantity <= 0) throw new IllegalArgumentException("Quantity must be positive");
-        return jdbc.sql("""
+        Optional<UUID> productId = jdbc.sql("""
+                select p.id from products p join product_skus s on s.product_id=p.id
+                where s.id=:id for update of p
+                """).param("id", skuId).query(UUID.class).optional();
+        if (productId.isEmpty()) return Optional.empty();
+        Optional<SkuSnapshot> reserved = jdbc.sql("""
                 update product_skus s
                    set available_stock = s.available_stock - :quantity
                   from products p
@@ -30,5 +37,9 @@ class JdbcSkuPricingRepository implements SkuPricingRepository {
                 .param("id", skuId).param("quantity", quantity)
                 .query((rs,row)->new SkuSnapshot(rs.getObject(1,UUID.class),rs.getObject(2,UUID.class),rs.getString(3),rs.getString(4),rs.getBigDecimal(5),rs.getInt(6)))
                 .optional();
+        if (reserved.isPresent()) {
+            jdbc.sql("update products set version=version+1 where id=:id").param("id", productId.get()).update();
+        }
+        return reserved;
     }
 }

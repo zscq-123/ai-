@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { OpenSupportButton } from "@/features/support/components/OpenSupportButton";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
-import { categoryGroups, productItems } from "../model/homeContent";
+import { categoryGroups } from "../model/homeContent";
+import { RecommendedProducts } from "./RecommendedProducts";
 import { StorefrontHeader } from "./StorefrontHeader";
 import { LoginDialog } from "@/features/auth/components/LoginDialog";
 import { HeroCarousel } from "./HeroCarousel";
@@ -101,24 +103,9 @@ export function HomeView() {
         <section className={styles.recommendSection} id="recommend">
           <div className={styles.sectionHeading}>
             <div><span className={styles.headingIcon}><CommerceIcon name="store" size={38} largeSource /></span><h2>为你推荐</h2><p>精选好物 · 企业采购更划算</p></div>
-            <a href="#">查看更多 <span>→</span></a>
+            <Link href="/search">查看更多 <span>→</span></Link>
           </div>
-          <div className={styles.productGrid}>
-            {productItems.map((product) => (
-              <article className={styles.productCard} key={product.title}>
-                <Link className={styles.productVisual} href={`/products/${product.id}`} style={{ background: product.tone }}>
-                  {product.badge && <span className={styles.productBadge}>{product.badge}</span>}
-                  <CommerceIcon name={product.icon} size={150} largeSource />
-                </Link>
-                <div className={styles.productInfo}>
-                  <span className={styles.productEyebrow}>{product.eyebrow}</span>
-                  <h3><Link href={`/products/${product.id}`}>{product.title}</Link></h3>
-                  <p>{product.description}</p>
-                  <div className={styles.productFooter}><span>¥<strong>{product.price}</strong><small>起</small></span><button type="button" aria-label={`将${product.title}加入采购车`}><CommerceIcon name="cart" size={28} /></button></div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <Suspense fallback={<p role="status">正在读取推荐商品…</p>}><RecommendedProducts /></Suspense>
         </section>
       </main>
       <SupportWidget />

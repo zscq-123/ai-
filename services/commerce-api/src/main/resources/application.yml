@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
   application:
     name: commerce-api
   datasource:
@@ -56,6 +60,8 @@ integrations:
     poll-interval: ${BRIGHT_DATA_POLL_INTERVAL:PT3S}
 
 commerce:
+  media:
+    storage-path: ${PRODUCT_MEDIA_STORAGE_PATH:./data/product-images}
   security:
     local-admin-public: ${LOCAL_ADMIN_PUBLIC:false}
   payment:

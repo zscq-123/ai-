@@ -1,7 +1,7 @@
 import type { Product } from "@/features/product/model/product";
 
 export const CART_STORAGE_KEY = "nova:cart:v1";
-export type CartItem = Pick<Product, "id" | "name" | "skuTitle" | "salePrice" | "availableStock"> & { quantity: number };
+export type CartItem = Pick<Product, "id" | "name" | "skuTitle" | "salePrice" | "availableStock" | "coverImageUrl" | "currency"> & { quantity: number };
 
 export function parseCart(raw: string): CartItem[] {
   try {
@@ -15,8 +15,9 @@ export function readCart(): CartItem[] { return parseCart(window.localStorage.ge
 export function addToCart(product: Product, quantity: number): void {
   const items = readCart();
   const existing = items.find((item) => item.id === product.id);
-  if (existing) existing.quantity = Math.min(product.availableStock, existing.quantity + quantity);
-  else items.push({ id: product.id, name: product.name, skuTitle: product.skuTitle, salePrice: product.salePrice, availableStock: product.availableStock, quantity });
+  const current = { id: product.id, name: product.name, skuTitle: product.skuTitle, salePrice: product.salePrice, availableStock: product.availableStock, coverImageUrl: product.imageUrls?.[0] ?? product.coverImageUrl, currency: product.currency ?? "CNY" };
+  if (existing) Object.assign(existing, current, { quantity: Math.min(product.availableStock, existing.quantity + quantity) });
+  else items.push({ ...current, quantity: Math.min(product.availableStock, quantity) });
   writeCart(items);
 }
 

@@ -13,7 +13,8 @@ public class OrderService {
         if (customerId == null) throw new SecurityException("Customer identity required");
         if (items == null || items.isEmpty()) throw new IllegalArgumentException("Order must contain items");
         return orders.findByCustomerIdAndIdempotencyKey(customerId, key).orElseGet(() -> {
-            List<PricedItem> pricedItems = items.stream().map(item -> {
+            // Every checkout acquires product/SKU locks in the same stable order.
+            List<PricedItem> pricedItems = items.stream().sorted(Comparator.comparing(Item::skuId)).map(item -> {
                 if (item.quantity() <= 0) throw new IllegalArgumentException("Quantity must be positive");
                 SkuSnapshot sku = pricing.reserve(item.skuId(), item.quantity())
                         .orElseThrow(() -> new IllegalStateException("SKU not found or insufficient stock"));

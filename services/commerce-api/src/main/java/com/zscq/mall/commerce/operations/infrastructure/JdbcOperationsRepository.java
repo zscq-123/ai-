@@ -63,7 +63,9 @@ class JdbcOperationsRepository implements OperationsRepository {
     public List<OperationsSnapshot.ProductSummary> findProducts(UUID merchantId) {
         return jdbc.sql("""
                 select p.id,p.name,p.subtitle,p.brand,p.description,p.weight_kg,p.status,m.store_name,c.name category_name,p.category_id,
-                       s.sku_code,s.title sku_title,s.sale_price,s.market_price,s.available_stock,p.version,p.updated_at
+                       s.sku_code,s.title sku_title,s.sale_price,s.market_price,s.available_stock,p.version,p.updated_at,
+                       case when p.image_urls is null then p.source_image_url else p.image_urls->>0 end cover_image_url,
+                       coalesce(nullif(p.source_currency,''),'CNY') currency
                 from products p
                 join merchants m on m.id=p.merchant_id
                 left join categories c on c.id=p.category_id
@@ -166,7 +168,7 @@ class JdbcOperationsRepository implements OperationsRepository {
     }
 
     private OperationsSnapshot.ProductSummary product(ResultSet rs, int row) throws SQLException {
-        return new OperationsSnapshot.ProductSummary(rs.getObject("id", UUID.class), rs.getString("name"), rs.getString("subtitle"), rs.getString("brand"), rs.getString("description"), rs.getBigDecimal("weight_kg"), rs.getString("status"), rs.getString("store_name"), rs.getString("category_name"), rs.getObject("category_id", UUID.class), rs.getString("sku_code"), rs.getString("sku_title"), rs.getBigDecimal("sale_price"), rs.getBigDecimal("market_price"), rs.getInt("available_stock"), rs.getLong("version"), instant(rs, "updated_at"));
+        return new OperationsSnapshot.ProductSummary(rs.getObject("id", UUID.class), rs.getString("name"), rs.getString("subtitle"), rs.getString("brand"), rs.getString("description"), rs.getBigDecimal("weight_kg"), rs.getString("status"), rs.getString("store_name"), rs.getString("category_name"), rs.getObject("category_id", UUID.class), rs.getString("sku_code"), rs.getString("sku_title"), rs.getBigDecimal("sale_price"), rs.getBigDecimal("market_price"), rs.getInt("available_stock"), rs.getLong("version"), instant(rs, "updated_at"), rs.getString("cover_image_url"), rs.getString("currency"));
     }
 
     private OperationsSnapshot.CustomerSummary customer(ResultSet rs, int row) throws SQLException {
