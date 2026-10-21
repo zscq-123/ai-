@@ -51,8 +51,8 @@ public class JdbcExternalCatalogRepository implements ExternalCatalogRepository 
                     DO UPDATE SET
                         name = EXCLUDED.name,
                         subtitle = EXCLUDED.subtitle,
-                        brand = EXCLUDED.brand,
-                        description = EXCLUDED.description,
+                        brand = COALESCE(EXCLUDED.brand, products.brand),
+                        description = COALESCE(EXCLUDED.description, products.description),
                         status = 'DRAFT',
                         version = products.version + 1,
                         updated_at = CURRENT_TIMESTAMP,

@@ -1,0 +1,172 @@
+{
+  "method": "Human-visible content captured with Safari UI; no session tokens or verification bypass",
+  "provider": "BROWSER_VISIBLE_DETAIL",
+  "verification": {
+    "savedDetails": 2,
+    "totalImportedProducts": 57,
+    "allImportedProductsRemainDrafts": true,
+    "commercialFieldsSkuIdentityPricesStockAndEnabledStateUnchanged": true,
+    "allExistingImageUrlsUnchanged": true,
+    "targetedTestsPassed": 74,
+    "targetedTestFailures": 0,
+    "backendHealth": "UP",
+    "adminApiReadHttpStatus": 200,
+    "staleVersionWriteHttpStatus": 409,
+    "versionsAfterSave": {"SG:143770428": 3, "MY:493946824": 2},
+    "browserVerificationAfterSave": "Unavailable while Mac is locked; database and administrator API read-back used."
+  },
+  "records": [
+    {
+      "externalId": "SG:143770428",
+      "productId": "4f243e2b-255f-3fa7-aa40-12c9418d29c5",
+      "sourceUrl": "https://www.lazada.sg/products/pdp-i143770428-s176853364.html",
+      "brand": "PRISM+",
+      "description": "27 英寸 WQHD Fast IPS 显示器，页面卖点列出 144Hz 刷新率、无边框设计、低蓝光及无闪烁功能。以下为 Lazada 来源页采集信息，尚未完成商家核验；原页面的响应时间字段存在冲突，不能直接作为承诺。\n来源规格（原值，待商家核验）：\nBrand: PRISM+\nSKU: PR004ELAB6O422SGAMZ-92515469\nMonitor Feature: IPS\nDisplay Features: Full HD,Anti-Glare\nMounting Type: Desk Mount\nResolution: 2560 x 1440\nResponse Time (specifications): 60ms gtg\nResponse Time (description image): 1ms\nPower Consumption (W): 1-500\nPlug Type: 3 Pin\ninput voltage (V): 12V\nModel: prism+ w270 pro\nColour gamut (description image): 96% DCI-P3\n来源卖点：\n27 英寸平面显示器\nWQHD 2560 × 1440\nFast IPS 面板\n144Hz 刷新率\nZeroBezel 设计\n低蓝光及无闪烁\n尺寸：690 × 615 × 361 mm\nSafety Mark：240288-11\n来源选项：\nAdd-on Arm: Monitor Only / Arc Beam Dual White / ArcBeam Single White / Arc Stealth / Arc Stealth Dual / Arc StealthProTriple\nDisplay Size: 27 Inches\n来源店铺：PrismPlus (https://www.lazada.sg/shop/prismplus/)\n以下为来源站点当时展示，并非 NOVA 履约承诺：\nsourceCategory: Computers & Components / Monitors\ndisplayedPrice: SGD 199.00\ndisplayedOriginalPrice: SGD 499.00\nproductRating: 4.8 (1783)\nsellerRating: 96%\nfulfillment: Pre-Order (Ship in 26 days); Get by 18 Nov\nshipping: Standard, shipping fee SGD 1.99\nreturnWarranty: 30 Days Free Return; Local (Singapore) Manufacturer Warranty 3 years\ndataQuality: 来源规格表显示60ms gtg，但详情图显示1ms；Display Features写Full HD而Resolution写2560 x1440。保留原值待核验，不自动纠正。\nscope: 履约、价格及服务政策仅为来源页当时展示，不构成NOVA履约承诺。",
+      "highlights": [
+        "27 英寸平面显示器",
+        "WQHD 2560 × 1440",
+        "Fast IPS 面板",
+        "144Hz 刷新率",
+        "ZeroBezel 设计",
+        "低蓝光及无闪烁",
+        "尺寸：690 × 615 × 361 mm",
+        "Safety Mark：240288-11"
+      ],
+      "attributes": {
+        "Brand": "PRISM+",
+        "SKU": "PR004ELAB6O422SGAMZ-92515469",
+        "Monitor Feature": "IPS",
+        "Display Features": "Full HD,Anti-Glare",
+        "Mounting Type": "Desk Mount",
+        "Resolution": "2560 x 1440",
+        "Response Time (specifications)": "60ms gtg",
+        "Response Time (description image)": "1ms",
+        "Power Consumption (W)": "1-500",
+        "Plug Type": "3 Pin",
+        "input voltage (V)": "12V",
+        "Model": "prism+ w270 pro",
+        "Colour gamut (description image)": "96% DCI-P3"
+      },
+      "options": {
+        "Add-on Arm": [
+          "Monitor Only",
+          "Arc Beam Dual White",
+          "ArcBeam Single White",
+          "Arc Stealth",
+          "Arc Stealth Dual",
+          "Arc StealthProTriple"
+        ],
+        "Display Size": [
+          "27 Inches"
+        ]
+      },
+      "sellerName": "PrismPlus",
+      "sellerUrl": "https://www.lazada.sg/shop/prismplus/",
+      "observations": {
+        "sourceCategory": "Computers & Components / Monitors",
+        "displayedPrice": "SGD 199.00",
+        "displayedOriginalPrice": "SGD 499.00",
+        "productRating": "4.8 (1783)",
+        "sellerRating": "96%",
+        "fulfillment": "Pre-Order (Ship in 26 days); Get by 18 Nov",
+        "shipping": "Standard, shipping fee SGD 1.99",
+        "returnWarranty": "30 Days Free Return; Local (Singapore) Manufacturer Warranty 3 years",
+        "dataQuality": "来源规格表显示60ms gtg，但详情图显示1ms；Display Features写Full HD而Resolution写2560 x1440。保留原值待核验，不自动纠正。",
+        "scope": "履约、价格及服务政策仅为来源页当时展示，不构成NOVA履约承诺。"
+      },
+      "imageUrls": [],
+      "capturedAt": "2026-10-21T05:47:47.163Z",
+      "expectedVersion": 2
+    },
+    {
+      "externalId": "MY:493946824",
+      "productId": "ee81d820-10aa-34bf-926e-c445b37270e6",
+      "sourceUrl": "https://www.lazada.com.my/products/pdp-i493946824-s24479684668.html",
+      "capturedAt": "2026-10-21T05:48:52.875Z",
+      "brand": "Midea",
+      "description": "Midea MDRF550FGF28 四门变频冰箱。来源详情列出总容量 507L、自动除霜、Multi Air Flow、Platinum Fresh、Wi-Fi 控制、LED 控制面板及内灯。页面描述的整机与压缩机保修期限不同，应以原商家适用条款核实，不能直接作为 NOVA 的服务承诺。\n来源规格（原值，待商家核验）：\nBrand: Midea\nSKU: 493946824_MY-24479684668\nRefrigerator Features: Wi-Fi Connected,Platinum Fresh,Wifi Connected,WiFi Control\nCooling System Type: Auto de-frost\nCompressor Type: Inverter,Digital Inverter\nRefrigerator Type: 4 Door / Multi Door\nEnergy Efficiency: e\nNumber of Doors: 4\nModel: mdrf550fgf28\nWarranty Type: Local Manufacturer Warranty\nwarranty: 2 Years\nGross Capacity: 507L\nRefrigerant: R600A\nDimension (WxDxH): 750 x 610 x 1775 mm\n来源卖点：\n总容量 507L\n四门 / 多门\n变频压缩机\nMulti Air Flow\nPlatinum Fresh\nWi-Fi 控制\nLED 显示控制与内灯\nR600A 制冷剂\n尺寸（宽×深×高）：750 × 610 × 1775 mm\n来源选项：\n来源店铺：PH CHAIN STORE (https://www.lazada.com.my/shop/ph-chain-store/)\n以下为来源站点当时展示，并非 NOVA 履约承诺：\nsourceCategory: Home Appliances / Kitchen Appliances / Refrigeration Appliances / Refrigerators\ndisplayedPrice: MYR 2068.11\ndisplayedOriginalPrice: MYR 2699.00\nproductRating: 5 (11)\nsellerRating: 96%\nfulfillment: Seller's Own Fleet\nreturnWarranty: 15 Days Free Return; 2 Years Local Manufacturer Warranty\ndescriptionWarranty: 2 Years General Warranty; 12 Years Compressor Warranty\nscope: 配送及安装范围、保修、价格为来源页展示信息，未核验为本平台履约能力。\ndataQuality: Energy Efficiency字段为原文e，未映射或推断本地能效等级。",
+      "highlights": [
+        "总容量 507L",
+        "四门 / 多门",
+        "变频压缩机",
+        "Multi Air Flow",
+        "Platinum Fresh",
+        "Wi-Fi 控制",
+        "LED 显示控制与内灯",
+        "R600A 制冷剂",
+        "尺寸（宽×深×高）：750 × 610 × 1775 mm"
+      ],
+      "attributes": {
+        "Brand": "Midea",
+        "SKU": "493946824_MY-24479684668",
+        "Refrigerator Features": "Wi-Fi Connected,Platinum Fresh,Wifi Connected,WiFi Control",
+        "Cooling System Type": "Auto de-frost",
+        "Compressor Type": "Inverter,Digital Inverter",
+        "Refrigerator Type": "4 Door / Multi Door",
+        "Energy Efficiency": "e",
+        "Number of Doors": "4",
+        "Model": "mdrf550fgf28",
+        "Warranty Type": "Local Manufacturer Warranty",
+        "warranty": "2 Years",
+        "Gross Capacity": "507L",
+        "Refrigerant": "R600A",
+        "Dimension (WxDxH)": "750 x 610 x 1775 mm"
+      },
+      "options": {},
+      "sellerName": "PH CHAIN STORE",
+      "sellerUrl": "https://www.lazada.com.my/shop/ph-chain-store/",
+      "observations": {
+        "sourceCategory": "Home Appliances / Kitchen Appliances / Refrigeration Appliances / Refrigerators",
+        "displayedPrice": "MYR 2068.11",
+        "displayedOriginalPrice": "MYR 2699.00",
+        "productRating": "5 (11)",
+        "sellerRating": "96%",
+        "fulfillment": "Seller's Own Fleet",
+        "returnWarranty": "15 Days Free Return; 2 Years Local Manufacturer Warranty",
+        "descriptionWarranty": "2 Years General Warranty; 12 Years Compressor Warranty",
+        "scope": "配送及安装范围、保修、价格为来源页展示信息，未核验为本平台履约能力。",
+        "dataQuality": "Energy Efficiency字段为原文e，未映射或推断本地能效等级。"
+      },
+      "imageUrls": [],
+      "expectedVersion": 1
+    }
+  ],
+  "browserFailures": [
+    {
+      "externalId": "PH:110170463",
+      "state": "CAPTCHA",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "ID:363222118",
+      "state": "CAPTCHA",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "TH:221801729",
+      "state": "CAPTCHA",
+      "wroteDetails": false
+    },
+    {
+      "externalId": "VN:100325375",
+      "state": "BROWSER_BLOCKED_BY_MAC_LOCK_BEFORE_DETAIL_READ",
+      "wroteDetails": false
+    }
+  ],
+  "directHttpChecks": {
+    "markets": [
+      "MY",
+      "TH",
+      "VN",
+      "PH",
+      "ID"
+    ],
+    "attemptsPerMarket": 1,
+    "result": "HTTP200 verification documents, not product detail data; no tokens retained"
+  },
+  "limitations": [
+    "Two captured records only; remaining 55 imported products are not claimed to have complete details.",
+    "Source gallery image URLs were not extractable from the visible accessibility content; no additional images were invented or downloaded.",
+    "Conflicting source values are retained with dataQuality notes; source seller identity does not authorize or activate a merchant."
+  ]
+}
