@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SupportWidget } from "@/features/support/components/SupportWidget";
 import { OpenSupportButton } from "@/features/support/components/OpenSupportButton";
@@ -6,6 +5,7 @@ import { CommerceIcon } from "@/shared/ui/CommerceIcon";
 import { categoryGroups, productItems } from "../model/homeContent";
 import { StorefrontHeader } from "./StorefrontHeader";
 import { LoginDialog } from "@/features/auth/components/LoginDialog";
+import { HeroCarousel } from "./HeroCarousel";
 import styles from "./home.module.css";
 
 const serviceItems = [
@@ -63,17 +63,7 @@ export function HomeView() {
             </div>
           </aside>
 
-          <section className={styles.heroBanner}>
-            <Image className={styles.heroImage} src="/brand/banners/nova-enterprise-hero.png" alt="NOVA 企业采购精选办公与数码商品" fill priority sizes="(max-width: 900px) 100vw, 60vw" />
-            <div className={styles.heroShade} />
-            <div className={styles.heroCopy}>
-              <span className={styles.heroTag}>NOVA 企业采购季</span>
-              <h1>企业焕新，<br />采购更省心</h1>
-              <p>品牌直供 · 批量优惠 · 极速履约</p>
-              <a href="#recommend">立即采购 <span>→</span></a>
-            </div>
-            <div className={styles.sliderDots} aria-label="轮播图第 1 张"><b /><span /><span /><span /></div>
-          </section>
+          <HeroCarousel />
 
           <aside className={styles.sideRail}>
             <div className={styles.accountCard}>

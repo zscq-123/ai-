@@ -60,16 +60,24 @@
 .megaPromo p { margin: 8px 0 18px; color: #999; font-size: 10px; line-height: 1.6; }
 .megaPromo > a { padding: 8px 17px; color: white; background: #e1251b; border-radius: 4px; font-size: 11px; font-weight: 750; }
 .heroBanner { min-width:0; min-height: 465px; position: relative; z-index:1; overflow: hidden; border-radius: 14px; background: #ba0d18; }
+.heroSlide { visibility:hidden; opacity:0; position:absolute; inset:0; transition:opacity .42s ease,visibility .42s; }
+.heroSlideActive { visibility:visible; opacity:1; }
 .heroImage { object-fit: cover; object-position: center; }
-.heroShade { position: absolute; inset: 0; background: linear-gradient(90deg,rgba(104,0,5,.72) 0%,rgba(118,0,5,.26) 45%,transparent 68%); }
+.heroShade { position: absolute; inset: 0; }
 .heroCopy { position: absolute; z-index: 2; top: 50%; left: clamp(28px,5vw,76px); transform: translateY(-51%); color: white; text-shadow: 0 2px 18px rgba(70,0,0,.2); }
 .heroTag { display: inline-flex; padding: 7px 12px; border: 1px solid rgba(255,255,255,.7); border-radius: 6px; font-size: 12px; font-weight: 750; letter-spacing: .08em; }
 .heroCopy h1 { margin: 18px 0 13px; font-size: clamp(40px,4vw,64px); line-height: 1.08; letter-spacing: -.06em; }
 .heroCopy p { margin: 0 0 27px; color: rgba(255,255,255,.88); font-size: 16px; }
 .heroCopy > a { width: 134px; height: 42px; display: flex; align-items: center; justify-content: center; gap: 16px; color: #b31219; background: white; border-radius: 6px; font-size: 14px; font-weight: 800; box-shadow: 0 10px 24px rgba(73,0,0,.2); }
-.sliderDots { position: absolute; z-index: 3; left: 28px; bottom: 20px; display: flex; align-items: center; gap: 8px; }
-.sliderDots span,.sliderDots b { width: 8px; height: 8px; background: rgba(255,255,255,.55); border-radius: 20px; }
-.sliderDots b { width: 26px; background: white; }
+.sliderArrow { width:34px; height:54px; opacity:0; position:absolute; z-index:4; top:50%; display:grid; place-items:center; color:white; background:rgba(0,0,0,.24); border:0; cursor:pointer; font:300 36px/1 sans-serif; transform:translateY(-50%); transition:opacity .18s ease,background .18s ease; }
+.heroBanner:hover .sliderArrow,.heroBanner:focus-within .sliderArrow { opacity:1; }
+.sliderArrow:hover,.sliderArrow:focus-visible { opacity:1; background:rgba(0,0,0,.46); outline:2px solid rgba(255,255,255,.9); outline-offset:-2px; }
+.sliderPrevious { left:0; border-radius:0 7px 7px 0; }
+.sliderNext { right:0; border-radius:7px 0 0 7px; }
+.sliderDots { position: absolute; z-index: 4; left: 28px; bottom: 20px; display: flex; align-items: center; gap: 8px; }
+.sliderDots button { width:8px; height:8px; padding:0; background:rgba(255,255,255,.55); border:0; border-radius:20px; cursor:pointer; transition:width .18s ease,background .18s ease; }
+.sliderDots .sliderDotActive { width:26px; background:white; }
+.sliderDots button:focus-visible { outline:2px solid white; outline-offset:3px; }
 .sideRail { min-width:0; position:relative; z-index:2; }
 .accountCard { height:100%; padding:16px; overflow:hidden; background:linear-gradient(160deg,#fff,#fbfbfc); border:1px solid #eee; border-radius:13px; }
 .accountLine { display: flex; align-items: center; gap: 10px; }
@@ -184,5 +192,5 @@
   .productFooter strong { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .productCard,.productVisual > img,.serviceLinks img { transition: none; }
+  .productCard,.productVisual > img,.serviceLinks img,.heroSlide,.sliderArrow,.sliderDots button { transition: none; }
 }
