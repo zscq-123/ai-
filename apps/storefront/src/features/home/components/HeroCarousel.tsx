@@ -77,7 +77,7 @@ export function HeroCarousel() {
     >
       {slides.map((slide, index) => (
         <article className={`${styles.heroSlide} ${index === active ? styles.heroSlideActive : ""}`} aria-hidden={index !== active} key={slide.image}>
-          <Image className={styles.heroImage} src={slide.image} alt={index === active ? slide.alt : ""} fill priority={index === 0} sizes="(max-width: 900px) 100vw, 60vw" />
+          <Image className={styles.heroImage} src={slide.image} alt={index === active ? slide.alt : ""} fill priority sizes="(max-width: 900px) 100vw, 60vw" />
           <div className={styles.heroShade} style={{ background: slide.shade }} />
           <div className={styles.heroCopy}>
             <span className={styles.heroTag}>{slide.tag}</span>

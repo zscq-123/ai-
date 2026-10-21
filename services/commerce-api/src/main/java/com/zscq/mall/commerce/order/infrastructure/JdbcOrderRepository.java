@@ -22,7 +22,13 @@ class JdbcOrderRepository implements OrderRepository {
                 .param("id",line.id()).param("order",o.id()).param("sku",line.skuId()).param("product",line.productName()).param("title",line.skuTitle()).param("price",line.unitPrice()).param("qty",line.quantity()).param("amount",line.lineAmount()).update());
         return o;
     }
-    public Optional<PurchaseOrder> findByIdempotencyKey(String key) { return find("select * from orders where idempotency_key=:value", key); }
+    public Optional<PurchaseOrder> findByCustomerIdAndIdempotencyKey(UUID customerId, String key) {
+        return jdbc.sql("select * from orders where customer_id=:customerId and idempotency_key=:key")
+                .param("customerId", customerId)
+                .param("key", key)
+                .query(this::map)
+                .optional();
+    }
     public Optional<PurchaseOrder> findByOrderNo(String no) { return find("select * from orders where order_no=:value", no); }
     private Optional<PurchaseOrder> find(String sql, String value) { return jdbc.sql(sql).param("value",value).query(this::map).optional(); }
     private PurchaseOrder map(ResultSet rs, int row) throws SQLException {

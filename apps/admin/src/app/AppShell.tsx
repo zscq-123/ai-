@@ -1,5 +1,5 @@
 import { Avatar, Badge, Button, ConfigProvider, Input, Layout, Menu, Space, Typography } from 'antd'
-import { lazy, Suspense, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { DashboardPage } from '../features/dashboard/DashboardPage'
 import { CustomersPage, MarketingPage, OrdersPage, ProductsPage, SupportPage } from '../features/operations/OperationsPages'
 import { CommerceIcon } from '../shared/ui/CommerceIcon'
@@ -31,6 +31,13 @@ export function AppShell() {
   const [collapsed, setCollapsed] = useState(false)
   const [current, setCurrent] = useState('dashboard')
   const [editingProduct, setEditingProduct] = useState(false)
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 900px)')
+    const syncNavigation = () => setCollapsed(query.matches)
+    syncNavigation()
+    query.addEventListener('change', syncNavigation)
+    return () => query.removeEventListener('change', syncNavigation)
+  }, [])
   function navigate(key: string) { setCurrent(key); if (key !== 'products') setEditingProduct(false) }
   return (
     <ConfigProvider theme={{ token: { colorPrimary: '#145cff', borderRadius: 12, colorBgLayout: '#f6f8fb', fontFamily: 'Inter, PingFang SC, Microsoft YaHei, sans-serif' }, components: { Menu: { itemHeight: 50, itemBorderRadius: 12, itemSelectedBg: '#eef5ff' } } }}>

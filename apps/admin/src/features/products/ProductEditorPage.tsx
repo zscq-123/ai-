@@ -66,6 +66,7 @@ export function ProductEditorPage() {
   const [savedDraft, setSavedDraft] = useState(emptyDraft)
   const [products, setProducts] = useState<ProductSummary[]>([])
   const [productId, setProductId] = useState('')
+  const [productVersion, setProductVersion] = useState(0)
   const [categoryId, setCategoryId] = useState('')
   const [skuTitle, setSkuTitle] = useState('')
   const [storeName, setStoreName] = useState('')
@@ -91,6 +92,7 @@ export function ProductEditorPage() {
       sellerSku: product.skuCode,
     }
     setProductId(product.id)
+    setProductVersion(product.version)
     setCategoryId(product.categoryId ?? '')
     setSkuTitle(product.skuTitle)
     setStoreName(product.merchantName)
@@ -128,7 +130,8 @@ export function ProductEditorPage() {
   async function save(label: string) {
     if (!productId || !categoryId) { message.error('商品或类目信息不完整，无法保存'); return }
     try {
-      await commerceApi.updateProduct(productId, { categoryId, name: draft.name, subtitle: draft.subtitle, brand: draft.brand, description: draft.description, weightKg: draft.weight, skuCode: draft.sellerSku, skuTitle, salePrice: draft.price, marketPrice: draft.marketPrice, availableStock: draft.stock })
+      const updated = await commerceApi.updateProduct(productId, { expectedVersion: productVersion, categoryId, name: draft.name, subtitle: draft.subtitle, brand: draft.brand, description: draft.description, weightKg: draft.weight, skuCode: draft.sellerSku, skuTitle, salePrice: draft.price, marketPrice: draft.marketPrice, availableStock: draft.stock })
+      setProductVersion(updated.version)
       setSavedDraft(draft)
       setSaveState(`${label}成功 · 数据库已更新`)
       message.success(`${label}成功`)

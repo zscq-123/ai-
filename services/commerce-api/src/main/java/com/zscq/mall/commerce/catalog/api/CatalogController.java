@@ -10,12 +10,15 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import com.zscq.mall.commerce.config.MarketplaceAuthorization;
 
 @RestController
 @RequestMapping("/api")
 public class CatalogController {
     private final CatalogService service;
-    public CatalogController(CatalogService service) { this.service = service; }
+    private final MarketplaceAuthorization authorization;
+    public CatalogController(CatalogService service, MarketplaceAuthorization authorization) { this.service = service; this.authorization = authorization; }
 
     @GetMapping("/public/products")
     List<Product> search(@RequestParam(defaultValue = "") String query, @RequestParam(required = false) UUID categoryId) {
@@ -33,13 +36,16 @@ public class CatalogController {
 
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    Product create(@Valid @RequestBody CreateProductRequest r) {
+    Product create(@Valid @RequestBody CreateProductRequest r, Authentication authentication) {
+        authorization.requireMerchant(authentication, r.merchantId());
         return service.create(r.merchantId(), r.categoryId(), r.name(), r.subtitle(), r.brand(), r.description(), r.weightKg(), r.skuCode(), r.skuTitle(), r.salePrice(), r.marketPrice(), r.availableStock());
     }
 
     @PutMapping("/products/{productId}")
-    Product update(@PathVariable UUID productId, @Valid @RequestBody UpdateProductRequest r) {
-        return service.update(productId, r.categoryId(), r.name(), r.subtitle(), r.brand(), r.description(), r.weightKg(), r.skuCode(), r.skuTitle(), r.salePrice(), r.marketPrice(), r.availableStock());
+    Product update(@PathVariable UUID productId, @Valid @RequestBody UpdateProductRequest r, Authentication authentication) {
+        Product existing = service.get(productId);
+        authorization.requireMerchant(authentication, existing.merchantId());
+        return service.update(productId, existing.merchantId(), r.expectedVersion(), r.categoryId(), r.name(), r.subtitle(), r.brand(), r.description(), r.weightKg(), r.skuCode(), r.skuTitle(), r.salePrice(), r.marketPrice(), r.availableStock());
     }
 
     record CreateProductRequest(@NotNull UUID merchantId, @NotNull UUID categoryId, @NotBlank String name,
@@ -47,7 +53,7 @@ public class CatalogController {
                                 @NotBlank String skuCode, @NotBlank String skuTitle,
                                 @NotNull @PositiveOrZero BigDecimal salePrice, @PositiveOrZero BigDecimal marketPrice,
                                 @PositiveOrZero int availableStock) {}
-    record UpdateProductRequest(@NotNull UUID categoryId, @NotBlank String name, String subtitle,
+    record UpdateProductRequest(@NotNull @PositiveOrZero Long expectedVersion, @NotNull UUID categoryId, @NotBlank String name, String subtitle,
                                 String brand, String description, @PositiveOrZero BigDecimal weightKg,
                                 @NotBlank String skuCode, @NotBlank String skuTitle,
                                 @NotNull @PositiveOrZero BigDecimal salePrice,

@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,6 +19,16 @@ class Settings(BaseSettings):
     commerce_api_url: str = "http://localhost:8080"
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
     persist_conversations: bool = True
+    trusted_context_secret: str = "local-ai-context-secret"
+
+    @model_validator(mode="after")
+    def require_production_context_secret(self) -> "Settings":
+        if self.environment.lower() == "production" and (
+            not self.trusted_context_secret
+            or self.trusted_context_secret == "local-ai-context-secret"
+        ):
+            raise ValueError("AI_TRUSTED_CONTEXT_SECRET must be configured in production")
+        return self
 
 
 @lru_cache

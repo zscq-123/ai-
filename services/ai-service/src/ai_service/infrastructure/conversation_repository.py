@@ -19,6 +19,25 @@ class ConversationRecorder:
         self._model_name = model_name
         self._engine = _engine(database_url) if enabled else None
 
+    def merchant_is_active(self, merchant_id: UUID) -> bool | None:
+        """Return None when persistence is disabled or temporarily unavailable."""
+        if self._engine is None:
+            return None
+        try:
+            with self._engine.connect() as connection:
+                return bool(
+                    connection.execute(
+                        text(
+                            "select exists(select 1 from merchants "
+                            "where id=:id and status='ACTIVE')"
+                        ),
+                        {"id": merchant_id},
+                    ).scalar_one()
+                )
+        except SQLAlchemyError:
+            logger.exception("Unable to validate AI support merchant")
+            return None
+
     def record(
         self,
         question: str,

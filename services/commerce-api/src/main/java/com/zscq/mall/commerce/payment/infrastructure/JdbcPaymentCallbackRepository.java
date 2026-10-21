@@ -12,4 +12,8 @@ class JdbcPaymentCallbackRepository implements PaymentCallbackRepository {
         try { jdbc.sql("insert into payment_callbacks(callback_id,order_no,provider,payload_hash) values(:id,:orderNo,:provider,:hash)").param("id",id).param("orderNo",orderNo).param("provider",provider).param("hash",hash).update(); return true; }
         catch (DuplicateKeyException ignored) { return false; }
     }
+    public java.util.Optional<Fingerprint> find(String id) {
+        return jdbc.sql("select order_no, provider, payload_hash from payment_callbacks where callback_id=:id")
+                .param("id", id).query((rs, row) -> new Fingerprint(rs.getString(1), rs.getString(2), rs.getString(3))).optional();
+    }
 }

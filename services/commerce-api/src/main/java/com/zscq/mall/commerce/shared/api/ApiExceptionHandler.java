@@ -10,6 +10,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.dao.OptimisticLockingFailureException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
@@ -20,6 +21,11 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(IllegalStateException.class)
     ResponseEntity<Map<String, Object>> conflict(IllegalStateException exception) {
+        return error(HttpStatus.CONFLICT, exception.getMessage());
+    }
+
+    @ExceptionHandler(OptimisticLockingFailureException.class)
+    ResponseEntity<Map<String, Object>> optimisticConflict(OptimisticLockingFailureException exception) {
         return error(HttpStatus.CONFLICT, exception.getMessage());
     }
 

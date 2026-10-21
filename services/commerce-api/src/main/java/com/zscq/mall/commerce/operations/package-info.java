@@ -1,4 +1,4 @@
 @org.springframework.modulith.ApplicationModule(
         displayName = "Operations",
-        allowedDependencies = {})
+        allowedDependencies = {"config"})
 package com.zscq.mall.commerce.operations;

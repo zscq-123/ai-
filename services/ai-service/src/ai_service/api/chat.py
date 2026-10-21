@@ -1,9 +1,13 @@
 import asyncio
+import hashlib
+import hmac
 import json
 from collections.abc import AsyncIterator
+from dataclasses import dataclass
+from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Header, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
@@ -29,6 +33,10 @@ recorder = ConversationRecorder(
 async def answer_and_record(
     message: str, *, authenticated: bool, merchant_id: UUID | None
 ) -> SupportReply:
+    if merchant_id is not None:
+        merchant_is_active = await asyncio.to_thread(recorder.merchant_is_active, merchant_id)
+        if merchant_is_active is False:
+            raise HTTPException(status_code=404, detail="Active merchant not found")
     timer = ConversationTimer()
     reply = await service.answer(message, authenticated=authenticated)
     await asyncio.to_thread(
@@ -42,9 +50,39 @@ async def answer_and_record(
 
 
 class ChatRequest(BaseModel):
+    model_config = {"extra": "forbid"}
     message: str = Field(min_length=1, max_length=2000)
-    authenticated: bool = False
-    merchant_id: UUID | None = None
+
+
+@dataclass(frozen=True)
+class TrustedSupportContext:
+    customer_id: UUID | None
+    merchant_id: UUID | None
+
+    @property
+    def authenticated(self) -> bool:
+        return self.customer_id is not None
+
+
+def trusted_context(
+    customer_id: UUID | None,
+    merchant_id: UUID | None,
+    signature: str | None,
+) -> TrustedSupportContext:
+    """Accept identity only from a commerce gateway signed context.
+
+    Compatibility: old request-body authenticated/merchant_id fields are rejected by
+    ChatRequest.extra=forbid. Anonymous callers keep working with only `message`.
+    """
+    if customer_id is None and merchant_id is None:
+        return TrustedSupportContext(None, None)
+    content = f"{customer_id or ''}\n{merchant_id or ''}".encode()
+    expected = hmac.new(
+        settings.trusted_context_secret.encode(), content, hashlib.sha256
+    ).hexdigest()
+    if signature is None or not hmac.compare_digest(expected, signature):
+        raise HTTPException(status_code=401, detail="Invalid trusted support context")
+    return TrustedSupportContext(customer_id, merchant_id)
 
 
 class CitationResponse(BaseModel):
@@ -61,11 +99,17 @@ class ChatResponse(BaseModel):
 
 
 @router.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest) -> ChatResponse:
+async def chat(
+    request: ChatRequest,
+    customer_id: Annotated[UUID | None, Header(alias="X-Nova-Customer-Id")] = None,
+    merchant_id: Annotated[UUID | None, Header(alias="X-Nova-Merchant-Id")] = None,
+    signature: Annotated[str | None, Header(alias="X-Nova-Context-Signature")] = None,
+) -> ChatResponse:
+    context = trusted_context(customer_id, merchant_id, signature)
     reply = await answer_and_record(
         request.message,
-        authenticated=request.authenticated,
-        merchant_id=request.merchant_id,
+        authenticated=context.authenticated,
+        merchant_id=context.merchant_id,
     )
     return ChatResponse(
         answer=reply.answer,
@@ -77,12 +121,18 @@ async def chat(request: ChatRequest) -> ChatResponse:
 
 
 @router.post("/stream")
-async def stream(request: ChatRequest) -> StreamingResponse:
+async def stream(
+    request: ChatRequest,
+    customer_id: Annotated[UUID | None, Header(alias="X-Nova-Customer-Id")] = None,
+    merchant_id: Annotated[UUID | None, Header(alias="X-Nova-Merchant-Id")] = None,
+    signature: Annotated[str | None, Header(alias="X-Nova-Context-Signature")] = None,
+) -> StreamingResponse:
+    context = trusted_context(customer_id, merchant_id, signature)
     async def events() -> AsyncIterator[str]:
         reply = await answer_and_record(
             request.message,
-            authenticated=request.authenticated,
-            merchant_id=request.merchant_id,
+            authenticated=context.authenticated,
+            merchant_id=context.merchant_id,
         )
         answer_data = json.dumps({"answer": reply.answer}, ensure_ascii=False)
         done_data = json.dumps(

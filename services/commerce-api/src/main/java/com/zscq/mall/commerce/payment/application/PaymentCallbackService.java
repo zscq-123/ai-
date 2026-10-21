@@ -16,7 +16,8 @@ public class PaymentCallbackService {
     public PaymentCallbackService(PaymentCallbackRepository callbacks, OrderPaymentFacade orders, @Value("${commerce.payment.webhook-secret:local-payment-secret}") String secret) { this.callbacks=callbacks; this.orders=orders; this.secret=secret; }
     @Transactional
     public boolean accept(String callbackId, String orderNo, String provider, String signature, String payload) {
-        byte[] expected = hmac(payload);
+        String signedContent = canonical(callbackId, orderNo, provider, payload);
+        byte[] expected = hmac(signedContent);
         byte[] supplied;
         try {
             supplied = HexFormat.of().parseHex(signature);
@@ -24,9 +25,18 @@ public class PaymentCallbackService {
             throw new IllegalArgumentException("Invalid payment signature", exception);
         }
         if (!MessageDigest.isEqual(expected, supplied)) throw new IllegalArgumentException("Invalid payment signature");
-        String hash=HexFormat.of().formatHex(digest(payload));
-        if (!callbacks.register(callbackId,orderNo,provider,hash)) return false;
+        String hash=HexFormat.of().formatHex(digest(signedContent));
+        if (!callbacks.register(callbackId,orderNo,provider,hash)) {
+            var existing = callbacks.find(callbackId).orElseThrow(() -> new IllegalStateException("Callback replay state unavailable"));
+            if (!existing.orderNo().equals(orderNo) || !existing.provider().equals(provider) || !existing.payloadHash().equals(hash)) {
+                throw new SecurityException("Payment callback replay conflict");
+            }
+            return false;
+        }
         orders.markPaid(orderNo); return true;
+    }
+    public static String canonical(String callbackId, String orderNo, String provider, String payload) {
+        return callbackId + "\n" + orderNo + "\n" + provider + "\n" + payload;
     }
     private byte[] hmac(String value) {
         try {

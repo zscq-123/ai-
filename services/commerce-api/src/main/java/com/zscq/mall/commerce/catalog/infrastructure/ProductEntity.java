@@ -19,13 +19,14 @@ class ProductEntity {
     @Enumerated(EnumType.STRING) ProductStatus status;
     Instant createdAt;
     Instant updatedAt;
+    @Version long version;
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     ProductSkuEntity sku;
     protected ProductEntity() {}
     ProductEntity(Product p) {
         id=p.id(); merchantId=p.merchantId(); categoryId=p.categoryId(); name=p.name(); subtitle=p.subtitle();
         brand=p.brand(); description=p.description(); weightKg=p.weightKg();
-        status=p.status(); createdAt=p.createdAt(); updatedAt=p.updatedAt(); sku=new ProductSkuEntity(p, this);
+        status=p.status(); createdAt=p.createdAt(); updatedAt=p.updatedAt(); version=p.version(); sku=new ProductSkuEntity(p, this);
     }
-    Product toDomain() { return new Product(id, merchantId, categoryId, name, subtitle, brand, description, weightKg, status, sku.id, sku.skuCode, sku.title, sku.salePrice, sku.marketPrice, sku.availableStock, createdAt, updatedAt); }
+    Product toDomain() { return new Product(id, merchantId, categoryId, name, subtitle, brand, description, weightKg, status, sku.id, sku.skuCode, sku.title, sku.salePrice, sku.marketPrice, sku.availableStock, version, createdAt, updatedAt); }
 }

@@ -57,6 +57,7 @@ public record OperationsSnapshot(
             BigDecimal salePrice,
             BigDecimal marketPrice,
             int availableStock,
+            long version,
             Instant updatedAt) {}
 
     public record CustomerSummary(

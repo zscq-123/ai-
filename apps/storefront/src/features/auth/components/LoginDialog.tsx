@@ -14,14 +14,23 @@ type LoginDialogProps = {
 export function LoginDialog({ className, triggerLabel = "您好，请登录" }: LoginDialogProps) {
   const router = useRouter();
   const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!open) return;
+    const trigger = triggerRef.current;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") { setOpen(false); return; }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),[tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
@@ -29,6 +38,7 @@ export function LoginDialog({ className, triggerLabel = "您好，请登录" }: 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKeyDown);
+      trigger?.focus();
     };
   }, [open]);
 
@@ -59,7 +69,7 @@ export function LoginDialog({ className, triggerLabel = "您好，请登录" }: 
 
   return (
     <>
-      <button className={className ?? styles.trigger} type="button" onClick={() => setOpen(true)}>{triggerLabel}</button>
+      <button ref={triggerRef} className={className ?? styles.trigger} type="button" aria-haspopup="dialog" aria-expanded={open} onClick={() => setOpen(true)}>{triggerLabel}</button>
       {open && (
         <div className={styles.backdrop} onMouseDown={(event) => event.target === event.currentTarget && setOpen(false)}>
           <div className={styles.dialog} ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="login-dialog-title">

@@ -22,3 +22,10 @@
 .progressLabel { margin-bottom: 6px; display: flex; justify-content: space-between; color: #667085; font-size: 12px; }
 .progressLabel b { color: #344054; }
 @media (max-width: 700px) { .welcome { align-items: flex-start; flex-direction: column; } .welcome button { width: 100%; } }
+@media (max-width: 520px) {
+  .metricIcon { width: 54px; height: 54px; top: 16px; right: 14px; border-radius: 15px; }
+  .metricCard :global(.ant-card-body) { padding: 18px 14px; }
+  .chartCard,.aiCard { height: auto; min-height: 300px; }
+  .trendBars { overflow-x: auto; }
+  .trendPoint { min-width: 34px; }
+}

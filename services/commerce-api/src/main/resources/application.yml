@@ -46,3 +46,17 @@ management:
 logging:
   pattern:
     level: "%5p [traceId=%X{traceId:-},spanId=%X{spanId:-}]"
+
+integrations:
+  bright-data:
+    api-key: ${BRIGHT_DATA_API_KEY:}
+    base-url: ${BRIGHT_DATA_BASE_URL:https://api.brightdata.com}
+    lazada-dataset-id: ${BRIGHT_DATA_LAZADA_DATASET_ID:gd_m6gjtfmeh43we6cqc}
+    poll-attempts: ${BRIGHT_DATA_POLL_ATTEMPTS:20}
+    poll-interval: ${BRIGHT_DATA_POLL_INTERVAL:PT3S}
+
+commerce:
+  security:
+    local-admin-public: ${LOCAL_ADMIN_PUBLIC:false}
+  payment:
+    webhook-secret: ${PAYMENT_WEBHOOK_SECRET:local-payment-secret}

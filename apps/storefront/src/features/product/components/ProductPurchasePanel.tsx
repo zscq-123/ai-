@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CommerceIcon } from "@/shared/ui/CommerceIcon";
+import { addToCart } from "@/features/cart/cartStorage";
 import type { Product } from "../model/product";
 import styles from "./productDetail.module.css";
 
@@ -35,7 +36,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
       </div>
       <div className={styles.buyActions}>
         <button className={styles.buyNow} type="button">立即采购</button>
-        <button className={styles.addCart} type="button" onClick={() => setAdded(true)}><CommerceIcon name="cart" size={30} />加入采购车</button>
+        <button className={styles.addCart} type="button" onClick={() => { addToCart(product, quantity); setAdded(true); }}><CommerceIcon name="cart" size={30} />加入采购车</button>
       </div>
       {added && <p className={styles.addedNotice} role="status">已将 {quantity} 件商品加入采购车</p>}
       <div className={styles.purchaseAssurance}><span>✓ 正品保障</span><span>✓ 企业发票</span><span>✓ 7 天无理由</span><span>✓ 价格保护</span></div>

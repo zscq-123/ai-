@@ -27,11 +27,18 @@ public class CatalogService {
         return repository.findActiveById(productId).orElseThrow();
     }
 
+    @Transactional(readOnly = true)
+    public Product get(UUID productId) {
+        return repository.findById(productId).orElseThrow();
+    }
+
     @Transactional
-    public Product update(UUID productId, UUID categoryId, String name, String subtitle, String brand,
+    public Product update(UUID productId, UUID merchantId, long expectedVersion, UUID categoryId, String name, String subtitle, String brand,
                           String description, BigDecimal weightKg, String skuCode,
                           String skuTitle, BigDecimal salePrice, BigDecimal marketPrice, int stock) {
         Product product = repository.findById(productId).orElseThrow();
+        if (!product.merchantId().equals(merchantId)) throw new SecurityException("Product does not belong to merchant");
+        if (product.version() != expectedVersion) throw new org.springframework.dao.OptimisticLockingFailureException("Product was modified by another request");
         return repository.save(product.revise(categoryId, name, subtitle, brand, description, weightKg, skuCode, skuTitle, salePrice, marketPrice, stock));
     }
 }

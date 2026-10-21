@@ -10,18 +10,28 @@ public class OrderService {
     public OrderService(OrderRepository orders, SkuPricingRepository pricing) { this.orders=orders; this.pricing=pricing; }
     @Transactional
     public PurchaseOrder create(UUID customerId, String key, List<Item> items) {
-        return orders.findByIdempotencyKey(key).orElseGet(() -> {
-            List<OrderLine> lines = items.stream().map(item -> {
-                SkuSnapshot sku = pricing.find(item.skuId()).orElseThrow(() -> new IllegalArgumentException("SKU not found"));
-                if (sku.stock() < item.quantity()) throw new IllegalStateException("Insufficient stock");
-                return new OrderLine(UUID.randomUUID(), sku.skuId(), sku.productName(), sku.skuTitle(), sku.price(), item.quantity());
+        if (customerId == null) throw new SecurityException("Customer identity required");
+        if (items == null || items.isEmpty()) throw new IllegalArgumentException("Order must contain items");
+        return orders.findByCustomerIdAndIdempotencyKey(customerId, key).orElseGet(() -> {
+            List<PricedItem> pricedItems = items.stream().map(item -> {
+                if (item.quantity() <= 0) throw new IllegalArgumentException("Quantity must be positive");
+                SkuSnapshot sku = pricing.reserve(item.skuId(), item.quantity())
+                        .orElseThrow(() -> new IllegalStateException("SKU not found or insufficient stock"));
+                return new PricedItem(sku, item.quantity());
             }).toList();
-            UUID merchant = pricing.find(items.getFirst().skuId()).orElseThrow().merchantId();
-            if (lines.stream().anyMatch(line -> !pricing.find(line.skuId()).orElseThrow().merchantId().equals(merchant))) throw new IllegalArgumentException("One order can only contain one merchant");
+            UUID merchant = pricedItems.getFirst().sku().merchantId();
+            if (pricedItems.stream().anyMatch(item -> !item.sku().merchantId().equals(merchant))) {
+                throw new IllegalArgumentException("One order can only contain one merchant");
+            }
+            List<OrderLine> lines = pricedItems.stream()
+                    .map(item -> new OrderLine(UUID.randomUUID(), item.sku().skuId(), item.sku().productName(),
+                            item.sku().skuTitle(), item.sku().price(), item.quantity()))
+                    .toList();
             return orders.save(PurchaseOrder.create(customerId, merchant, key, lines));
         });
     }
     @Transactional
     public PurchaseOrder markPaid(String orderNo) { PurchaseOrder order=orders.findByOrderNo(orderNo).orElseThrow(); return orders.save(order.paid()); }
     public record Item(UUID skuId, int quantity) {}
+    private record PricedItem(SkuSnapshot sku, int quantity) {}
 }

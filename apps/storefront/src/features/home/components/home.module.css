@@ -144,6 +144,9 @@
   .sideRail { display: none; }
   .productGrid { grid-template-columns: repeat(4,1fr); }
 }
+@media (min-width: 1201px) and (max-width: 1580px) {
+  .utilityInner,.mastheadInner,.primaryNavInner,.marketplace,.serviceStrip,.recommendSection { width: calc(100% - 136px); margin-left:20px; margin-right:116px; }
+}
 @media (max-width: 900px) {
   .utilityLinks a:nth-last-child(-n+3) { display: none; }
   .mastheadInner { min-height: 138px; grid-template-columns: 180px 1fr; }

@@ -7,7 +7,7 @@ import styles from "./supportWidget.module.css";
 
 type Message = { role: "user" | "assistant"; content: string; citations?: Array<{ title: string; reference: string }> };
 
-export function SupportWidget() {
+export function SupportWidget({ merchantId }: { merchantId?: string }) {
   const [open, setOpen] = useState(false); const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([{ role: "assistant", content: "你好，我是 NOVA AI 客服。可以帮你了解商品、配送和平台规则。" }]);
   useEffect(() => {
@@ -18,7 +18,7 @@ export function SupportWidget() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); const form=new FormData(event.currentTarget); const content=String(form.get("message") ?? "").trim(); if (!content) return;
     setMessages((current)=>[...current,{role:"user",content}]); setLoading(true); event.currentTarget.reset();
-    try { const response=await fetch(`${process.env.NEXT_PUBLIC_AI_SERVICE_URL ?? "http://localhost:8000"}/v1/support/chat`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:content})}); if(!response.ok) throw new Error(); const data=await response.json() as {answer:string;citations:Message["citations"]}; setMessages((current)=>[...current,{role:"assistant",content:data.answer,citations:data.citations}]); }
+    try { const response=await fetch("/api/support/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:content,merchantId})}); if(!response.ok) throw new Error(); const data=await response.json() as {answer:string;citations:Message["citations"]}; setMessages((current)=>[...current,{role:"assistant",content:data.answer,citations:data.citations}]); }
     catch { setMessages((current)=>[...current,{role:"assistant",content:"服务暂时不可用，我已保留问题，请稍后重试或转人工。"}]); } finally { setLoading(false); }
   }
   return <>

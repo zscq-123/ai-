@@ -8,14 +8,14 @@ public record Product(UUID id, UUID merchantId, UUID categoryId, String name, St
                       String brand, String description, BigDecimal weightKg,
                       ProductStatus status, UUID skuId, String skuCode, String skuTitle,
                       BigDecimal salePrice, BigDecimal marketPrice, int availableStock,
-                      Instant createdAt, Instant updatedAt) {
+                      long version, Instant createdAt, Instant updatedAt) {
     public static Product draft(UUID merchantId, UUID categoryId, String name, String subtitle,
                                 String brand, String description, BigDecimal weightKg,
                                 String skuCode, String skuTitle, BigDecimal salePrice,
                                 BigDecimal marketPrice, int stock) {
         Instant now = Instant.now();
         return new Product(UUID.randomUUID(), merchantId, categoryId, name, subtitle, brand, description, weightKg, ProductStatus.DRAFT,
-                UUID.randomUUID(), skuCode, skuTitle, salePrice, marketPrice, stock, now, now);
+                UUID.randomUUID(), skuCode, skuTitle, salePrice, marketPrice, stock, 0L, now, now);
     }
 
     public Product revise(UUID newCategoryId, String newName, String newSubtitle, String newBrand,
@@ -23,6 +23,6 @@ public record Product(UUID id, UUID merchantId, UUID categoryId, String name, St
                           String newSkuTitle, BigDecimal newSalePrice, BigDecimal newMarketPrice, int newStock) {
         return new Product(id, merchantId, newCategoryId, newName, newSubtitle, newBrand, newDescription,
                 newWeightKg, status, skuId,
-                newSkuCode, newSkuTitle, newSalePrice, newMarketPrice, newStock, createdAt, Instant.now());
+                newSkuCode, newSkuTitle, newSalePrice, newMarketPrice, newStock, version, createdAt, Instant.now());
     }
 }
