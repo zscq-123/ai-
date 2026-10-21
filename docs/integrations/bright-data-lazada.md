@@ -76,7 +76,7 @@
 - `products(source_platform, external_product_id)` 是唯一键，同一商品重复导入会更新，不会新增重复商品。
 - 商家和本地商品/SKU UUID 由来源与外部 ID 确定性生成，重复运行保持不变。
 - 来源 URL、图片、币种、销量、评分、原始 JSON、同步时间和外部 SKU 均保留。
-- 外部价格写入 `product_skus`，商品对前台以 `ACTIVE` 状态可见。
+- 外部价格写入 `product_skus`，商品以 `DRAFT` 状态进入待审核，SKU 禁用，显式发布后才对前台可见；重复同步仅更新草稿，已发布或审核中的商品跳过并返回原因。默认直采入口详见 [Lazada 直接采集](./lazada-direct.md)。
 
 ## 本地配置
 

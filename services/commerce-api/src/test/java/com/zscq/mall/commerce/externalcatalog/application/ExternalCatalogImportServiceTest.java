@@ -43,6 +43,47 @@ class ExternalCatalogImportServiceTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void selectsDirectByDefaultAndOnlyUsesBrightDataWhenExplicitlyRequested() {
+        var directCalls = new java.util.concurrent.atomic.AtomicInteger();
+        var brightCalls = new java.util.concurrent.atomic.AtomicInteger();
+        var direct = (com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogGateway) urls -> {
+            directCalls.incrementAndGet(); return List.of();
+        };
+        var bright = new com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogGateway() {
+            public String provider() { return "BRIGHT_DATA"; }
+            public List<ExternalCatalogProduct> fetchLazadaProducts(List<java.net.URI> urls) {
+                brightCalls.incrementAndGet(); return List.of();
+            }
+        };
+        var service = new ExternalCatalogImportService(List.of(direct, bright), new CountingRepository());
+        service.importLazada(List.of("https://www.lazada.sg/"), 3);
+        assertThat(directCalls.get()).isEqualTo(1);
+        assertThat(brightCalls.get()).isZero();
+        service.importLazadaFromBrightData(List.of("https://www.lazada.sg/products/p-i1.html"));
+        assertThat(brightCalls.get()).isEqualTo(1);
+    }
+
+    @Test
+    void reportsSkippedPublishedProductsWithoutCountingThemAsUpdates() {
+        ExternalCatalogProduct product = new ExternalCatalogProduct("LAZADA", "SG:1", "S-1",
+                "https://www.lazada.sg/products/p-i1.html", "Product", null, null, null, "Seller",
+                new BigDecimal("10.00"), null, "SGD", 1, 0, null, null, "{}");
+        var repository = new ExternalCatalogRepository() {
+            public UpsertedProduct upsert(ExternalCatalogProduct source) {
+                return new UpsertedProduct(UUID.randomUUID(), UUID.randomUUID(), false, "Product is ACTIVE; retained existing content");
+            }
+            public boolean publish(UUID productId) { return false; }
+        };
+        var result = new ExternalCatalogImportService(new FixedGateway(product), repository)
+                .importLazada(List.of(product.sourceUrl()));
+        assertThat(result.skipped()).isEqualTo(1);
+        assertThat(result.updated()).isZero();
+        assertThat(result.created()).isZero();
+        assertThat(result.state()).isEqualTo("UNCHANGED");
+        assertThat(result.items().getFirst().skipReason()).contains("ACTIVE");
+    }
+
     private record FixedGateway(ExternalCatalogProduct product)
             implements com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogGateway {
         @Override public List<ExternalCatalogProduct> fetchLazadaProducts(List<java.net.URI> urls) { return List.of(product); }

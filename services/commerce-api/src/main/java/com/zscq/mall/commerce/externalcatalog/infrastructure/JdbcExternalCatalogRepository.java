@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.UUID;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import tools.jackson.databind.json.JsonMapper;
 
 @Repository
 public class JdbcExternalCatalogRepository implements ExternalCatalogRepository {
@@ -20,34 +21,40 @@ public class JdbcExternalCatalogRepository implements ExternalCatalogRepository 
 
     @Override
     public UpsertedProduct upsert(ExternalCatalogProduct product) {
-        UUID merchantId = deterministicUuid("merchant", product.sourcePlatform() + ":" + product.sellerName());
+        // Keep published / review-in-progress products untouched; lock before deciding so a
+        // concurrent publish cannot race the import and overwrite live catalog edits.
+        var existingRows = jdbc.query("SELECT id, merchant_id, status FROM products WHERE source_platform=? AND external_product_id=? FOR UPDATE",
+                (row, index) -> new ExistingProduct(row.getObject("id", UUID.class), row.getObject("merchant_id", UUID.class), row.getString("status")),
+                product.sourcePlatform(), product.externalProductId());
+        ExistingProduct existing = existingRows.isEmpty() ? null : existingRows.getFirst();
+        if (existing != null && !"DRAFT".equals(existing.status())) return skipped(existing);
+        UUID merchantId = existing == null ? deterministicUuid("merchant", product.sourcePlatform() + ":" + product.sellerName()) : existing.merchantId();
         String externalLicense = "EXT-" + product.sourcePlatform() + "-" + merchantId.toString().replace("-", "").substring(0, 24);
-        jdbc.update("""
+        if (existing == null) jdbc.update("""
                 INSERT INTO merchants (id, legal_name, store_name, contact_name, contact_phone, business_license_no, status, created_at, reviewed_at)
                 VALUES (?, ?, ?, 'External catalog import', 'N/A', ?, 'PENDING_REVIEW', CURRENT_TIMESTAMP, NULL)
                 ON CONFLICT (business_license_no) DO UPDATE SET store_name = EXCLUDED.store_name
                 """, merchantId, truncate(product.sellerName(), 160), truncate(product.sellerName(), 100), externalLicense);
 
-        UUID productId = deterministicUuid("product", product.sourcePlatform() + ":" + product.externalProductId());
-        Boolean existed = jdbc.queryForObject("SELECT EXISTS (SELECT 1 FROM products WHERE source_platform = ? AND external_product_id = ?)",
-                Boolean.class, product.sourcePlatform(), product.externalProductId());
+        UUID productId = existing == null ? deterministicUuid("product", product.sourcePlatform() + ":" + product.externalProductId()) : existing.id();
         String payload = product.sourcePayload();
-        jdbc.update(connection -> {
+        var savedRows = jdbc.query(connection -> {
             var statement = connection.prepareStatement("""
                     INSERT INTO products (
                         id, merchant_id, category_id, name, subtitle, brand, description, weight_kg, status,
                         created_at, updated_at, source_platform, external_product_id, source_url,
                         source_image_url, source_currency, source_sold_count, source_rating,
-                        source_payload, source_last_synced_at)
+                        source_payload, source_last_synced_at, image_urls)
                     VALUES (?, ?, NULL, ?, ?, ?, ?, 0, 'DRAFT', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,
-                        ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?)
+                        ?, ?, ?, ?, ?, ?, ?, ?::jsonb, ?, ?::jsonb)
                     ON CONFLICT (source_platform, external_product_id) WHERE source_platform IS NOT NULL AND external_product_id IS NOT NULL
                     DO UPDATE SET
-                        merchant_id = EXCLUDED.merchant_id,
                         name = EXCLUDED.name,
                         subtitle = EXCLUDED.subtitle,
                         brand = EXCLUDED.brand,
                         description = EXCLUDED.description,
+                        status = 'DRAFT',
+                        version = products.version + 1,
                         updated_at = CURRENT_TIMESTAMP,
                         source_url = EXCLUDED.source_url,
                         source_image_url = EXCLUDED.source_image_url,
@@ -55,7 +62,10 @@ public class JdbcExternalCatalogRepository implements ExternalCatalogRepository 
                         source_sold_count = EXCLUDED.source_sold_count,
                         source_rating = EXCLUDED.source_rating,
                         source_payload = EXCLUDED.source_payload,
-                        source_last_synced_at = EXCLUDED.source_last_synced_at
+                        source_last_synced_at = EXCLUDED.source_last_synced_at,
+                        image_urls = COALESCE(products.image_urls, EXCLUDED.image_urls)
+                    WHERE products.status = 'DRAFT'
+                    RETURNING id, merchant_id, (xmax = 0) AS inserted
                     """);
             int index = 1;
             statement.setObject(index++, productId);
@@ -72,43 +82,69 @@ public class JdbcExternalCatalogRepository implements ExternalCatalogRepository 
             statement.setLong(index++, product.soldCount());
             setNullable(statement, index++, product.rating(), Types.NUMERIC);
             statement.setString(index++, payload);
-            statement.setObject(index, OffsetDateTime.now());
+            statement.setObject(index++, OffsetDateTime.now());
+            statement.setString(index, product.imageUrl() == null ? null
+                    : JsonMapper.builder().build().writeValueAsString(java.util.List.of(product.imageUrl())));
             return statement;
-        });
+        }, (row, index) -> new UpsertedProduct(row.getObject("id", UUID.class),
+                row.getObject("merchant_id", UUID.class), row.getBoolean("inserted")));
+        if (savedRows.isEmpty()) {
+            var current = jdbc.queryForObject("SELECT id, merchant_id, status FROM products WHERE source_platform=? AND external_product_id=?",
+                    (row, index) -> new ExistingProduct(row.getObject("id", UUID.class), row.getObject("merchant_id", UUID.class), row.getString("status")),
+                    product.sourcePlatform(), product.externalProductId());
+            return skipped(current);
+        }
 
+        UUID savedProductId = savedRows.getFirst().productId();
+        synchronizeSku(savedProductId, product);
+        return savedRows.getFirst();
+    }
+
+    void synchronizeSku(UUID savedProductId, ExternalCatalogProduct product) {
+        var existingSkuIds = jdbc.query("SELECT id FROM product_skus WHERE product_id=? ORDER BY id FOR UPDATE",
+                (row, index) -> row.getObject("id", UUID.class), savedProductId);
+        if (existingSkuIds.size() > 1) {
+            throw new IllegalStateException("External product has multiple SKUs; map the source SKU explicitly before resyncing");
+        }
+        if (!existingSkuIds.isEmpty()) {
+            // A merchant can edit sku_code; identity and the one-product/one-source-SKU relation remain stable.
+            jdbc.update("""
+                    UPDATE product_skus SET title=?, sale_price=?, market_price=?, available_stock=?,
+                        enabled=FALSE, external_sku_id=?
+                     WHERE id=?
+                    """, truncate(product.name(), 160), product.salePrice(), product.marketPrice(),
+                    product.availableStock(), truncate(product.externalSkuId(), 180), existingSkuIds.getFirst());
+            return;
+        }
         UUID skuId = deterministicUuid("sku", product.sourcePlatform() + ":" + product.externalProductId());
-        String skuCode = ("LZ-" + productId.toString()).toUpperCase(Locale.ROOT);
+        String skuCode = ("LZ-" + savedProductId.toString()).toUpperCase(Locale.ROOT);
         jdbc.update("""
                 INSERT INTO product_skus (id, product_id, sku_code, title, sale_price, market_price, available_stock, enabled, external_sku_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, FALSE, ?)
-                ON CONFLICT (sku_code) DO UPDATE SET
-                    title = EXCLUDED.title,
-                    sale_price = EXCLUDED.sale_price,
-                    market_price = EXCLUDED.market_price,
-                    available_stock = EXCLUDED.available_stock,
-                    external_sku_id = EXCLUDED.external_sku_id
-                """, skuId, productId, skuCode, truncate(product.name(), 160), product.salePrice(), product.marketPrice(),
+                """, skuId, savedProductId, skuCode, truncate(product.name(), 160), product.salePrice(), product.marketPrice(),
                 product.availableStock(), truncate(product.externalSkuId(), 180));
-        return new UpsertedProduct(productId, merchantId, !Boolean.TRUE.equals(existed));
     }
+
+    private static UpsertedProduct skipped(ExistingProduct product) {
+        return new UpsertedProduct(product.id(), product.merchantId(), false,
+                "Product is " + product.status() + "; retained existing content. Move it to draft explicitly before resyncing.");
+    }
+
+    private record ExistingProduct(UUID id, UUID merchantId, String status) {}
 
     @Override
     public boolean publish(UUID productId) {
-        int changed = jdbc.update("""
-                WITH candidate AS (
-                    SELECT merchant_id FROM products
-                     WHERE id = ? AND source_platform IS NOT NULL AND status IN ('DRAFT', 'PENDING_REVIEW')
-                ), merchant_update AS (
-                    UPDATE merchants SET status='ACTIVE', reviewed_at=CURRENT_TIMESTAMP
-                     WHERE id=(SELECT merchant_id FROM candidate) AND status='PENDING_REVIEW'
-                ), product_update AS (
-                    UPDATE products SET status='ACTIVE', updated_at=CURRENT_TIMESTAMP
-                     WHERE id=? AND EXISTS (SELECT 1 FROM candidate)
-                    RETURNING id
-                )
-                UPDATE product_skus SET enabled=TRUE
-                 WHERE product_id IN (SELECT id FROM product_update)
-                """, productId, productId);
+        // Match seller editing / stock reservation: lock the product before touching its SKUs.
+        var merchants = jdbc.query("""
+                SELECT merchant_id FROM products
+                 WHERE id=? AND source_platform IS NOT NULL AND status IN ('DRAFT', 'PENDING_REVIEW')
+                 FOR UPDATE
+                """, (row, index) -> row.getObject("merchant_id", UUID.class), productId);
+        if (merchants.isEmpty()) return false;
+        jdbc.update("UPDATE merchants SET status='ACTIVE', reviewed_at=CURRENT_TIMESTAMP WHERE id=? AND status='PENDING_REVIEW'",
+                merchants.getFirst());
+        jdbc.update("UPDATE products SET status='ACTIVE', version=version+1, updated_at=CURRENT_TIMESTAMP WHERE id=?", productId);
+        int changed = jdbc.update("UPDATE product_skus SET enabled=TRUE WHERE product_id=?", productId);
         return changed > 0;
     }
 

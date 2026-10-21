@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface ExternalCatalogGateway {
     List<ExternalCatalogProduct> fetchLazadaProducts(List<URI> productUrls);
+    default String provider() { return "DIRECT"; }
 }

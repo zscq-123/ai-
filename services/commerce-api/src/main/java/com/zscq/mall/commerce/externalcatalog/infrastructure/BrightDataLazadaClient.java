@@ -3,6 +3,7 @@ package com.zscq.mall.commerce.externalcatalog.infrastructure;
 import com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogGateway;
 import com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogProduct;
 import com.zscq.mall.commerce.externalcatalog.domain.ExternalCatalogProviderException;
+import com.zscq.mall.commerce.externalcatalog.domain.LazadaUrl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
@@ -49,6 +50,9 @@ public class BrightDataLazadaClient implements ExternalCatalogGateway {
         this.pollAttempts = pollAttempts;
         this.pollInterval = pollInterval;
     }
+
+    @Override
+    public String provider() { return "BRIGHT_DATA"; }
 
     @Override
     public List<ExternalCatalogProduct> fetchLazadaProducts(List<URI> productUrls) {
@@ -218,6 +222,8 @@ public class BrightDataLazadaClient implements ExternalCatalogGateway {
     }
 
     private static String externalProductId(String sourceUrl, String sku) {
+        URI canonical = LazadaUrl.validate(sourceUrl);
+        if (!"/".equals(canonical.getPath())) return LazadaUrl.productId(canonical);
         if (sku != null && !sku.isBlank()) return truncate(sku, 180);
         Matcher matcher = PRODUCT_ID_IN_URL.matcher(sourceUrl);
         if (matcher.find()) return matcher.group(1);

@@ -39,7 +39,7 @@ class BrightDataLazadaClientTest {
         var product = BrightDataLazadaClient.normalize(source);
 
         assertThat(product.sourcePlatform()).isEqualTo("LAZADA");
-        assertThat(product.externalProductId()).isEqualTo("3143299189_SGAMZ-21422552211");
+        assertThat(product.externalProductId()).isEqualTo("SG:3143299189");
         assertThat(product.salePrice()).isEqualByComparingTo(new BigDecimal("27.90"));
         assertThat(product.marketPrice()).isEqualByComparingTo(new BigDecimal("32.90"));
         assertThat(product.currency()).isEqualTo("SGD");
@@ -62,7 +62,7 @@ class BrightDataLazadaClientTest {
 
         var product = BrightDataLazadaClient.normalize(source);
 
-        assertThat(product.externalProductId()).isEqualTo("487926315");
+        assertThat(product.externalProductId()).isEqualTo("MY:487926315");
         assertThat(product.currency()).isEqualTo("MYR");
         assertThat(product.availableStock()).isEqualTo(1);
     }
