@@ -27,6 +27,8 @@ server:
   forward-headers-strategy: framework
 
 commerce:
+  security:
+    local-admin-public: false
   auth:
     secure-cookie: true
   cors:

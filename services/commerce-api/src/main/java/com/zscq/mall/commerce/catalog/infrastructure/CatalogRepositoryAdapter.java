@@ -13,4 +13,5 @@ class CatalogRepositoryAdapter implements CatalogRepository {
     public Product save(Product product) { return repository.save(new ProductEntity(product)).toDomain(); }
     public List<Product> search(String query, UUID categoryId) { return repository.search(ProductStatus.ACTIVE, query, categoryId).stream().map(ProductEntity::toDomain).toList(); }
     public Optional<Product> findActiveById(UUID productId) { return repository.findByIdAndStatus(productId, ProductStatus.ACTIVE).map(ProductEntity::toDomain); }
+    public Optional<Product> findById(UUID productId) { return repository.findById(productId).map(ProductEntity::toDomain); }
 }

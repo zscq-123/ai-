@@ -1,6 +1,7 @@
 import { Avatar, Badge, Button, ConfigProvider, Input, Layout, Menu, Space, Typography } from 'antd'
 import { lazy, Suspense, useState } from 'react'
 import { DashboardPage } from '../features/dashboard/DashboardPage'
+import { CustomersPage, MarketingPage, OrdersPage, ProductsPage, SupportPage } from '../features/operations/OperationsPages'
 import { CommerceIcon } from '../shared/ui/CommerceIcon'
 import styles from './appShell.module.css'
 
@@ -29,12 +30,14 @@ const menuItems = [
 export function AppShell() {
   const [collapsed, setCollapsed] = useState(false)
   const [current, setCurrent] = useState('dashboard')
+  const [editingProduct, setEditingProduct] = useState(false)
+  function navigate(key: string) { setCurrent(key); if (key !== 'products') setEditingProduct(false) }
   return (
     <ConfigProvider theme={{ token: { colorPrimary: '#145cff', borderRadius: 12, colorBgLayout: '#f6f8fb', fontFamily: 'Inter, PingFang SC, Microsoft YaHei, sans-serif' }, components: { Menu: { itemHeight: 50, itemBorderRadius: 12, itemSelectedBg: '#eef5ff' } } }}>
       <Layout className={styles.shell}>
         <Sider className={styles.sider} width={236} collapsedWidth={82} collapsible collapsed={collapsed} onCollapse={setCollapsed} trigger={null}>
           <div className={styles.brand}><span>N</span>{!collapsed && <div><strong>NOVA</strong><small>COMMERCE OPS</small></div>}</div>
-          <Menu mode="inline" selectedKeys={[current]} onClick={({ key }) => setCurrent(key)} items={menuItems} className={styles.menu} />
+          <Menu mode="inline" selectedKeys={[current]} onClick={({ key }) => navigate(key)} items={menuItems} className={styles.menu} />
           <button className={styles.collapse} onClick={() => setCollapsed((value) => !value)}>{collapsed ? '→' : '收起导航  ←'}</button>
         </Sider>
         <Layout>
@@ -48,16 +51,26 @@ export function AppShell() {
             </Space>
           </Header>
           <Content className={styles.content}>
-            {current === 'products' ? (
+            {current === 'products' && editingProduct ? (
               <Suspense fallback={<Typography.Text>正在加载商品编辑器…</Typography.Text>}>
                 <ProductEditorPage />
               </Suspense>
+            ) : current === 'products' ? (
+              <ProductsPage onEdit={() => setEditingProduct(true)} />
+            ) : current === 'orders' ? (
+              <OrdersPage />
+            ) : current === 'marketing' ? (
+              <MarketingPage />
+            ) : current === 'customers' ? (
+              <CustomersPage />
+            ) : current === 'support' ? (
+              <SupportPage />
             ) : current === 'merchants' ? (
               <Suspense fallback={<Typography.Text>正在加载商家审核…</Typography.Text>}>
                 <MerchantReviewPage />
               </Suspense>
             ) : (
-              <DashboardPage />
+              <DashboardPage onNavigate={navigate} />
             )}
           </Content>
         </Layout>

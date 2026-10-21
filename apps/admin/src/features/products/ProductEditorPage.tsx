@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Checkbox,
   Col,
@@ -14,9 +15,11 @@ import {
   Table,
   Tag,
   Typography,
+  message,
 } from 'antd'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
+import { commerceApi, type ProductSummary } from '../../shared/api/commerceApi'
 import styles from './productEditor.module.css'
 
 type ProductDraft = {
@@ -32,17 +35,17 @@ type ProductDraft = {
   sellerSku: string
 }
 
-const initialDraft: ProductDraft = {
-  name: '智能协作终端 Pro｜4K 会议与多屏协同',
-  subtitle: '企业级视频会议、无线投屏与远程协作一体化终端',
-  category: '办公设备 / 智能会议',
-  brand: 'NOVA',
-  price: 6299,
-  marketPrice: 6999,
-  stock: 120,
-  weight: 3.6,
-  description: '面向现代团队的智能协作终端，支持 4K 视频会议、多屏协同与企业级设备管理。',
-  sellerSku: 'NOVA-COLLAB-PRO',
+const emptyDraft: ProductDraft = {
+  name: '',
+  subtitle: '',
+  category: '',
+  brand: '',
+  price: 0,
+  marketPrice: 0,
+  stock: 0,
+  weight: 0,
+  description: '',
+  sellerSku: '',
 }
 
 const sections = [
@@ -59,11 +62,46 @@ function scrollToSection(id: string) {
 }
 
 export function ProductEditorPage() {
-  const [draft, setDraft] = useState(initialDraft)
+  const [draft, setDraft] = useState(emptyDraft)
+  const [savedDraft, setSavedDraft] = useState(emptyDraft)
+  const [products, setProducts] = useState<ProductSummary[]>([])
+  const [productId, setProductId] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [skuTitle, setSkuTitle] = useState('')
+  const [storeName, setStoreName] = useState('')
+  const [loadError, setLoadError] = useState('')
+  const [loading, setLoading] = useState(true)
   const [images, setImages] = useState<string[]>([])
   const [activeSection, setActiveSection] = useState('basic')
   const [saveState, setSaveState] = useState('所有更改已保存')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  function applyProduct(product: ProductSummary) {
+    const next = {
+      ...emptyDraft,
+      name: product.name,
+      subtitle: product.subtitle ?? '',
+      category: product.categoryName ?? '未分类',
+      brand: product.brand ?? '',
+      price: Number(product.salePrice),
+      marketPrice: Number(product.marketPrice ?? product.salePrice),
+      stock: product.availableStock,
+      weight: Number(product.weightKg ?? 0),
+      description: product.description ?? '',
+      sellerSku: product.skuCode,
+    }
+    setProductId(product.id)
+    setCategoryId(product.categoryId ?? '')
+    setSkuTitle(product.skuTitle)
+    setStoreName(product.merchantName)
+    setDraft(next)
+    setSavedDraft(next)
+    setSaveState('已加载数据库中的商品资料')
+  }
+
+  useEffect(() => {
+    commerceApi.products().then((items) => { setProducts(items); if (items[0]) applyProduct(items[0]) }).catch((reason: unknown) => setLoadError(reason instanceof Error ? reason.message : '商品数据加载失败')).finally(() => setLoading(false))
+  }, [])
 
   const score = useMemo(() => {
     const checks = [draft.name, draft.subtitle, draft.category, draft.brand, draft.description, draft.price, draft.stock]
@@ -87,12 +125,23 @@ export function ProductEditorPage() {
     setSaveState('有未保存的更改')
   }
 
-  function save(label: string) {
-    localStorage.setItem('nova_product_draft', JSON.stringify(draft))
-    setSaveState(`${label}成功 · 刚刚`)
+  async function save(label: string) {
+    if (!productId || !categoryId) { message.error('商品或类目信息不完整，无法保存'); return }
+    try {
+      await commerceApi.updateProduct(productId, { categoryId, name: draft.name, subtitle: draft.subtitle, brand: draft.brand, description: draft.description, weightKg: draft.weight, skuCode: draft.sellerSku, skuTitle, salePrice: draft.price, marketPrice: draft.marketPrice, availableStock: draft.stock })
+      setSavedDraft(draft)
+      setSaveState(`${label}成功 · 数据库已更新`)
+      message.success(`${label}成功`)
+    } catch (reason) {
+      message.error(reason instanceof Error ? reason.message : '保存失败')
+    }
   }
 
   const cover = images[0] ?? '/brand/icons/image2.5/256/package.png'
+
+  if (loading) return <Typography.Text>正在从数据库读取商品…</Typography.Text>
+  if (loadError) return <Alert type="error" showIcon message="商品数据加载失败" description={loadError} />
+  if (!productId) return <Alert type="info" showIcon message="数据库中暂无可编辑商品" />
 
   return (
     <div className={styles.page}>
@@ -179,8 +228,8 @@ export function ProductEditorPage() {
           <section className={styles.card} id="attributes">
             <SectionHeading number="02" title="商品属性" description="准确属性有助于搜索匹配与类目推荐" />
             <Row gutter={18}>
-              <Col span={12}><Form.Item label="商品类目" required><Select value={draft.category} onChange={(value) => update('category', value)} options={[{ value: '办公设备 / 智能会议', label: '办公设备 / 智能会议' }, { value: '办公设备 / 显示设备', label: '办公设备 / 显示设备' }]} /></Form.Item></Col>
-              <Col span={12}><Form.Item label="品牌" required><Input value={draft.brand} onChange={(event) => update('brand', event.target.value)} /></Form.Item></Col>
+              <Col span={12}><Form.Item label="商品类目" required><Select value={categoryId} onChange={(value) => { setCategoryId(value); const selected = products.find((item) => item.categoryId === value); update('category', selected?.categoryName ?? '未分类') }} options={Array.from(new Map(products.filter((item) => item.categoryId).map((item) => [item.categoryId, { value: item.categoryId as string, label: item.categoryName ?? '未分类' }])).values())} /></Form.Item></Col>
+              <Col span={12}><Form.Item label="品牌"><Input value={draft.brand} placeholder="数据库尚未配置品牌" onChange={(event) => update('brand', event.target.value)} /></Form.Item></Col>
               <Col span={12}><Form.Item label="保修类型"><Select defaultValue="manufacturer" options={[{ value: 'manufacturer', label: '品牌官方质保' }, { value: 'seller', label: '店铺质保' }]} /></Form.Item></Col>
               <Col span={12}><Form.Item label="保修期"><Select defaultValue="36" options={[{ value: '12', label: '12 个月' }, { value: '24', label: '24 个月' }, { value: '36', label: '36 个月' }]} /></Form.Item></Col>
             </Row>
@@ -192,7 +241,7 @@ export function ProductEditorPage() {
               pagination={false}
               size="middle"
               rowKey="sku"
-              dataSource={[{ sku: draft.sellerSku, specification: '专业版 / 深空灰' }]}
+              dataSource={[{ sku: draft.sellerSku, specification: skuTitle }]}
               columns={[
                 { title: '规格', dataIndex: 'specification' },
                 { title: '商家 SKU', render: () => <Input value={draft.sellerSku} onChange={(event) => update('sellerSku', event.target.value)} /> },
@@ -238,7 +287,7 @@ export function ProductEditorPage() {
                 <h3>{draft.name || '请输入商品名称'}</h3>
                 <p>{draft.subtitle || '补充商品卖点，帮助买家快速了解商品。'}</p>
                 <div className={styles.deliveryLine}><span>✓ 企业质保</span><span>次日发货</span><span>开具发票</span></div>
-                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store.png" alt="" /><div><b>NOVA 企业旗舰店</b><small>已通过平台认证</small></div><Button size="small">进店</Button></div>
+                <div className={styles.storeLine}><img src="/brand/icons/image2.5/96/store.png" alt="" /><div><b>{storeName}</b><small>数据库认证商家</small></div><Button size="small">进店</Button></div>
               </div>
               <div className={styles.previewActions}><button>客服</button><button>加入采购单</button><button>立即采购</button></div>
             </div>
@@ -248,11 +297,11 @@ export function ProductEditorPage() {
       </div>
 
       <footer className={styles.actionBar}>
-        <span>商品 ID：30000000-0000-0000-0000-000000000001</span>
+        <span>商品 ID：{productId}</span>
         <Space>
-          <Button onClick={() => setDraft(initialDraft)}>取消修改</Button>
-          <Button onClick={() => save('草稿保存')}>保存草稿</Button>
-          <Button type="primary" onClick={() => save('商品更新')}>更新商品</Button>
+          <Button onClick={() => setDraft(savedDraft)}>取消修改</Button>
+          <Button onClick={() => void save('草稿保存')}>保存草稿</Button>
+          <Button type="primary" onClick={() => void save('商品更新')}>更新商品</Button>
         </Space>
       </footer>
     </div>

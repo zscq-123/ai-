@@ -19,15 +19,21 @@ import org.springframework.beans.factory.annotation.Value;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
+    SecurityFilterChain apiSecurity(
+            HttpSecurity http,
+            @Value("${commerce.security.local-admin-public:true}") boolean localAdminPublic) throws Exception {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll()
-                        .requestMatchers("/api/public/**").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers("/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll();
+                    authorize.requestMatchers("/api/public/**").permitAll();
+                    if (localAdminPublic) {
+                        authorize.requestMatchers("/api/admin/**", "/api/merchants/**", "/api/products/**").permitAll();
+                    }
+                    authorize.anyRequest().authenticated();
+                })
                 .oauth2ResourceServer(oauth -> oauth.jwt(Customizer.withDefaults()))
                 .build();
     }

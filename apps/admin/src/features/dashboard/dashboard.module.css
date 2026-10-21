@@ -2,6 +2,7 @@
 .welcome { margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .welcome :global(.ant-typography) { margin: 0; }
 .welcome h2 { letter-spacing: -.04em; }
+.inlineAlert { margin-bottom: 16px; }
 .metricCard { height: 100%; border: 0; box-shadow: 0 8px 28px rgba(16,24,40,.05); }
 .metricCard :global(.ant-card-body) { position: relative; display: flex; flex-direction: column; gap: 7px; }
 .metricCard strong { color: #101828; font-size: 26px; letter-spacing: -.04em; }
@@ -9,10 +10,10 @@
 .metricIcon { width: 62px; height: 62px; position: absolute; top: 20px; right: 18px; display: grid; place-items: center; overflow: hidden; background: #07101f; border-radius: 18px; }
 .lower { margin-block: 16px; }
 .chartCard,.aiCard { height: 340px; border: 0; box-shadow: 0 8px 28px rgba(16,24,40,.05); }
-.chart { height: 190px; position: relative; overflow: hidden; border-bottom: 1px solid #e4e7ec; background: repeating-linear-gradient(to bottom,transparent 0,transparent 46px,#eff2f6 47px); }
-.chartFill { position: absolute; inset: 20px 0 0; opacity: .22; background: linear-gradient(to bottom,#145cff,transparent); clip-path: polygon(0 78%,8% 68%,16% 74%,25% 43%,34% 57%,43% 35%,53% 48%,62% 18%,72% 33%,81% 13%,90% 23%,100% 4%,100% 100%,0 100%); }
-.chartLine { position: absolute; inset: 20px 0 0; background: #145cff; clip-path: polygon(0 calc(78% - 2px),8% calc(68% - 2px),16% calc(74% - 2px),25% calc(43% - 2px),34% calc(57% - 2px),43% calc(35% - 2px),53% calc(48% - 2px),62% calc(18% - 2px),72% calc(33% - 2px),81% calc(13% - 2px),90% calc(23% - 2px),100% calc(4% - 2px),100% calc(4% + 2px),90% calc(23% + 2px),81% calc(13% + 2px),72% calc(33% + 2px),62% calc(18% + 2px),53% calc(48% + 2px),43% calc(35% + 2px),34% calc(57% + 2px),25% calc(43% + 2px),16% calc(74% + 2px),8% calc(68% + 2px),0 calc(78% + 2px)); }
-.axis { padding-top: 12px; display: flex; justify-content: space-between; color: #98a2b3; font-size: 11px; }
+.trendBars { height: 238px; padding-top: 16px; display: flex; align-items: stretch; gap: 8px; border-bottom: 1px solid #e4e7ec; background: repeating-linear-gradient(to bottom,transparent 0,transparent 52px,#eff2f6 53px); }
+.trendPoint { min-width: 0; flex: 1; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; gap: 8px; }
+.trendPoint i { width: min(34px,70%); min-height: 2px; display: block; background: linear-gradient(180deg,#145cff,#7ba8ff); border-radius: 8px 8px 2px 2px; transition: height .3s ease; }
+.trendPoint span { color: #98a2b3; font-size: 10px; white-space: nowrap; }
 .aiTitle { margin-bottom: 28px; display: flex; align-items: center; gap: 14px; }
 .aiTitle > img { padding: 3px; background: #07101f; border-radius: 20px; }
 .aiTitle div { display: flex; flex-direction: column; }

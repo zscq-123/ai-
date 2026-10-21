@@ -13,9 +13,10 @@ public class CatalogService {
     public CatalogService(CatalogRepository repository) { this.repository = repository; }
 
     @Transactional
-    public Product create(UUID merchantId, UUID categoryId, String name, String subtitle, String skuCode,
+    public Product create(UUID merchantId, UUID categoryId, String name, String subtitle, String brand,
+                          String description, BigDecimal weightKg, String skuCode,
                           String skuTitle, BigDecimal salePrice, BigDecimal marketPrice, int stock) {
-        return repository.save(Product.draft(merchantId, categoryId, name, subtitle, skuCode, skuTitle, salePrice, marketPrice, stock));
+        return repository.save(Product.draft(merchantId, categoryId, name, subtitle, brand, description, weightKg, skuCode, skuTitle, salePrice, marketPrice, stock));
     }
 
     @Transactional(readOnly = true)
@@ -24,5 +25,13 @@ public class CatalogService {
     @Transactional(readOnly = true)
     public Product getActive(UUID productId) {
         return repository.findActiveById(productId).orElseThrow();
+    }
+
+    @Transactional
+    public Product update(UUID productId, UUID categoryId, String name, String subtitle, String brand,
+                          String description, BigDecimal weightKg, String skuCode,
+                          String skuTitle, BigDecimal salePrice, BigDecimal marketPrice, int stock) {
+        Product product = repository.findById(productId).orElseThrow();
+        return repository.save(product.revise(categoryId, name, subtitle, brand, description, weightKg, skuCode, skuTitle, salePrice, marketPrice, stock));
     }
 }

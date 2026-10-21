@@ -8,4 +8,5 @@ public interface CatalogRepository {
     Product save(Product product);
     List<Product> search(String query, UUID categoryId);
     Optional<Product> findActiveById(UUID productId);
+    Optional<Product> findById(UUID productId);
 }

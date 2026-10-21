@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://commerce:commerce_local@localhost:55432/commerce"
     commerce_api_url: str = "http://localhost:8080"
     cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+    persist_conversations: bool = True
 
 
 @lru_cache
