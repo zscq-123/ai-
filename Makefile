@@ -1,4 +1,4 @@
-.PHONY: install dev infra-up storage-up infra-down build test lint verify
+.PHONY: install dev infra-up storage-up infra-down build test lint verify scripts eval embeddings
 
 install:
 	pnpm install
@@ -32,3 +32,12 @@ lint:
 
 verify:
 	./scripts/verify.sh
+
+scripts:
+	cd services/ai-service && PYTHONPATH=src python3 -m ai_service.prompts.export
+
+eval:
+	cd services/ai-service && PYTHONPATH=src python3 -m ai_service.evaluation.runner
+
+embeddings:
+	cd services/ai-service && PYTHONPATH=src python3 -c "from ai_service.infrastructure.embeddings import FastEmbedEmbedder; FastEmbedEmbedder(local_files_only=False); print('embedding model ready')"

@@ -13,16 +13,22 @@ from pydantic import BaseModel, Field
 
 from ai_service.application.chat_service import ChatService
 from ai_service.config import settings
-from ai_service.domain.models import SupportReply
+from ai_service.domain.models import Intent, SupportReply
+from ai_service.infrastructure.commerce_tools import build_support_tool_provider
 from ai_service.infrastructure.conversation_repository import (
     ConversationRecorder,
     ConversationTimer,
 )
-from ai_service.infrastructure.local_knowledge import LocalKnowledgeRetriever
 from ai_service.infrastructure.model_provider import build_model_provider
+from ai_service.infrastructure.retrieval import build_knowledge_retriever
+from ai_service.prompts.library import EMPTY_ANSWER_REPLY
 
 router = APIRouter(prefix="/v1/support", tags=["support"])
-service = ChatService(LocalKnowledgeRetriever(), build_model_provider(settings))
+service = ChatService(
+    build_knowledge_retriever(settings),
+    build_model_provider(settings),
+    build_support_tool_provider(settings),
+)
 recorder = ConversationRecorder(
     settings.database_url,
     settings.model,
@@ -30,21 +36,28 @@ recorder = ConversationRecorder(
 )
 
 
-async def answer_and_record(
-    message: str, *, authenticated: bool, merchant_id: UUID | None
-) -> SupportReply:
-    if merchant_id is not None:
-        merchant_is_active = await asyncio.to_thread(recorder.merchant_is_active, merchant_id)
+async def answer_and_record(message: str, *, context: "TrustedSupportContext") -> SupportReply:
+    if context.merchant_id is not None:
+        merchant_is_active = await asyncio.to_thread(
+            recorder.merchant_is_active, context.merchant_id
+        )
         if merchant_is_active is False:
             raise HTTPException(status_code=404, detail="Active merchant not found")
     timer = ConversationTimer()
-    reply = await service.answer(message, authenticated=authenticated)
+    reply = await service.answer(
+        message,
+        authenticated=context.authenticated,
+        customer_id=context.customer_id,
+        merchant_id=context.merchant_id,
+        product_id=context.product_id,
+        sku_id=context.sku_id,
+    )
     await asyncio.to_thread(
         recorder.record,
         message,
         reply,
         timer.elapsed_ms(),
-        merchant_id=merchant_id,
+        merchant_id=context.merchant_id,
     )
     return reply
 
@@ -58,6 +71,8 @@ class ChatRequest(BaseModel):
 class TrustedSupportContext:
     customer_id: UUID | None
     merchant_id: UUID | None
+    product_id: UUID | None
+    sku_id: UUID | None
 
     @property
     def authenticated(self) -> bool:
@@ -67,6 +82,8 @@ class TrustedSupportContext:
 def trusted_context(
     customer_id: UUID | None,
     merchant_id: UUID | None,
+    product_id: UUID | None,
+    sku_id: UUID | None,
     signature: str | None,
 ) -> TrustedSupportContext:
     """Accept identity only from a commerce gateway signed context.
@@ -74,15 +91,26 @@ def trusted_context(
     Compatibility: old request-body authenticated/merchant_id fields are rejected by
     ChatRequest.extra=forbid. Anonymous callers keep working with only `message`.
     """
-    if customer_id is None and merchant_id is None:
-        return TrustedSupportContext(None, None)
-    content = f"{customer_id or ''}\n{merchant_id or ''}".encode()
-    expected = hmac.new(
-        settings.trusted_context_secret.encode(), content, hashlib.sha256
-    ).hexdigest()
-    if signature is None or not hmac.compare_digest(expected, signature):
+    if all(value is None for value in (customer_id, merchant_id, product_id, sku_id)):
+        return TrustedSupportContext(None, None, None, None)
+    contents = [
+        f"{customer_id or ''}\n{merchant_id or ''}\n{product_id or ''}\n{sku_id or ''}".encode()
+    ]
+    if product_id is None and sku_id is None:
+        contents.append(f"{customer_id or ''}\n{merchant_id or ''}".encode())
+    expected = [
+        hmac.new(settings.trusted_context_secret.encode(), content, hashlib.sha256).hexdigest()
+        for content in contents
+    ]
+    if signature is None or not any(
+        hmac.compare_digest(candidate, signature) for candidate in expected
+    ):
         raise HTTPException(status_code=401, detail="Invalid trusted support context")
-    return TrustedSupportContext(customer_id, merchant_id)
+    return TrustedSupportContext(customer_id, merchant_id, product_id, sku_id)
+
+
+def _sse(event: str, data: dict[str, object]) -> str:
+    return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
 
 class CitationResponse(BaseModel):
@@ -103,14 +131,12 @@ async def chat(
     request: ChatRequest,
     customer_id: Annotated[UUID | None, Header(alias="X-Nova-Customer-Id")] = None,
     merchant_id: Annotated[UUID | None, Header(alias="X-Nova-Merchant-Id")] = None,
+    product_id: Annotated[UUID | None, Header(alias="X-Nova-Product-Id")] = None,
+    sku_id: Annotated[UUID | None, Header(alias="X-Nova-Sku-Id")] = None,
     signature: Annotated[str | None, Header(alias="X-Nova-Context-Signature")] = None,
 ) -> ChatResponse:
-    context = trusted_context(customer_id, merchant_id, signature)
-    reply = await answer_and_record(
-        request.message,
-        authenticated=context.authenticated,
-        merchant_id=context.merchant_id,
-    )
+    context = trusted_context(customer_id, merchant_id, product_id, sku_id, signature)
+    reply = await answer_and_record(request.message, context=context)
     return ChatResponse(
         answer=reply.answer,
         intent=reply.intent.value,
@@ -125,21 +151,48 @@ async def stream(
     request: ChatRequest,
     customer_id: Annotated[UUID | None, Header(alias="X-Nova-Customer-Id")] = None,
     merchant_id: Annotated[UUID | None, Header(alias="X-Nova-Merchant-Id")] = None,
+    product_id: Annotated[UUID | None, Header(alias="X-Nova-Product-Id")] = None,
+    sku_id: Annotated[UUID | None, Header(alias="X-Nova-Sku-Id")] = None,
     signature: Annotated[str | None, Header(alias="X-Nova-Context-Signature")] = None,
 ) -> StreamingResponse:
-    context = trusted_context(customer_id, merchant_id, signature)
+    context = trusted_context(customer_id, merchant_id, product_id, sku_id, signature)
+    if context.merchant_id is not None:
+        merchant_is_active = await asyncio.to_thread(
+            recorder.merchant_is_active, context.merchant_id
+        )
+        if merchant_is_active is False:
+            raise HTTPException(status_code=404, detail="Active merchant not found")
+
     async def events() -> AsyncIterator[str]:
-        reply = await answer_and_record(
+        timer = ConversationTimer()
+        final: SupportReply | None = None
+        async for event in service.stream(
             request.message,
             authenticated=context.authenticated,
+            customer_id=context.customer_id,
+            merchant_id=context.merchant_id,
+            product_id=context.product_id,
+            sku_id=context.sku_id,
+        ):
+            if event.delta:
+                yield _sse("delta", {"text": event.delta})
+            if event.final is not None:
+                final = event.final
+
+        if final is None:
+            final = SupportReply(EMPTY_ANSWER_REPLY, Intent.FAQ, requires_confirmation=True)
+
+        await asyncio.to_thread(
+            recorder.record,
+            request.message,
+            final,
+            timer.elapsed_ms(),
             merchant_id=context.merchant_id,
         )
-        answer_data = json.dumps({"answer": reply.answer}, ensure_ascii=False)
-        done_data = json.dumps(
-            {"intent": reply.intent.value, "requires_human": reply.requires_human},
-            ensure_ascii=False,
+        yield _sse("answer", {"answer": final.answer})
+        yield _sse(
+            "done",
+            {"intent": final.intent.value, "requires_human": final.requires_human},
         )
-        yield f"event: answer\ndata: {answer_data}\n\n"
-        yield f"event: done\ndata: {done_data}\n\n"
 
     return StreamingResponse(events(), media_type="text/event-stream")

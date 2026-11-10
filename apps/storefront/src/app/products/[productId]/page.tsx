@@ -10,7 +10,10 @@ async function ProductContent({ params }: { params: Promise<{ productId: string 
   const { productId } = await params;
   const product = await getProduct(productId);
   if (!product) notFound();
-  return <ProductDetailView product={product} />;
+  return <>
+    <ProductDetailView product={product} />
+    <SupportWidget merchantId={product.merchantId} productId={product.id} skuId={product.skuId} />
+  </>;
 }
 
 export default function ProductPage({ params }: { params: Promise<{ productId: string }> }) {
@@ -20,7 +23,6 @@ export default function ProductPage({ params }: { params: Promise<{ productId: s
       <Suspense fallback={<ProductDetailSkeleton />}>
         <ProductContent params={params} />
       </Suspense>
-      <SupportWidget />
     </div>
   );
 }

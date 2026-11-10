@@ -17,4 +17,12 @@ public record PurchaseOrder(UUID id, String orderNo, UUID customerId, UUID merch
         if (status != OrderStatus.PENDING_PAYMENT) return this;
         return new PurchaseOrder(id, orderNo, customerId, merchantId, OrderStatus.PAID, totalAmount, idempotencyKey, lines, createdAt, Instant.now(), null);
     }
+    public PurchaseOrder shipped() {
+        if (status == OrderStatus.SHIPPED) return this;
+        if (status != OrderStatus.PAID && status != OrderStatus.FULFILLING) {
+            throw new IllegalStateException("Order is not ready for shipment");
+        }
+        return new PurchaseOrder(id, orderNo, customerId, merchantId, OrderStatus.SHIPPED,
+                totalAmount, idempotencyKey, lines, createdAt, paidAt, completedAt);
+    }
 }

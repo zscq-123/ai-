@@ -35,3 +35,5 @@ commerce:
     allowed-origins: ${CORS_ALLOWED_ORIGINS}
   payment:
     webhook-secret: ${PAYMENT_WEBHOOK_SECRET}
+  support:
+    tool-secret: ${COMMERCE_SUPPORT_TOOL_SECRET}

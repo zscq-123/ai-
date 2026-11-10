@@ -17,6 +17,14 @@ class Citation:
 
 
 @dataclass(frozen=True)
+class ReplyGuidance:
+    """告诉模型本轮该用哪套话术，以及用户当前的校验状态。"""
+
+    intent: Intent
+    authenticated: bool = False
+
+
+@dataclass(frozen=True)
 class SupportReply:
     answer: str
     intent: Intent

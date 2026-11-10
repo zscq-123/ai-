@@ -1,0 +1,8 @@
+[Unit]
+Description=Reload support gateway after shared IP certificate renewal
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker exec support-suite-gateway nginx -t
+ExecStart=/usr/bin/docker exec support-suite-gateway nginx -s reload

@@ -8,6 +8,7 @@ import {
   type OrderSummary,
   type ProductSummary,
 } from '../../shared/api/commerceApi'
+import { SupportKnowledgePanel } from '../support/SupportKnowledgePanel'
 
 const money = (value: number) => new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(value)
 const dateTime = (value: string | null) => value ? new Date(value).toLocaleString('zh-CN') : '—'
@@ -85,6 +86,7 @@ export function SupportPage() {
   return <div><PageHeader title="AI 客服" description="只统计实际写入客服会话库的数据；没有会话时显示 0。" /><ErrorBanner error={state.error} reload={() => void state.load()} /><Space orientation="vertical" size={16} style={{ width: '100%' }}>
     <Card loading={state.loading}><Space size={48} wrap><Statistic title="今日会话" value={support?.conversationsToday ?? 0} /><Statistic title="AI 自主解决" value={support?.resolvedToday ?? 0} /><Statistic title="转人工" value={support?.handedOffToday ?? 0} /></Space></Card>
     <Card title="服务质量" loading={state.loading}><Metric label="自主解决率" value={support?.resolutionRate ?? 0} /><Metric label="满意度" value={support?.satisfactionRate ?? 0} color="#12b76a" /></Card>
+    <SupportKnowledgePanel />
   </Space></div>
 }
 

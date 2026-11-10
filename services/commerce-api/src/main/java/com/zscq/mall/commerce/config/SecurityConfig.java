@@ -44,6 +44,7 @@ public class SecurityConfig {
                     authorize.requestMatchers("/error").permitAll();
                     authorize.requestMatchers("/actuator/health/**", "/actuator/info", "/actuator/prometheus").permitAll();
                     authorize.requestMatchers("/api/public/**").permitAll();
+                    authorize.requestMatchers("/api/internal/support/**").permitAll();
                     if (localAdminPublic) {
                         authorize.requestMatchers("/api/admin/**", "/api/seller/**", "/api/merchants/**", "/api/products/**").permitAll();
                     } else {

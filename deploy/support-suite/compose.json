@@ -1,0 +1,623 @@
+{
+  "name": "support-suite",
+  "services": {
+    "oms-gateway": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/oms-gateway.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8080",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "user-service": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/user-service.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8081",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "order-service": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/order-service.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8082",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "inventory-service": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/inventory-service.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8083",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "after-sales-service": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/after-sales-service.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8084",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "payment-center": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/payment-center.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8085",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "integration-service": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "working_dir": "/app",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "volumes": [
+        "./jars/integration-service.jar:/app/service.jar:ro"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/oms.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8086",
+        "SPRING_PROFILES_ACTIVE": "server",
+        "SPRING_CONFIG_IMPORT": "optional:file:/app/none.properties",
+        "SPRING_CLOUD_NACOS_DISCOVERY_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_ENABLED": "false",
+        "SPRING_CLOUD_NACOS_CONFIG_IMPORT_CHECK_ENABLED": "false",
+        "SPRING_CLOUD_SENTINEL_ENABLED": "false",
+        "SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_DISCOVERY_LOCATOR_ENABLED": "false",
+        "SPRING_APPLICATION_JSON": "{\"spring\":{\"cloud\":{\"discovery\":{\"client\":{\"simple\":{\"instances\":{\"user-service\":[{\"uri\":\"http://user-service:8081\"}],\"order-service\":[{\"uri\":\"http://order-service:8082\"}],\"inventory-service\":[{\"uri\":\"http://inventory-service:8083\"}],\"after-sales-service\":[{\"uri\":\"http://after-sales-service:8084\"}],\"payment-center\":[{\"uri\":\"http://payment-center:8085\"}],\"integration-service\":[{\"uri\":\"http://integration-service:8086\"}]}}}}}}}",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "SERVER_TOMCAT_THREADS_MIN_SPARE": "2",
+        "MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE": "health,info",
+        "MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS": "never",
+        "SPRINGDOC_API_DOCS_ENABLED": "false",
+        "SPRINGDOC_SWAGGER_UI_ENABLED": "false",
+        "MYSQL_HOST": "support-mysql",
+        "MYSQL_USERNAME": "support_oms",
+        "REDIS_HOST": "support-redis",
+        "OMS_SEED_DEMO_DATA": "false",
+        "OMS_SENTINEL_ENABLED": "false",
+        "OMS_INVENTORY_URL": "http://inventory-service:8083",
+        "OMS_PAYMENT_URL": "http://payment-center:8085",
+        "OMS_ORDER_URL": "http://order-service:8082",
+        "OMS_INTEGRATION_NOTIFICATION_PROVIDER": "mock",
+        "SPRING_MAIL_PASSWORD": "",
+        "OMS_MALL_CALLBACK_URL": "http://buzud-api:8090",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "OMS_SUPPORT_GATEWAY_URL": "http://oms-gateway:8080",
+        "MANAGEMENT_HEALTH_MAIL_ENABLED": "false"
+      },
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "support-redis": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default"
+      ],
+      "image": "redis:7",
+      "command": [
+        "redis-server",
+        "/etc/redis/support.conf"
+      ],
+      "volumes": [
+        "/opt/support-suite/shared/redis.conf:/etc/redis/support.conf:ro",
+        "/opt/support-suite/shared/redis:/data"
+      ],
+      "mem_limit": "64m"
+    },
+    "support-ai": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default"
+      ],
+      "image": "nova-ai-service:20261105-product-price-evidence-9eda8d8",
+      "entrypoint": [
+        "/opt/venv/bin/uvicorn",
+        "support_main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
+      "working_dir": "/app",
+      "environment": {
+        "PYTHONPATH": "/app/src:/app",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "AI_INTEGRATION_AGENTS_ENABLED": "true",
+        "AI_AGENT_TOTAL_TIMEOUT_SECONDS": "24",
+        "AI_AGENT_CALL_TIMEOUT_SECONDS": "6",
+        "AI_AGENT_MAX_CALLS": "11"
+      },
+      "env_file": [
+        "/opt/support-suite/shared/ai.env"
+      ],
+      "volumes": [
+        "./ai-src:/app/src:ro",
+        "./support_main.py:/app/support_main.py:ro"
+      ],
+      "mem_limit": "256m"
+    },
+    "buzud-api": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default",
+        "data"
+      ],
+      "image": "eclipse-temurin:25-jre",
+      "user": "10001:10001",
+      "command": [
+        "java",
+        "-jar",
+        "/app/service.jar"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/buzud.env"
+      ],
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xms32m -Xmx112m -XX:MaxMetaspaceSize=128m -XX:ReservedCodeCacheSize=24m -XX:MaxDirectMemorySize=16m -Xss512k -XX:+UseSerialGC -XX:ActiveProcessorCount=1 -Duser.home=/tmp -Dcsp.sentinel.log.dir=/tmp/sentinel",
+        "SERVER_PORT": "8090",
+        "DB_HOST": "support-postgres",
+        "DB_NAME": "support_buzud",
+        "DB_USER": "support_buzud",
+        "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE": "3",
+        "SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE": "1",
+        "SERVER_TOMCAT_THREADS_MAX": "16",
+        "NOVA_AI_URL": "http://support-ai:8000",
+        "IKEA_CHAT_KNOWLEDGE_FILE": "/data/chat-knowledge.json",
+        "CORS_ALLOWED_ORIGINS": "https://154.36.185.110:18083",
+        "BUZUD_OMS_ENABLED": "false",
+        "IKEA_PAYMENT_MOCK_ONLY": "false",
+        "IKEA_YEAHPAY_ENABLED": "false",
+        "BUZUD_MARKETING_PUBLIC_BASE_URL": "https://154.36.185.110:18083",
+        "BUZUD_VOUCHER_BOOKING_URL": "https://154.36.185.110:18083/zh/booking/"
+      },
+      "volumes": [
+        "./jars/buzud-api.jar:/app/service.jar:ro",
+        "/opt/support-suite/shared/cms-data:/data:ro"
+      ],
+      "mem_limit": "320m",
+      "memswap_limit": "640m"
+    },
+    "buzud-web": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default"
+      ],
+      "image": "node:24-alpine",
+      "user": "1000:1000",
+      "working_dir": "/app",
+      "command": [
+        "node",
+        "server.js"
+      ],
+      "env_file": [
+        "/opt/support-suite/shared/web.env"
+      ],
+      "environment": {
+        "CMS_DATA_ROOT": "/app/src/data",
+        "NODE_OPTIONS": "--max-old-space-size=192",
+        "NODE_ENV": "production",
+        "HOSTNAME": "0.0.0.0",
+        "PORT": "3000"
+      },
+      "volumes": [
+        "./web-app:/app",
+        "/opt/support-suite/shared/cms-data:/app/src/data"
+      ],
+      "mem_limit": "320m"
+    },
+    "gateway": {
+      "restart": "unless-stopped",
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "networks": [
+        "default"
+      ],
+      "image": "nginx:alpine",
+      "container_name": "support-suite-gateway",
+      "ports": [
+        "18083:8443",
+        "18084:8444"
+      ],
+      "mem_limit": "64m",
+      "volumes": [
+        "./nginx.conf:/etc/nginx/conf.d/default.conf:ro",
+        "./oms-web:/srv/oms:ro",
+        "/opt/nova-commerce/shared/acme/config:/etc/letsencrypt:ro"
+      ]
+    }
+  },
+  "networks": {
+    "default": {},
+    "data": {
+      "external": true,
+      "name": "support-suite-data"
+    }
+  }
+}

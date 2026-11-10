@@ -5,6 +5,7 @@ from starlette.middleware.base import RequestResponseEndpoint
 
 from ai_service.api.chat import router as chat_router
 from ai_service.api.health import router as health_router
+from ai_service.api.integrations import router as integrations_router
 from ai_service.config import settings
 
 CHAT_REQUESTS = Counter("commerce_ai_chat_requests_total", "AI support requests", ["route"])
@@ -24,6 +25,7 @@ def create_app() -> FastAPI:
     )
     app.include_router(health_router)
     app.include_router(chat_router)
+    app.include_router(integrations_router)
 
     @app.get("/metrics", include_in_schema=False)
     async def metrics() -> Response:

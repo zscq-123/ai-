@@ -66,3 +66,5 @@ commerce:
     local-admin-public: ${LOCAL_ADMIN_PUBLIC:false}
   payment:
     webhook-secret: ${PAYMENT_WEBHOOK_SECRET:local-payment-secret}
+  support:
+    tool-secret: ${COMMERCE_SUPPORT_TOOL_SECRET:local-support-tool-secret}

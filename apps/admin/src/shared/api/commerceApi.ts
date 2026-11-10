@@ -16,6 +16,9 @@ export const productMediaUrl = (value: string) => value.startsWith('/api/public/
 export type UpdatedProduct = { id: string; version: number }
 export type CustomerSummary = { id: string; displayName: string; email: string; status: string; createdAt: string; lastLoginAt: string | null; orderCount: number; totalSpend: number }
 export type RevenuePoint = { bucket: string; amount: number }
+export type FaqStatus = 'DRAFT' | 'PUBLISHED' | 'ARCHIVED'
+export type FaqEntry = { id: string; merchantId: string | null; question: string; answer: string; keywords: string[]; status: FaqStatus; displayOrder: number; updatedAt: string; publishedAt: string | null }
+export type FaqImportItem = { question: string; answer: string; keywords: string[]; displayOrder: number }
 export type OperationsDashboard = {
   generatedAt: string
   metrics: { todayRevenue: number; yesterdayRevenue: number; pendingFulfillment: number; newCustomers: number; activeProducts: number; pendingMerchants: number }
@@ -31,6 +34,9 @@ export const commerceApi = {
   products: () => request<ProductSummary[]>('/api/admin/operations/products'),
   updateProduct: (id: string, product: { expectedVersion: number; categoryId: string; name: string; subtitle: string; brand: string; description: string; weightKg: number; skuCode: string; skuTitle: string; salePrice: number; marketPrice: number; availableStock: number }) => request<UpdatedProduct>(`/api/products/${id}`, { method: 'PUT', body: JSON.stringify(product) }),
   customers: () => request<CustomerSummary[]>('/api/admin/operations/customers'),
+  faqs: () => request<FaqEntry[]>('/api/admin/support/faqs'),
+  importFaqs: (entries: FaqImportItem[]) => request<FaqEntry[]>('/api/admin/support/faqs/import', { method: 'POST', body: JSON.stringify({ entries }) }),
+  publishFaq: (id: string) => request<FaqEntry>(`/api/admin/support/faqs/${id}/publish`, { method: 'POST' }),
   merchants: () => request<Merchant[]>('/api/merchants'),
   reviewMerchant: (id: string, approved: boolean, reason?: string) => request<Merchant>(`/api/merchants/${id}/review`, { method: 'POST', body: JSON.stringify({ approved, reason }) }),
 }
