@@ -1,0 +1,25 @@
+# Reproducible local smoke run for the 16 GB Apple Silicon development Mac.
+# The model is already 4-bit quantized, so LoRA here is QLoRA-style tuning.
+model: data/models/Qwen3-4B-Instruct-2507-4bit
+train: true
+test: true
+data: data/training/customer-service-zh-v3-mlx
+fine_tune_type: lora
+mask_prompt: true
+num_layers: 8
+batch_size: 1
+grad_accumulation_steps: 1
+iters: 100
+learning_rate: 1.0e-5
+steps_per_report: 5
+steps_per_eval: 25
+val_batches: -1
+save_every: 50
+test_batches: -1
+max_seq_length: 1024
+seed: 42
+adapter_path: data/training/runs/qwen3-4b-customer-service-smoke-2026-11-03/adapters
+lora_parameters:
+  rank: 8
+  dropout: 0.0
+  scale: 20.0

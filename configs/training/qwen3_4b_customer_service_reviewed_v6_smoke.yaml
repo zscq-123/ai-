@@ -1,0 +1,24 @@
+# Short offline smoke run for the reviewed 76k corpus on the 16 GB M5 Mac.
+model: data/models/Qwen3-4B-Instruct-2507-4bit
+train: true
+test: true
+data: data/training/customer-service-reviewed-v6
+fine_tune_type: lora
+mask_prompt: true
+num_layers: 8
+batch_size: 1
+grad_accumulation_steps: 2
+iters: 20
+learning_rate: 1.5e-6
+steps_per_report: 2
+steps_per_eval: 10
+val_batches: 20
+save_every: 10
+test_batches: 20
+max_seq_length: 1536
+seed: 61
+adapter_path: data/training/runs/qwen3-4b-customer-service-reviewed-v6-smoke-2026-11-03/adapters
+lora_parameters:
+  rank: 8
+  dropout: 0.05
+  scale: 10.0

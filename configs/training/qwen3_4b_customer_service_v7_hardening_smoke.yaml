@@ -1,0 +1,24 @@
+model: data/models/Qwen3-4B-Instruct-2507-4bit
+train: true
+test: true
+data: data/training/customer-service-v7-hardening
+fine_tune_type: lora
+mask_prompt: true
+num_layers: 8
+batch_size: 1
+grad_accumulation_steps: 2
+iters: 10
+learning_rate: 3.0e-7
+steps_per_report: 2
+steps_per_eval: 10
+val_batches: 5
+save_every: 10
+test_batches: 5
+max_seq_length: 1536
+seed: 73
+resume_adapter_file: data/training/offline-candidates/qwen3-4b-customer-service-reviewed-v6-step100/adapters.safetensors
+adapter_path: data/training/runs/qwen3-4b-customer-service-v7-hardening-smoke-2026-11-05/adapters
+lora_parameters:
+  rank: 8
+  dropout: 0.05
+  scale: 10.0
