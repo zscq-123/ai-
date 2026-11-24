@@ -1,8 +1,13 @@
 [Unit]
-Description=Reload support gateway after shared IP certificate renewal
-After=docker.service
+Description=Renew and reload the CHUNG YIP support gateway IP certificate
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
 
 [Service]
 Type=oneshot
+ExecStart=/opt/nova-commerce/tools/certbot/bin/certbot renew --quiet --no-random-sleep-on-renew --cert-name support-ip-46 --config-dir /opt/nova-commerce/shared/acme/config --work-dir /opt/nova-commerce/shared/acme/work --logs-dir /opt/nova-commerce/shared/acme/logs
 ExecStart=/usr/bin/docker exec support-suite-gateway nginx -t
 ExecStart=/usr/bin/docker exec support-suite-gateway nginx -s reload
+TimeoutStartSec=600
+UMask=0077

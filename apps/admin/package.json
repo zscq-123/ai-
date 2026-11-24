@@ -15,6 +15,7 @@
   "dependencies": {
     "@commerce/design-tokens": "workspace:*",
     "@commerce/icon-assets": "workspace:*",
+    "@fluentui/react-components": "^9.75.2",
     "antd": "^6.6.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

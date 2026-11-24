@@ -17,6 +17,8 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from fastapi import APIRouter, Header, HTTPException, Request, Response
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from ai_service.api.agent_settings import get_agent_configuration, resolve_skill
+from ai_service.api.mailboxes import record_storefront_conversation, storefront_handoff_snapshot
 from ai_service.application.chat_service import ChatService
 from ai_service.application.integration_context import ConversationHint, IntegrationContextStore
 from ai_service.application.support_agents import AgentScope, SupportAgentCoordinator
@@ -385,7 +387,7 @@ def social_reply(source: str, text: str, english: bool, kind: str) -> SupportRep
             else "我可以帮你查订单状态和金额、支付和售后。告诉我订单号即可。"
         )
     else:
-        opener = "Ciallo～ " if ciallo else ("Hello! " if english else "你好！")
+        opener = "Ciallo～ " if ciallo else ("Hello! " if english else "你好呀！")
         message = (
             opener + "I'm the CHUNG YIP support assistant. I can help with product prices,"
             " specifications, availability, orders and after-sales. What would you like to know?"
@@ -435,6 +437,38 @@ class IntegrationRequest(BaseModel):
     subject: str | None = Field(default=None, min_length=1, max_length=120)
     conversation_id: UUID | None = None
     evidence: list[Evidence] = Field(default_factory=list, max_length=24)
+
+
+class HandoffPollRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    conversation_id: UUID
+    after_sequence: int = Field(default=0, ge=0)
+
+
+async def _signed_payload(
+    source: Literal["oms", "buzud"],
+    request: Request,
+    timestamp: str,
+    signature: str,
+) -> bytes:
+    secret = (
+        settings.oms_integration_secret if source == "oms" else settings.buzud_integration_secret
+    )
+    if not secret:
+        raise HTTPException(503, "Support integration is not configured")
+    try:
+        if abs(time.time() - int(timestamp)) > 120:
+            raise ValueError("expired")
+    except ValueError as exc:
+        raise HTTPException(401, "Invalid support timestamp") from exc
+    raw = await request.body()
+    if len(raw) > 64000:
+        raise HTTPException(413, "Support payload too large")
+    canonical = source.encode() + b"\n" + timestamp.encode() + b"\n" + raw
+    expected = hmac.new(secret.encode(), canonical, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(expected, signature):
+        raise HTTPException(401, "Invalid support signature")
+    return raw
 
 
 class RequestEvidence:
@@ -573,6 +607,26 @@ PRODUCT_COMPARE_TERMS = (
     " vs ",
 )
 
+PRODUCT_PAGE_PATH = r"/zh/p/[A-Za-z0-9][A-Za-z0-9._~%+\-]*/?"
+PRODUCT_MARKDOWN_LINK = re.compile(
+    rf"\[[^\]\n]{{1,120}}\]\(\s*{PRODUCT_PAGE_PATH}\s*\)", re.IGNORECASE
+)
+PRODUCT_PAGE_LINK = re.compile(
+    rf"[ \t]*[，,]?[ \t]*(?:(?:商品|产品)页|Product page)?[：:]?[ \t]*"
+    rf"{PRODUCT_PAGE_PATH}",
+    re.IGNORECASE,
+)
+
+
+def strip_product_page_links(answer: str) -> str:
+    """Keep catalogue facts in the reply while leaving navigation to product cards."""
+
+    cleaned = PRODUCT_MARKDOWN_LINK.sub("", answer)
+    cleaned = PRODUCT_PAGE_LINK.sub("", cleaned)
+    cleaned = re.sub(r"[ \t]+\n", "\n", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
+
 
 def product_reply(
     source: str, message: str, items: list[Evidence], english: bool
@@ -600,7 +654,6 @@ def product_reply(
     name = re.search(r"商品：([^\n]+)", item.content)
     price = re.search(r"售价：SGD ([0-9]+(?:\.[0-9]+)?)", item.content)
     stock = re.search(r"库存：[^\n]*?可售库存 ([0-9]+) 件", item.content)
-    slug = re.search(r"商品页：(/zh/p/[^\s]+)", item.content)
     if not (name and price):
         return None
     product_name = name.group(1).strip()
@@ -623,8 +676,6 @@ def product_reply(
                 if english
                 else " 实时库存未接入，能否购买请以商品页和结算结果为准。"
             )
-    if slug:
-        answer += f" Product page: {slug.group(1)}" if english else f" 商品页：{slug.group(1)}"
     return SupportReply(answer, Intent.PRODUCT, (Citation(item.title, item.reference),))
 
 
@@ -636,23 +687,7 @@ async def chat(
     timestamp: Annotated[str, Header(alias="X-Support-Timestamp")] = "",
     signature: Annotated[str, Header(alias="X-Support-Signature")] = "",
 ) -> dict[str, object]:
-    secret = (
-        settings.oms_integration_secret if source == "oms" else settings.buzud_integration_secret
-    )
-    if not secret:
-        raise HTTPException(503, "Support integration is not configured")
-    try:
-        if abs(time.time() - int(timestamp)) > 120:
-            raise ValueError("expired")
-    except ValueError as exc:
-        raise HTTPException(401, "Invalid support timestamp") from exc
-    raw = await request.body()
-    if len(raw) > 64000:
-        raise HTTPException(413, "Support payload too large")
-    canonical = source.encode() + b"\n" + timestamp.encode() + b"\n" + raw
-    expected = hmac.new(secret.encode(), canonical, hashlib.sha256).hexdigest()
-    if not hmac.compare_digest(expected, signature):
-        raise HTTPException(401, "Invalid support signature")
+    raw = await _signed_payload(source, request, timestamp, signature)
     try:
         body = IntegrationRequest.model_validate_json(raw)
     except ValidationError as exc:
@@ -662,6 +697,7 @@ async def chat(
     conversation = str(body.conversation_id) if body.conversation_id else None
     previous = conversations.get(source, body.subject, conversation)
     question = body.message.strip()
+    agent_configuration = get_agent_configuration()
     repeat = re.fullmatch(
         r"(?:(?:请|麻烦)?(?:把)?(?:刚才|上面|上一条|刚刚)(?:那条|的回答|那句|的内容|那个答案)?"
         r"(?:再)?(?:发|说|重复)(?:一遍|一次|一下)?[。？！!?]*|(?:请)?再说(?:一遍|一次)[。？！!?]*|"
@@ -680,7 +716,14 @@ async def chat(
         topic = previous.topic
     english = bool(re.search(r"[a-z]", text)) and not re.search(r"[\u4e00-\u9fff]", text)
     items = []
-    for item in body.evidence:
+    supplied_evidence = list(body.evidence)
+    if source == "buzud":
+        from ai_service.api.knowledge_documents import search_uploaded_knowledge
+
+        supplied_evidence.extend(
+            Evidence.model_validate(item) for item in search_uploaded_knowledge(question)
+        )
+    for item in supplied_evidence:
         if item.reference.startswith(f"order://{source}/") and body.subject:
             items.append(item)
         elif item.reference.startswith(f"faq://{source}/"):
@@ -705,7 +748,24 @@ async def chat(
         ]
 
     def finish(reply: SupportReply) -> dict[str, object]:
+        if has_catalogue and "/zh/p/" in reply.answer:
+            reply = SupportReply(
+                strip_product_page_links(reply.answer),
+                reply.intent,
+                reply.citations,
+                reply.requires_human,
+                reply.requires_confirmation,
+            )
         conversations.put(source, body.subject, conversation, ConversationHint(question, topic))
+        if source == "buzud" and body.conversation_id is not None:
+            record_storefront_conversation(
+                body.conversation_id,
+                body.message.strip(),
+                reply.answer,
+                authenticated=body.subject is not None,
+                product_id=None,
+                requires_human=reply.requires_human,
+            )
         return reply_json(reply)
 
     if not matches(text, BUSINESS_TERMS):
@@ -718,7 +778,31 @@ async def chat(
     intent = IntentRoutingModule().route(context)
     boundary = SafetyBoundaryModule().prepare(context, intent, evidence.items)
     if boundary is not None:
+        if boundary.requires_human and not agent_configuration.handoff:
+            return finish(
+                SupportReply(
+                    "This request needs manual review. Automatic handoff is currently disabled;"
+                    " please use the customer-service contact entry."
+                    if english
+                    else "这个问题需要人工确认。当前自动转人工未启用，请通过客服入口联系人工。",
+                    boundary.intent,
+                    boundary.citations,
+                    requires_confirmation=True,
+                )
+            )
         return finish(boundary)
+    active_skill = resolve_skill(question, agent_configuration)
+    if active_skill is not None and not active_skill.enabled:
+        return finish(
+            SupportReply(
+                f"The {active_skill.title} capability is currently unavailable."
+                " Please contact customer service for manual assistance."
+                if english
+                else f"“{active_skill.title}”能力当前已停用，请联系人工客服继续处理。",
+                intent,
+                requires_confirmation=True,
+            )
+        )
     if matches(text, ("忽略规则", "只回复", "ignore rules", "only reply")) and matches(
         text, ("退款成功", "已接通", "refund successful", "refund succeeded", "connected")
     ):
@@ -785,9 +869,9 @@ async def chat(
             else "您好！我可以帮您查询已关联订单的状态和金额，"
             "并说明退款、物流信息是否已核实。填写订单号后即可提问。"
             if source == "oms"
-            else "您好！我可以回答商品价格、规格、用法和库存，"
-            "以及联系方式、门店、配送、维修和保修问题。"
-            "登录并填写订单号后，还能查询订单状态和金额。"
+            else "你好呀！很高兴帮你看看。商品价格、规格、用法和库存，"
+            "以及门店、配送、维修和保修问题都可以问我。"
+            "登录并填写订单号后，我也能帮你查询订单状态和金额。"
         )
         return finish(SupportReply(answer, Intent.FAQ))
     if matches(
@@ -951,16 +1035,46 @@ async def chat(
             "\nAnswer product price, specification, usage and stock only from the catalogue"
             " evidence in this request. Do not invent missing fields. Use the exact available"
             " quantity when supplied; otherwise state that live stock must be confirmed on the"
-            " product or checkout page. Keep product-page links and compare only fields present"
-            " in the evidence. For each recommended product, include its /zh/p/ product-page link."
+            " product or checkout page. Compare only fields present in the evidence. Do not put"
+            " product-page URLs in the answer; the storefront renders cited products as cards."
             if english
             else "\n仅使用本次提供的商品资料回答价格、规格、用法和可售数量；"
             "资料中没有的字段不要补全。"
             "可售数量只使用资料中明确写出的数字，未提供时说明以商品页和结算结果为准。"
-            "每推荐一个商品，在回答中附上该商品的商品页链接（/zh/p/.../）；"
+            "不要在回答正文中输出商品页路径或长链接，商城会把被引用商品渲染成商品卡片；"
             "多商品对比时只比较资料中列出的字段。"
         )
-    if english:
+    if source == "buzud":
+        if agent_configuration.tone == "简洁专业":
+            model_question += (
+                "\nUse a concise, professional customer-service tone. Give the verified answer"
+                " directly and avoid filler."
+                if english
+                else "\n请使用简洁、专业的客服语气，直接给出可核实的答复，避免寒暄和套话。"
+            )
+        else:
+            model_question += (
+                "\nUse a warm, natural customer-service tone. Acknowledge the user's concern first,"
+                " then give a concise answer in short sentences. Avoid canned policy wording,"
+                " excessive disclaimers and calling the user dear."
+                if english
+                else "\n请用自然、亲切、像真人客服聊天的语气。"
+                "先回应用户的关切，再用短句给出清楚建议；"
+                "避免公文式套话、过多免责声明，也不要称呼用户为“亲”。"
+            )
+        if agent_configuration.cost_mode == "economy":
+            model_question += (
+                "\nKeep the answer under 80 words."
+                if english
+                else "\n回复控制在 120 字以内。"
+            )
+        elif agent_configuration.cost_mode == "quality":
+            model_question += (
+                "\nCheck every supplied fact carefully before answering."
+                if english
+                else "\n回答前逐项核对本轮提供的事实，完整保留必要条件。"
+            )
+    if english and agent_configuration.translate:
         model_question += "\nPlease answer in English."
     reply = await service.answer(
         model_question,
@@ -993,3 +1107,17 @@ async def chat(
             answer, reply.intent, reply.citations, reply.requires_human, reply.requires_confirmation
         )
     )
+
+
+@router.post("/buzud/handoff")
+async def poll_buzud_handoff(
+    request: Request,
+    timestamp: Annotated[str, Header(alias="X-Support-Timestamp")] = "",
+    signature: Annotated[str, Header(alias="X-Support-Signature")] = "",
+) -> dict[str, object]:
+    raw = await _signed_payload("buzud", request, timestamp, signature)
+    try:
+        body = HandoffPollRequest.model_validate_json(raw)
+    except ValidationError as exc:
+        raise HTTPException(422, "Invalid handoff request") from exc
+    return storefront_handoff_snapshot(body.conversation_id, body.after_sequence)

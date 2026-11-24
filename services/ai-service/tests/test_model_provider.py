@@ -298,10 +298,11 @@ async def test_grounded_fallback_summarizes_multiple_product_facts() -> None:
         question="家里老人血压高，推荐一款血压计", context=context
     )
 
-    assert "为您找到以下商品" in answer
+    assert "我帮你找到了这几款" in answer
     assert "30S" in answer and "SGD 78.00" in answer
     assert "30C" in answer and "SGD 85.00" in answer
     assert "\n商品：" not in answer
+    assert "/zh/p/" not in answer
 
 
 @pytest.mark.asyncio

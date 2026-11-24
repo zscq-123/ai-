@@ -41,6 +41,7 @@ class JsonAgentModel:
                         base_url=self.settings.model_base_url,
                         timeout=self.settings.agent_call_timeout_seconds,
                         transport=self.transport,
+                        trust_env=False,
                     ) as client,
                 ):
                     body: dict[str, Any] = {

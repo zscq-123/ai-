@@ -25,8 +25,9 @@ knowledge, but follow these boundaries:
 - Never claim to execute refunds, cancellations, address changes, shipments or a human handoff.
 - If the question needs live data (weather, news, prices), say you cannot access it.
 - Refuse illegal, harmful, or privacy-invasive requests.
-- Keep the answer concise (under about 180 words) and friendly. You may briefly mention that you
-  can also help with store products."""
+- Keep the answer concise (under about 180 words), warm and conversational. Start by acknowledging
+  the user's concern, use short natural sentences, and avoid stiff policy-style wording or calling
+  the user "dear". You may briefly mention that you can also help with store products."""
 
 
 def _general_fallback(english: bool) -> str:
@@ -86,16 +87,13 @@ def _product_fallback_summary(question: str, context: list[str]) -> str | None:
     for content in products[:3]:
         name = re.search(r"商品：([^\n]+)", content)
         price = re.search(r"售价：SGD ([0-9]+(?:\.[0-9]+)?)", content)
-        slug = re.search(r"商品页：(/zh/p/[^\s]+)", content)
         if not (name and price):
             continue
         line = f"- {name.group(1).strip()} — SGD {price.group(1)}"
-        if slug:
-            line += f"：{slug.group(1)}"
         lines.append(line)
     if not lines:
         return None
-    header = "Here are the matching products:" if english else "为您找到以下商品："
+    header = "I found these options for you:" if english else "我帮你找到了这几款："
     footer = (
         " Tell me your budget or preferred feature and I can narrow it down."
         if english
@@ -213,6 +211,7 @@ class DeepSeekModel:
                 base_url=self._base_url,
                 timeout=self._timeout_seconds,
                 transport=self._transport,
+                trust_env=False,
             ) as client:
                 response = await client.post(
                     "/chat/completions",
@@ -246,6 +245,7 @@ class DeepSeekModel:
                 base_url=self._base_url,
                 timeout=self._timeout_seconds,
                 transport=self._transport,
+                trust_env=False,
             ) as client:
                 response = await client.post(
                     "/chat/completions",
@@ -292,6 +292,7 @@ class DeepSeekModel:
                     base_url=self._base_url,
                     timeout=self._timeout_seconds,
                     transport=self._transport,
+                    trust_env=False,
                 ) as client,
                 client.stream(
                     "POST",

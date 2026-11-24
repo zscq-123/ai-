@@ -57,6 +57,7 @@ class RemoteFaqKnowledgeRetriever:
                 base_url=self._base_url,
                 timeout=self._timeout_seconds,
                 transport=self._transport,
+                trust_env=False,
             ) as client:
                 response = await client.post(
                     path,

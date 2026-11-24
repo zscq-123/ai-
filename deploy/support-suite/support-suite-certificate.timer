@@ -1,5 +1,5 @@
 [Unit]
-Description=Refresh support gateway TLS certificate daily
+Description=Renew the CHUNG YIP support gateway TLS certificate twice daily
 
 [Timer]
 OnCalendar=*-*-* 00,12:30:00

@@ -1,14 +1,14 @@
 {
-  "name": "enterprise-commerce-platform",
+  "name": "nova-ai-customer-service",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@11.25.0",
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "lint": "turbo lint",
-    "typecheck": "turbo typecheck",
-    "test": "turbo test"
+    "dev": "turbo dev --filter=admin",
+    "build": "turbo build --filter=admin",
+    "lint": "turbo lint --filter=admin",
+    "typecheck": "turbo typecheck --filter=admin",
+    "test": "turbo test --filter=admin"
   },
   "devDependencies": {
     "turbo": "^2.6.0"

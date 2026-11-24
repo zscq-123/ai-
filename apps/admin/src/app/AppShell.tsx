@@ -23,6 +23,7 @@ const menuItems = [
   { key: 'orders', icon: <CommerceIcon name="delivery" />, label: '订单履约' },
   { key: 'marketing', icon: <CommerceIcon name="coupon" />, label: '营销权益' },
   { key: 'customers', icon: <CommerceIcon name="account" />, label: '客户管理' },
+  { key: 'support-console', icon: <CommerceIcon name="aiSupport" />, label: '客服工作台原型' },
   { key: 'support', icon: <CommerceIcon name="aiSupport" />, label: 'AI 客服' },
   { key: 'merchants', icon: <CommerceIcon name="store" />, label: '商家入驻审核' },
 ]
@@ -38,7 +39,7 @@ export function AppShell() {
     query.addEventListener('change', syncNavigation)
     return () => query.removeEventListener('change', syncNavigation)
   }, [])
-  function navigate(key: string) { setCurrent(key); if (key !== 'products') setEditingProduct(false) }
+  function navigate(key: string) { if (key === 'support-console') { window.location.href = '/support-console'; return } setCurrent(key); if (key !== 'products') setEditingProduct(false) }
   return (
     <ConfigProvider theme={{ token: { colorPrimary: '#145cff', borderRadius: 12, colorBgLayout: '#f6f8fb', fontFamily: 'Inter, PingFang SC, Microsoft YaHei, sans-serif' }, components: { Menu: { itemHeight: 50, itemBorderRadius: 12, itemSelectedBg: '#eef5ff' } } }}>
       <Layout className={styles.shell}>

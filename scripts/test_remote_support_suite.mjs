@@ -12,8 +12,8 @@ const output=path.join(root,'data/deployment-154-20261106/public-acceptance');
 await fs.mkdir(output,{recursive:true});
 const report={startedAt:new Date().toISOString(),checks:[],errors:[]};
 const browser=await puppeteer.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
-const omsOrigin='https://154.36.185.110:18084';
-const shopOrigin='https://154.36.185.110:18083';
+const omsOrigin='https://154.36.185.46:18084';
+const shopOrigin='https://154.36.185.46:18083';
 async function record(id,detail){report.checks.push({id,...detail}); await fs.writeFile(path.join(output,'results.json'),JSON.stringify(report,null,2)); console.log(id,detail.status ?? 'passed');}
 async function fill(page,selector,value){await page.focus(selector);await page.$eval(selector,e=>e.select());await page.keyboard.press('Backspace');if(value)await page.type(selector,value);}
 async function ask(page,app,id,message,orderNo=''){

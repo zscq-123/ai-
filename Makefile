@@ -2,7 +2,7 @@
 
 install:
 	pnpm install
-	cd services/commerce-api && ./mvnw dependency:go-offline
+	# NOVA 商场后端暂时停用：cd services/commerce-api && ./mvnw dependency:go-offline
 	python3 -m pip install -e 'services/ai-service[dev]'
 
 dev:
@@ -19,10 +19,10 @@ infra-down:
 
 build:
 	pnpm build
-	cd services/commerce-api && ./mvnw verify
+	# NOVA 商场后端暂时停用：cd services/commerce-api && ./mvnw verify
 
 test:
-	cd services/commerce-api && ./mvnw test
+	# NOVA 商场后端暂时停用：cd services/commerce-api && ./mvnw test
 	python3 -m pytest services/ai-service
 
 lint:

@@ -1,13 +1,16 @@
-# Enterprise Commerce Platform
+# NOVA AI 客服
 
-企业级网络商城，包含消费者商城、运营管理台、Spring Boot 交易后端和 Python AI 客服。
+当前仓库默认只启动和构建 NOVA AI 客服工作台与 Python AI 服务。客服的商城入口与签名业务
+接入指向 `https://154.36.185.46:18083` 上的 CHUNG YIP 健康产品商城；本地消费者商城、卖家中心
+和 Spring Boot 交易后端源码仍然保留，但不再进入默认入口、构建任务或生产 Compose。
 
 ## 工程结构
 
 ```text
-apps/storefront            Next.js 消费者商城
-apps/admin                 React + Vite 运营管理台
-services/commerce-api      Spring Boot 交易核心
+apps/admin                 React + Vite AI 客服工作台
+apps/storefront            Next.js 消费者商城（暂时停用）
+apps/seller-center         React + Vite 卖家中心（暂时停用）
+services/commerce-api      Spring Boot 交易核心（暂时停用）
 services/ai-service        Python + FastAPI AI 客服
 public/brand               品牌和 Image 2.5 概念资产
 docs                       架构与开发文档
@@ -19,9 +22,11 @@ Java 服务按业务模块拆包，每个模块内部使用 `api / application /
 
 1. 复制 `.env.example` 为 `.env`。
 2. 执行 `make infra-up` 启动 PostgreSQL、Redis 和 RabbitMQ；需要本地对象存储时再执行 `make storage-up`。
-3. 执行 `pnpm install && pnpm dev` 启动前端。
-4. 在 `services/commerce-api` 执行 `./mvnw spring-boot:run`。
-5. 安装 AI 服务依赖后执行 `uvicorn ai_service.main:app --app-dir services/ai-service/src --reload`。
+3. 执行 `pnpm install && pnpm dev` 启动 AI 客服工作台，根路径会直接进入客服界面。
+4. 安装 AI 服务依赖后执行 `uvicorn ai_service.main:app --app-dir services/ai-service/src --reload`。
+
+如需单独调试历史 NOVA 商城源码，可直接使用 `pnpm --filter storefront dev` 或
+`pnpm --filter seller-center dev`；生产 Compose 不包含这些服务。
 
 ## DeepSeek 客服
 
@@ -52,7 +57,20 @@ AI_PERSIST_CONVERSATIONS=false
 
 该模式只用于本机试训验收。`mlx_lm.server` 自带的 HTTP 服务没有生产级安全能力，不能直接暴露到公网。
 
-### NOVA 实时客服工具
+### CHUNG YIP 线上商城接入
+
+CHUNG YIP 商城后端通过 `POST /v1/integrations/buzud/chat` 把当前问题、候选 FAQ 与商品证据提交给
+AI 服务。双方配置同一个独立的 `AI_BUZUD_INTEGRATION_SECRET` / `NOVA_AI_SECRET`，请求使用时间戳
+和 HMAC 签名；客户身份、订单等敏感业务数据仍由商城后端自行校验，不交给浏览器。
+
+```bash
+CHUNGYIP_STORE_URL=https://154.36.185.46:18083
+AI_BUZUD_INTEGRATION_SECRET=replace_with_a_distinct_32_byte_secret
+```
+
+生产 Compose 只包含 AI 服务和客服管理台，不启动本地商城或本地交易数据库。
+
+### 历史 NOVA 实时客服工具（默认停用）
 
 AI 客服通过 Commerce API 的只读内部接口获取实时库存、当前用户订单、物流和支付状态，
 不直接连接商城数据库。为两个服务配置同一个独立密钥：

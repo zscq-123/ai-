@@ -3,6 +3,10 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // The production console is served behind the gateway at /support-console/.
+  // Keep generated scripts, styles and public assets inside that prefix instead
+  // of pointing the browser at the storefront root (/assets, /brand).
+  base: '/support-console/',
   plugins: [react()],
   build: {
     rollupOptions: {

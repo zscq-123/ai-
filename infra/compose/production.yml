@@ -1,89 +1,53 @@
-services:
-  commerce-api:
-    build:
-      context: .
-      dockerfile: infra/docker/commerce-api.Dockerfile
-    environment:
-      SPRING_PROFILES_ACTIVE: production
-      DATABASE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-commerce}
-      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
-      REDIS_HOST: redis
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_USER: ${RABBITMQ_USER:?RABBITMQ_USER is required}
-      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD is required}
-      OIDC_JWK_SET_URI: ${OIDC_JWK_SET_URI:?OIDC_JWK_SET_URI is required}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS is required}
-      PAYMENT_WEBHOOK_SECRET: ${PAYMENT_WEBHOOK_SECRET:?PAYMENT_WEBHOOK_SECRET is required}
-      AI_TRUSTED_CONTEXT_SECRET: ${AI_TRUSTED_CONTEXT_SECRET:?AI_TRUSTED_CONTEXT_SECRET is required}
-      COMMERCE_SUPPORT_TOOL_SECRET: ${COMMERCE_SUPPORT_TOOL_SECRET:?COMMERCE_SUPPORT_TOOL_SECRET is required}
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
+name: nova-ai-support
 
+services:
   ai-service:
     build:
-      context: .
+      context: ../..
       dockerfile: infra/docker/ai-service.Dockerfile
     environment:
       AI_ENVIRONMENT: production
-      AI_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:?POSTGRES_USER is required}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}@postgres:5432/${POSTGRES_DB:-commerce}
-      AI_COMMERCE_API_URL: http://commerce-api:8080
-      AI_PROVIDER: ${AI_PROVIDER:?AI_PROVIDER is required}
+      AI_PROVIDER: ${AI_PROVIDER:-deepseek}
       AI_MODEL: ${AI_MODEL:-deepseek-flash}
       AI_MODEL_BASE_URL: ${AI_MODEL_BASE_URL:-https://api.deepseek.com}
       AI_MODEL_TIMEOUT_SECONDS: ${AI_MODEL_TIMEOUT_SECONDS:-20}
+      AI_THINKING: ${AI_THINKING:-false}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:?DEEPSEEK_API_KEY is required}
-      AI_CORS_ORIGINS: ${CORS_ALLOWED_ORIGINS:?CORS_ALLOWED_ORIGINS is required}
+      AI_CORS_ORIGINS: ${AI_CORS_ORIGINS:-http://localhost:4173}
       AI_TRUSTED_CONTEXT_SECRET: ${AI_TRUSTED_CONTEXT_SECRET:?AI_TRUSTED_CONTEXT_SECRET is required}
-      AI_COMMERCE_TOOL_SECRET: ${AI_COMMERCE_TOOL_SECRET:?AI_COMMERCE_TOOL_SECRET is required}
-      AI_COMMERCE_TOOL_TIMEOUT_SECONDS: ${AI_COMMERCE_TOOL_TIMEOUT_SECONDS:-3}
+      AI_BUZUD_INTEGRATION_SECRET: ${AI_BUZUD_INTEGRATION_SECRET:?AI_BUZUD_INTEGRATION_SECRET is required}
+      AI_BUZUD_STORE_URL: ${CHUNGYIP_STORE_URL:-https://154.36.185.46:18083}
+      AI_INTEGRATION_AGENTS_ENABLED: ${AI_INTEGRATION_AGENTS_ENABLED:-true}
+      AI_AGENT_TOTAL_TIMEOUT_SECONDS: ${AI_AGENT_TOTAL_TIMEOUT_SECONDS:-24}
+      AI_AGENT_CALL_TIMEOUT_SECONDS: ${AI_AGENT_CALL_TIMEOUT_SECONDS:-6}
+      AI_AGENT_MAX_CALLS: ${AI_AGENT_MAX_CALLS:-11}
+      AI_PERSIST_CONVERSATIONS: 'false'
+      AI_MAILBOX_LOCAL_CONNECTOR_ENABLED: 'false'
       AI_RETRIEVER: ${AI_RETRIEVER:-auto}
       AI_EMBEDDING_MODEL: ${AI_EMBEDDING_MODEL:-BAAI/bge-small-zh-v1.5}
       AI_EMBEDDING_CACHE_DIR: /opt/nova/fastembed
       AI_EMBEDDING_LOCAL_ONLY: 'true'
       AI_EMBEDDING_MIN_SCORE: ${AI_EMBEDDING_MIN_SCORE:-0.45}
-    depends_on:
-      postgres:
-        condition: service_healthy
-      commerce-api:
-        condition: service_started
     ports:
-      - "8000:8000"
-    restart: unless-stopped
-
-  storefront:
-    build:
-      context: .
-      dockerfile: infra/docker/storefront.Dockerfile
-      args:
-        NEXT_PUBLIC_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
-        NEXT_PUBLIC_AI_SERVICE_URL: ${PUBLIC_AI_SERVICE_URL:?PUBLIC_AI_SERVICE_URL is required}
-    environment:
-      NEXT_PUBLIC_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
-      NEXT_PUBLIC_AI_SERVICE_URL: ${PUBLIC_AI_SERVICE_URL:?PUBLIC_AI_SERVICE_URL is required}
-    depends_on:
-      - commerce-api
-      - ai-service
-    ports:
-      - "3000:3000"
+      - "${AI_SERVICE_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     restart: unless-stopped
 
   admin:
     build:
-      context: .
+      context: ../..
       dockerfile: infra/docker/admin.Dockerfile
       args:
-        VITE_COMMERCE_API_URL: ${PUBLIC_COMMERCE_API_URL:?PUBLIC_COMMERCE_API_URL is required}
+        VITE_AI_SERVICE_URL: ${PUBLIC_AI_SERVICE_URL:?PUBLIC_AI_SERVICE_URL is required}
+        VITE_CHUNGYIP_STORE_URL: ${CHUNGYIP_STORE_URL:-https://154.36.185.46:18083}
     depends_on:
-      - commerce-api
+      ai-service:
+        condition: service_healthy
     ports:
-      - "4173:80"
+      - "${ADMIN_PORT:-4173}:80"
     restart: unless-stopped

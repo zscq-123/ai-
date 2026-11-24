@@ -6,7 +6,7 @@ import time
 import pytest
 from fastapi.testclient import TestClient
 
-from ai_service.api import integrations
+from ai_service.api import integrations, mailboxes
 from ai_service.config import settings
 from ai_service.infrastructure.model_provider import GroundedLocalModel
 from ai_service.main import app
@@ -32,6 +32,25 @@ def send(source="oms", payload=None, secret=None, timestamp=None):
     ).hexdigest()
     return client.post(
         f"/v1/integrations/{source}/chat",
+        content=raw,
+        headers={
+            "Content-Type": "application/json",
+            "X-Support-Timestamp": timestamp,
+            "X-Support-Signature": signature,
+        },
+    )
+
+
+def poll_handoff(payload, secret="buzud-test-secret", timestamp=None):
+    raw = json.dumps(payload, ensure_ascii=False).encode()
+    timestamp = str(timestamp or int(time.time()))
+    signature = hmac.new(
+        secret.encode(),
+        b"buzud\n" + timestamp.encode() + b"\n" + raw,
+        hashlib.sha256,
+    ).hexdigest()
+    return client.post(
+        "/v1/integrations/buzud/handoff",
         content=raw,
         headers={
             "Content-Type": "application/json",
@@ -137,6 +156,67 @@ def test_repeat_resolves_topic_but_refreshes_facts():
     repeat = send("buzud", faq_payload("请把刚才那条再发一遍。", "new@example.test")).json()
     assert "new@example.test" in repeat["answer"]
     assert "first@example.test" not in repeat["answer"]
+
+
+def test_buzud_chat_publishes_storefront_conversation(monkeypatch, tmp_path):
+    monkeypatch.setattr(settings, "mailbox_local_connector_enabled", True)
+    monkeypatch.setattr(settings, "mailbox_state_file", str(tmp_path / "mailboxes.json"))
+    mailboxes._loaded_state_path = None
+    mailboxes._storefront_conversation_cache.clear()
+
+    response = send(
+        "buzud",
+        {
+            "message": "请问你们的客服邮箱是什么？",
+            "conversation_id": SESSION,
+            "evidence": [
+                {
+                    "content": "客服邮箱是 current@example.test。",
+                    "title": "联系方式",
+                    "reference": "faq://buzud/contact",
+                    "keywords": ["联系", "邮箱"],
+                }
+            ],
+        },
+    )
+    listed = client.get("/v1/mailboxes/storefront/conversations")
+
+    assert response.status_code == 200
+    assert listed.status_code == 200
+    rows = listed.json()
+    assert len(rows) == 1
+    assert rows[0]["id"] == f"storefront-{SESSION}"
+    assert [item["role"] for item in rows[0]["messages"]] == ["customer", "agent"]
+    assert rows[0]["messages"][0]["text"] == "请问你们的客服邮箱是什么？"
+    assert "current@example.test" in rows[0]["messages"][1]["text"]
+
+
+def test_signed_buzud_handoff_poll_returns_only_new_human_replies(monkeypatch, tmp_path):
+    monkeypatch.setattr(settings, "mailbox_local_connector_enabled", True)
+    monkeypatch.setattr(settings, "mailbox_state_file", str(tmp_path / "mailboxes.json"))
+    mailboxes._loaded_state_path = None
+    mailboxes._storefront_conversation_cache.clear()
+    response = send(
+        "buzud",
+        {"message": "我要转人工", "conversation_id": SESSION},
+    )
+    assert response.json()["requires_human"] is True
+    key = f"storefront-{SESSION}"
+    reply = client.post(
+        f"/v1/mailboxes/storefront/conversations/{key}/replies",
+        json={"text": "你好，我已经接管这次咨询。", "agent_name": "客服小诺"},
+    )
+    assert reply.status_code == 200
+
+    first = poll_handoff({"conversation_id": SESSION, "after_sequence": 0})
+    later = poll_handoff({"conversation_id": SESSION, "after_sequence": 1})
+
+    assert first.status_code == 200
+    assert first.json()["status"] == "claimed"
+    assert first.json()["assigned_to"] == "客服小诺"
+    assert first.json()["replies"][0]["sequence"] == 1
+    assert later.json()["replies"] == []
+    assert poll_handoff({"conversation_id": SESSION}, secret="wrong").status_code == 401
 
 
 @pytest.mark.parametrize(
@@ -320,6 +400,7 @@ def test_catalogue_price_and_stock_are_rendered_exactly():
     assert "HCG Pregnancy Rapid Test" in answer["answer"]
     assert "SGD 9.90" in answer["answer"]
     assert "可售库存 3 件" in answer["answer"]
+    assert "/zh/p/" not in answer["answer"]
     assert answer["citations"] == [
         {"title": "商品资料", "reference": f"catalog://buzud/{PRODUCT_ID}"}
     ]
@@ -331,7 +412,34 @@ def test_english_catalogue_price_and_stock_are_rendered_exactly():
 
     assert "SGD 9.90" in answer["answer"]
     assert "3 units are currently available" in answer["answer"]
+    assert "/zh/p/" not in answer["answer"]
     assert f"catalog://buzud/{PRODUCT_ID}" == answer["citations"][0]["reference"]
+
+
+def test_catalogue_model_page_paths_are_removed_but_card_citations_remain(monkeypatch):
+    class FixedModel:
+        async def answer(self, *, question, context, guidance=None):
+            del question, context, guidance
+            return (
+                "推荐 HCG Pregnancy Rapid Test，SGD 9.90，"
+                f"/zh/p/hcg-pregnancy-rapid-test-{PRODUCT_ID}/"
+            )
+
+        async def stream_answer(self, *, question, context, guidance=None):
+            del question, context, guidance
+            yield (
+                "推荐 HCG Pregnancy Rapid Test，SGD 9.90，"
+                f"/zh/p/hcg-pregnancy-rapid-test-{PRODUCT_ID}/"
+            )
+
+    monkeypatch.setattr(integrations, "model", FixedModel())
+
+    answer = send("buzud", catalogue_payload("推荐这款")).json()
+
+    assert answer["answer"] == "推荐 HCG Pregnancy Rapid Test，SGD 9.90"
+    assert answer["citations"] == [
+        {"title": "商品资料", "reference": f"catalog://buzud/{PRODUCT_ID}"}
+    ]
 
 
 def test_catalogue_without_live_stock_never_claims_availability():

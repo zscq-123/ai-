@@ -43,23 +43,31 @@ services["support-redis"]={**common,"image":"redis:7","command":["redis-server",
 services["support-ai"]={**common,"image":"nova-ai-service:20261105-product-price-evidence-9eda8d8",
     "entrypoint":["/opt/venv/bin/uvicorn","support_main:app","--host","0.0.0.0","--port","8000"],
     "working_dir":"/app","environment":{"PYTHONPATH":"/app/src:/app","PYTHONDONTWRITEBYTECODE":"1",
-        "AI_INTEGRATION_AGENTS_ENABLED":"true","AI_AGENT_TOTAL_TIMEOUT_SECONDS":"24","AI_AGENT_CALL_TIMEOUT_SECONDS":"6","AI_AGENT_MAX_CALLS":"11"},
-    "env_file":[f"{SHARED}/ai.env"],"volumes":["./ai-src:/app/src:ro","./support_main.py:/app/support_main.py:ro"],"mem_limit":"256m"}
+        "AI_INTEGRATION_AGENTS_ENABLED":"true","AI_AGENT_TOTAL_TIMEOUT_SECONDS":"24","AI_AGENT_CALL_TIMEOUT_SECONDS":"6","AI_AGENT_MAX_CALLS":"11",
+        "AI_MAILBOX_LOCAL_CONNECTOR_ENABLED":"true","AI_MAILBOX_STATE_FILE":"/app/state/mailboxes.json",
+        "AI_BUZUD_KNOWLEDGE_ROOT":"/app/buzud-knowledge"},
+    "env_file":[f"{SHARED}/ai.env"],"volumes":["./ai-src:/app/src:ro","./support_main.py:/app/support_main.py:ro",
+        f"{SHARED}/mailbox-state:/app/state",f"{SHARED}/cms-data:/app/buzud-knowledge:ro"],"mem_limit":"256m"}
 services["buzud-api"]={**common,"image":"eclipse-temurin:25-jre","user":"10001:10001",
     "command":["java","-jar","/app/service.jar"],"env_file":[f"{SHARED}/buzud.env"],
     "environment":{"JAVA_TOOL_OPTIONS":JAVA,"SERVER_PORT":"8090","DB_HOST":"support-postgres","DB_NAME":"support_buzud","DB_USER":"support_buzud",
         "SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE":"3","SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE":"1",
         "SERVER_TOMCAT_THREADS_MAX":"16","NOVA_AI_URL":"http://support-ai:8000","IKEA_CHAT_KNOWLEDGE_FILE":"/data/chat-knowledge.json",
-        "CORS_ALLOWED_ORIGINS":"https://154.36.185.110:18083","BUZUD_OMS_ENABLED":"false",
-        "IKEA_PAYMENT_MOCK_ONLY":"false","IKEA_YEAHPAY_ENABLED":"false","BUZUD_MARKETING_PUBLIC_BASE_URL":"https://154.36.185.110:18083",
-        "BUZUD_VOUCHER_BOOKING_URL":"https://154.36.185.110:18083/zh/booking/"},
+        "CORS_ALLOWED_ORIGINS":"https://154.36.185.46:18083","BUZUD_OMS_ENABLED":"false",
+        "IKEA_PAYMENT_MOCK_ONLY":"false","IKEA_YEAHPAY_ENABLED":"false","BUZUD_MARKETING_PUBLIC_BASE_URL":"https://154.36.185.46:18083",
+        "BUZUD_VOUCHER_BOOKING_URL":"https://154.36.185.46:18083/zh/booking/"},
     "volumes":["./jars/buzud-api.jar:/app/service.jar:ro",f"{SHARED}/cms-data:/data:ro"],"networks":["default","data"],"mem_limit":"320m","memswap_limit":"640m"}
 services["buzud-web"]={**common,"image":"node:24-alpine","user":"1000:1000","working_dir":"/app",
     "command":["node","server.js"],"env_file":[f"{SHARED}/web.env"],
     "environment":{"CMS_DATA_ROOT":"/app/src/data","NODE_OPTIONS":"--max-old-space-size=192","NODE_ENV":"production","HOSTNAME":"0.0.0.0","PORT":"3000"},
     "volumes":["./web-app:/app",f"{SHARED}/cms-data:/app/src/data"],"mem_limit":"320m"}
+services["support-console"]={**common,"image":"nginx:alpine","container_name":"support-suite-support-console",
+    "depends_on":["support-ai"],"mem_limit":"64m",
+    "volumes":["/opt/support-console/current/dist:/usr/share/nginx/html:ro",
+        "/opt/support-console/current/nginx.conf:/etc/nginx/conf.d/default.conf:ro",
+        "/opt/support-console/shared/.htpasswd:/etc/nginx/.htpasswd:ro"]}
 services["gateway"]={**common,"image":"nginx:alpine","container_name":"support-suite-gateway",
-    "ports":["18083:8443","18084:8444"],"mem_limit":"64m",
+    "depends_on":["support-console"],"ports":["18083:8443","18084:8444"],"mem_limit":"64m",
     "volumes":["./nginx.conf:/etc/nginx/conf.d/default.conf:ro","./oms-web:/srv/oms:ro","/opt/nova-commerce/shared/acme/config:/etc/letsencrypt:ro"]}
 manifest = {"name":"support-suite","services":services,"networks":{"default":{},"data":{"external":True,"name":"support-suite-data"}}}
 (ROOT/"compose.json").write_text(json.dumps(manifest,indent=2)+"\n")

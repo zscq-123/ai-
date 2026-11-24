@@ -21,11 +21,11 @@ def test_production_accepts_explicit_trusted_context_secret() -> None:
     settings = Settings(
         environment="production",
         trusted_context_secret="production-secret",
-        commerce_tool_secret="production-tool-secret",
     )
     assert settings.trusted_context_secret == "production-secret"
 
 
-def test_production_rejects_missing_commerce_tool_secret() -> None:
-    with pytest.raises(ValidationError):
-        Settings(environment="production", trusted_context_secret="production-secret")
+def test_production_allows_disabled_nova_commerce_tools() -> None:
+    settings = Settings(environment="production", trusted_context_secret="production-secret")
+
+    assert settings.commerce_tool_secret == ""
